@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html ng-app="easyapp">
+    <head>
+        <title page-title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="assets/img/logo.ico" type="image/x-icon">
+        <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!--
+        <link href="assets/css/bootstrap-material-design.min.css" rel="stylesheet">
+        <link href="bower_components/bootstrap-material-design/dist/css/ripples.min.css" rel="stylesheet">
+        <link href="bower_components/air-datepicker/dist/css/datepicker.min.css" rel="stylesheet" type="text/css">
+        <link href="bower_components/bootstrap-submenu/dist/css/bootstrap-submenu.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="bower_components/datatables.net-buttons-bs/css/buttons.bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="bower_components/datatables.net-responsive-bs/css/responsive.bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="bower_components/datatables.net-scroller-bs/css/scroller.bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="bower_components/datatables.net-select-bs/css/select.bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="bower_components/select2/dist/css/select2.min.css"/>
+        -->
+        <!-- Font awesome -->
+        <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet">
+        <link href="assets/css/animate.css" rel="stylesheet">
+        <link id="loadBefore" href="assets/css/style.css" rel="stylesheet">
+    </head>
+    <body ng-controller="MainCtrl as main" class="{{$state.current.data.specialClass}}" landing-scrollspy id="page-top">
+        <div ui-view></div>
+        <script src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="assets/js/scripts.js"></script>
+
+        <!--
+        <script src="bower_components/air-datepicker/dist/js/datepicker.min.js"></script>
+        <script src="assets/js/datepicker.es.js"></script>
+        <script src="bower_components/jstree/dist/jstree.min.js"></script>
+        <script src="bower_components/handlebars/handlebars.min.js"></script>
+        <script src="bower_components/autoNumeric/autoNumeric.js"></script>
+        <script src="assets/js/accounting.min.js"></script>
+        <script src="assets/js/jquery.form.min.js"></script>
+        <script src="bower_components/printThis/printThis.js"></script>
+        <script src="assets/js/jquery.browser.js"></script>
+        <script src="bower_components/bootstrap-submenu/dist/js/bootstrap-submenu.min.js"></script>
+        <script src="bower_components/jquery-typewatch/jquery.typewatch.js"></script>
+        <script src="bower_components/bootstrap-material-design/dist/js/material.min.js"></script>
+        <script src="bower_components/bootstrap-material-design/dist/js/ripples.min.js"></script>
+                <script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+                <script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+                <script src="bower_components/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+                <script src="bower_components/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+                <script src="bower_components/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+                <script src="bower_components/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+                <script src="bower_components/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+                <script src="bower_components/datatables.net-select/js/dataTables.select.min.js"></script>
+                <script src="bower_components/select2/dist/js/select2.min.js"></script>
+                <script src="assets/js/select2_es.js"></script>
+        -->
+        <!-- MetsiMenu -->
+        <script src="bower_components/metisMenu/jquery.metisMenu.js"></script>
+        <!-- SlimScroll -->
+        <script src="bower_components/slimscroll/jquery.slimscroll.min.js"></script>
+        <!-- Peace JS -->
+        <script src="bower_components/pace/pace.min.js"></script>
+        <!-- Custom and plugin javascript -->
+        <script src="assets/js/inspinia.js"></script>
+        <!-- Main Angular scripts-->
+        <script src="bower_components/angular/angular.min.js"></script>
+        <script src="bower_components/angular/angular-sanitize.min.js"></script>
+        <script src="bower_components/oclazyload/dist/ocLazyLoad.min.js"></script>
+        <script src="bower_components/angular-translate/angular-translate.min.js"></script>
+        <script src="bower_components/ui-router/angular-ui-router.min.js"></script>
+        <script src="bower_components/angular/ui-bootstrap-tpls-1.1.2.min.js"></script>
+        <script src="bower_components/angular-idle/angular-idle.js"></script>
+        <script src="assets/mvc/login/app.js"></script>
+        <script src="assets/mvc/login/config.js"></script>
+        <script src="assets/mvc/directives.js"></script>
+        <script src="assets/mvc/login/controllers.js"></script>
+        <script src="assets/mvc/translations.js"></script>
+        <script>
+                $(function () {
+                    $(window).bind("load resize", function () {
+                        if ($(document).width() < 769) {
+                            $('body').addClass('body-small')
+                        } else {
+                            $('body').removeClass('body-small')
+                        }
+                    });
+                    function fix_height() {
+                        var heightWithoutNavbar = $("body > #wrapper").height() - 61;
+                        $(".sidebard-panel").css("min-height", heightWithoutNavbar + "px");
+
+                        var navbarHeigh = $('nav.navbar-default').height();
+                        var wrapperHeigh = $('#page-wrapper').height();
+
+                        if (navbarHeigh > wrapperHeigh) {
+                            $('#page-wrapper').css("min-height", navbarHeigh + "px");
+                        }
+
+                        if (navbarHeigh < wrapperHeigh) {
+                            $('#page-wrapper').css("min-height", $(window).height() + "px");
+                        }
+
+                        if ($('body').hasClass('fixed-nav')) {
+                            if (navbarHeigh > wrapperHeigh) {
+                                $('#page-wrapper').css("min-height", navbarHeigh - 60 + "px");
+                            } else {
+                                $('#page-wrapper').css("min-height", $(window).height() - 60 + "px");
+                            }
+                        }
+
+                    }
+
+
+                    $(window).bind("load resize scroll", function () {
+                        if (!$("body").hasClass('body-small')) {
+                            fix_height();
+                        }
+                    });
+
+                    // Move right sidebar top after scroll
+                    $(window).scroll(function () {
+                        if ($(window).scrollTop() > 0 && !$('body').hasClass('fixed-nav')) {
+                            $('#right-sidebar').addClass('sidebar-top');
+                        } else {
+                            $('#right-sidebar').removeClass('sidebar-top');
+                        }
+                    });
+
+
+                    setTimeout(function () {
+                        fix_height();
+                    })
+                });
+        </script>
+    </body>
+</html>

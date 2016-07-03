@@ -1,0 +1,23 @@
+<div class="middle-box text-center loginscreen  animated fadeInDown">
+    <div ng-controller="LoginController as login">
+        <div>
+            <h1 class="logo-name"><img class="img-circle img-shadow logo-circular" src="assets/img/logo.ico" alt="logo"></h1>
+        </div>
+        <h3>Bienvenido a Huellitas del Llano</h3>
+        <p>Plataforma de gestión de contenido para la pagina web de la fundacion huellitas del llano
+        </p>
+        <p>Escriba las credenciales de ingreso</p>
+        <form class="m-t" role="form" action="#" method="post">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Usuario" ng-model="login.usuario.usuario_sid" required="" name="usuario_sid">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="Contraseña" ng-model="login.usuario.usuario_clave" required="" name="usuario_clave">
+            </div>
+            <button type="button" class="btn btn-primary block full-width m-b" ng-click="validar(login.usuario)">Login</button>
+
+            <a ui-sref="forgot_password"><small>Olvido su contraseña?</small></a>
+        </form>
+        <p class="m-t"> <small>Creado por BMD Software &copy; 2016</small> </p>
+    </div>
+</div>

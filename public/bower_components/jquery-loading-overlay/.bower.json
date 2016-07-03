@@ -1,0 +1,13 @@
+{
+  "name": "jquery-loading-overlay",
+  "homepage": "https://github.com/gasparesganga/jquery-loading-overlay",
+  "_release": "6bb04de6c2",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "6bb04de6c2a1a0757e5596dbd77ec3741bfb6e30"
+  },
+  "_source": "https://github.com/gasparesganga/jquery-loading-overlay.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/gasparesganga/jquery-loading-overlay.git"
+}
