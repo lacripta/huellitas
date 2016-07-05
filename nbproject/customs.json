@@ -1,6 +1,23 @@
 {
-    "elements": {},
+    "elements": {
+        "img-crop": {
+            "attributes": {
+                "image": {},
+                "area-type": {},
+                "result-image": {}
+            }
+        },
+        "uib-tab": {},
+        "uib-tabset": {},
+        "uib-tab-heading": {}
+    },
     "attributes": {
+        "dt-columns": {},
+        "page-title": {},
+        "uib-dropdown-toggle": {},
+        "dt-columns-def": {},
+        "uib-tooltip": {},
+        "summernote": {},
         "ui-sref": {},
         "ui-sref-active": {}
     }

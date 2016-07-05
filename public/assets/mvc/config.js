@@ -20,43 +20,145 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                 data: {pageTitle: 'Articulo'},
                 templateUrl: "assets/views/inicio/resumen.html",
             })
-            .state('principal.articulo', {
-                url: "/articulo",
-                data: {pageTitle: 'Articulo'},
-                templateUrl: "assets/views/article.html",
-            })
-            .state('principal.dashboard_1', {
-                url: "/asd",
-                templateUrl: "assets/views/dashboard_1.html",
+            .state('principal.galeria', {
+                url: "/articulos",
+                data: {pageTitle: 'Galeria de Imagenes'},
+                templateUrl: "assets/views/galeria/galeria.html",
                 resolve: {
                     loadPlugin: function ($ocLazyLoad) {
                         return $ocLazyLoad.load([
                             {
                                 serie: true,
-                                name: 'angular-flot',
-                                files: ['js/plugins/flot/jquery.flot.js', 'js/plugins/flot/jquery.flot.time.js', 'js/plugins/flot/jquery.flot.tooltip.min.js', 'js/plugins/flot/jquery.flot.spline.js', 'js/plugins/flot/jquery.flot.resize.js', 'js/plugins/flot/jquery.flot.pie.js', 'js/plugins/flot/curvedLines.js', 'js/plugins/flot/angular-flot.js', ]
+                                files: [
+                                    'bower_components/dataTables/datatables.min.js',
+                                    'bower_components/dataTables/datatables.min.css'
+                                ]
                             },
                             {
-                                name: 'angles',
-                                files: ['js/plugins/chartJs/angles.js', 'js/plugins/chartJs/Chart.min.js']
+                                files: [
+                                    'bower_components/summernote/summernote.css',
+                                    'bower_components/summernote/summernote-bs3.css',
+                                    'bower_components/summernote/summernote.min.js'
+                                ]
                             },
                             {
-                                name: 'angular-peity',
-                                files: ['js/plugins/peity/jquery.peity.min.js', 'js/plugins/peity/angular-peity.js']
+                                name: 'summernote',
+                                files: [
+                                    'bower_components/summernote/summernote.css',
+                                    'bower_components/summernote/summernote-bs3.css',
+                                    'bower_components/summernote/summernote.min.js',
+                                    'bower_components/summernote/angular-summernote.min.js'
+                                ]
+                            },
+                            {
+                                serie: true,
+                                name: 'datatables',
+                                files: ['bower_components/dataTables/angular-datatables.min.js']
+                            },
+                            {
+                                serie: true,
+                                name: 'datatables.scroller',
+                                files: [
+                                    'bower_components/dataTables/plugins/scroller/angular-datatables.scroller.min.js',
+                                    'bower_components/dataTables/plugins/scroller/dataTables.scroller.js',
+                                    'bower_components/dataTables/plugins/scroller/dataTables.scroller.css'
+                                ]
+                            },
+                            {
+                                serie: true,
+                                name: 'datatables.select',
+                                files: ['bower_components/dataTables/plugins/select/angular-datatables.select.min.js',
+                                    'bower_components/dataTables/plugins/select/dataTables.select.js',
+                                    'bower_components/dataTables/plugins/select/select.dataTables.css'
+                                ]
+                            },
+                            {
+                                name: 'ngImgCrop',
+                                files: [
+                                    'bower_components/ngImgCrop/ng-img-crop.js',
+                                    'bower_components/ngImgCrop/ng-img-crop.css'
+                                ]
+                            },
+                            {
+                                files: ['bower_components/sweetalert/sweetalert.min.js', 'bower_components/sweetalert/sweetalert.css']
+                            },
+                            {
+                                name: 'oitozero.ngSweetAlert',
+                                files: ['bower_components/sweetalert/angular-sweetalert.min.js']
                             }
                         ]);
                     }
                 }
             })
-            .state('dashboards_top', {
-                abstract: true,
-                url: "/dashboards_top",
-                templateUrl: "views/common/content_top_navigation.html",
-            })
-            .state('mailbox.email_template', {
-                url: "/email_template",
-                templateUrl: "assets/views/email_template.html",
-                data: {pageTitle: 'Mail compose'}
+            .state('principal.articulos', {
+                url: "/articulos",
+                data: {pageTitle: 'Administrador de Articulos'},
+                templateUrl: "assets/views/articulos/articulos.html",
+                resolve: {
+                    loadPlugin: function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            {
+                                serie: true,
+                                files: [
+                                    'bower_components/dataTables/datatables.min.js',
+                                    'bower_components/dataTables/datatables.min.css'
+                                ]
+                            },
+                            {
+                                files: [
+                                    'bower_components/summernote/summernote.css',
+                                    'bower_components/summernote/summernote-bs3.css',
+                                    'bower_components/summernote/summernote.min.js'
+                                ]
+                            },
+                            {
+                                name: 'summernote',
+                                files: [
+                                    'bower_components/summernote/summernote.css',
+                                    'bower_components/summernote/summernote-bs3.css',
+                                    'bower_components/summernote/summernote.min.js',
+                                    'bower_components/summernote/angular-summernote.min.js'
+                                ]
+                            },
+                            {
+                                serie: true,
+                                name: 'datatables',
+                                files: ['bower_components/dataTables/angular-datatables.min.js']
+                            },
+                            {
+                                serie: true,
+                                name: 'datatables.scroller',
+                                files: [
+                                    'bower_components/dataTables/plugins/scroller/angular-datatables.scroller.min.js',
+                                    'bower_components/dataTables/plugins/scroller/dataTables.scroller.js',
+                                    'bower_components/dataTables/plugins/scroller/dataTables.scroller.css'
+                                ]
+                            },
+                            {
+                                serie: true,
+                                name: 'datatables.select',
+                                files: ['bower_components/dataTables/plugins/select/angular-datatables.select.min.js',
+                                    'bower_components/dataTables/plugins/select/dataTables.select.js',
+                                    'bower_components/dataTables/plugins/select/select.dataTables.css'
+                                ]
+                            },
+                            {
+                                name: 'ngImgCrop',
+                                files: [
+                                    'bower_components/ngImgCrop/ng-img-crop.js',
+                                    'bower_components/ngImgCrop/ng-img-crop.css'
+                                ]
+                            },
+                            {
+                                files: ['bower_components/sweetalert/sweetalert.min.js', 'bower_components/sweetalert/sweetalert.css']
+                            },
+                            {
+                                name: 'oitozero.ngSweetAlert',
+                                files: ['bower_components/sweetalert/angular-sweetalert.min.js']
+                            }
+                        ]);
+                    }
+                }
             });
 }
 

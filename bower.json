@@ -1,0 +1,42 @@
+{
+  "name": "easyapp",
+  "authors": [
+    "Jose Bocanegra <joseybv@gmail.com>"
+  ],
+  "description": "Aplicacion de gestion de contenido",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "autoNumeric": "~1.9.43",
+    "bootstrap-sass": "~3.3.6",
+    "air-datepicker": "^1.2.2",
+    "Chart.js": "^2.1.3",
+    "bootstrap-submenu": "^2.0.4",
+    "bootstrap-material-design": "~0.5.7",
+    "datatables.net-buttons-bs": "^1.1.2",
+    "datatables.net-responsive-bs": "^2.0.2",
+    "datatables.net-scroller": "^1.4.1",
+    "datatables.net-select-bs": "^1.1.2",
+    "datatables.net-scroller-bs": "^1.4.1",
+    "handlebars": "^4.0.5",
+    "jquery-loading-overlay": "https://github.com/gasparesganga/jquery-loading-overlay.git",
+    "devbridge-autocomplete": "https://github.com/devbridge/jQuery-Autocomplete.git#^1.2.24",
+    "jqueryrotate": "https://github.com/wilq32/jqueryrotate.git",
+    "jquery-typewatch": "https://github.com/dennyferra/TypeWatch.git#^2.2.2",
+    "jquery.panzoom": "^2.0.6",
+    "printThis": "https://github.com/jasonday/printThis.git#^0.1.2",
+    "jstree": "https://github.com/vakata/jstree.git#~3.3.1",
+    "select2": "https://github.com/select2/select2.git#^4.0.2",
+    "oclazyload": "~0.5.2"
+  }
+}

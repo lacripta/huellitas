@@ -20,7 +20,6 @@ function LoginController($http, $window, $scope, SweetAlert) {
         usuario_clave: ''
     };
     $scope.validar = function (usuario) {
-        console.log(usuario);
         if (usuario.usuario_sid && usuario.usuario_clave) {
             $http.post('/easyapp/login/auth', {json: JSON.stringify(usuario)}).success(function (data) {
                 login.ajax = data;
@@ -39,7 +38,7 @@ function LoginController($http, $window, $scope, SweetAlert) {
                     case 1:
                         SweetAlert.swal({
                             title: "Bienvenido de Vuelta",
-                            text: login.ajax.resultado.usuario_nombre + ' ' + login.ajax.resultado.usuario_apellido,
+                            text: login.ajax.resultado,
                             type: "success",
                             showCancelButton: false,
                             confirmButtonText: "Ingresar",

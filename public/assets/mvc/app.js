@@ -1,5 +1,7 @@
 (function () {
     angular.module('easyapp', [
+        'angular-loading-bar', //loading bar
+        'images-resizer',
         'ui.router', // Routing
         'oc.lazyLoad', // ocLazyLoad
         'ui.bootstrap', // Ui Bootstrap
