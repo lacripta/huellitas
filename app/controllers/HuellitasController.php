@@ -1,7 +1,5 @@
 <?php
 
-use Phalcon\Db;
-
 /**
  * @RoutePrefix("/huellitas")
  */
@@ -65,18 +63,6 @@ class HuellitasController extends \Phalcon\Mvc\Controller {
                 "autor" => $key->Usuario->nombre . " " . $key->Usuario->apellido
             );
         }
-        /* $sql = "select estado,destacado,id,titulo,resumen,contenido,imagen_url,
-          (select concat(nombre,' ',apellido) from usuario where sid = autor) autor,
-          date_format(fecha,'%d/%m/%Y %h:%i') fecha,
-          date_format(fecha,'%d') dia,
-          cast(date_format(fecha,'%m') as decimal) mes,
-          date_format(fecha,'%Y') año
-          from novedades
-          where estado = 1
-          order by cast(fecha as date) desc, destacado desc
-          limit 6";
-          $result = $this->db->query($sql);
-          $result->setFetchMode(Db::FETCH_ASSOC); $result->fetchAll() */
         echo json_encode($nov, JSON_PRETTY_PRINT | JSON_NUMERIC_CHECK);
     }
 
