@@ -7,53 +7,43 @@ class Galeria extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    public $galeria_id;
+    public $id;
 
     /**
      *
      * @var string
      */
-    public $galeria_url;
+    public $url;
 
     /**
      *
      * @var string
      */
-    public $galeria_titulo;
+    public $titulo;
 
     /**
      *
      * @var string
      */
-    public $galeria_descripcion;
+    public $descripcion;
 
     /**
      *
      * @var string
      */
-    public $galeria_nombre;
+    public $nombre;
 
     /**
      *
      * @var string
      */
-    public $galeria_fecha;
+    public $fecha;
 
     /**
      *
      * @var integer
      */
-    public $galeria_estado;
-
-    /**
-     * Returns table name mapped in the model.
-     *
-     * @return string
-     */
-    public function getSource()
-    {
-        return 'galeria';
-    }
+    public $estado;
 
     /**
      * Allows to query a set of records that match the specified conditions
@@ -75,6 +65,16 @@ class Galeria extends \Phalcon\Mvc\Model
     public static function findFirst($parameters = null)
     {
         return parent::findFirst($parameters);
+    }
+
+    /**
+     * Returns table name mapped in the model.
+     *
+     * @return string
+     */
+    public function getSource()
+    {
+        return 'galeria';
     }
 
 }

@@ -32,18 +32,26 @@ function GaleriaCtrl($scope, $uibModal, $http, DTOptionsBuilder, DTColumnBuilder
                 .renderWith(function () {
                     return '';
                 }),
-        DTColumnBuilder.newColumn('id').withTitle('Titulo'),
-        DTColumnBuilder.newColumn('titulo').withTitle('Autor'),
-        DTColumnBuilder.newColumn('descripcion').withTitle('Dias'),
-        DTColumnBuilder.newColumn('nombre').withTitle('Estado'),
-        DTColumnBuilder.newColumn('fecha').withTitle('Publicado'),
-        DTColumnBuilder.newColumn('estado').withTitle('Resumen')
+        DTColumnBuilder.newColumn('id').withTitle('ID').notVisible(),
+        DTColumnBuilder.newColumn('descripcion').withTitle('Descripcion').notVisible(),
+        DTColumnBuilder.newColumn('nombre').withTitle('Nombre').notVisible(),
+        DTColumnBuilder.newColumn('titulo').withTitle('Titulo'),
+        DTColumnBuilder.newColumn('fecha').withTitle('Fecha'),
+        DTColumnBuilder.newColumn('estado').withTitle('Estado').renderWith(function (data) {
+            switch (data) {
+                case '0':
+                    return 'SIN PUBLICAR';
+                case '1':
+                    return 'PUBLICADO';
+                default:
+                    return 'DESCONOCIDO';
+            }
+        })
     ];
     vm.reloadData = reloadData;
     vm.editarSeleccionado = editarSeleccionado;
     vm.nuevoArticulo = nuevoArticulo;
     vm.borrarArticulo = borrarSeleccionado;
-    vm.destacarArticulo = destacarSeleccionado;
     vm.publicarArticulo = publicarSeleccionado;
     $scope.dtEditarArtiulo = {};
 
@@ -63,8 +71,8 @@ function GaleriaCtrl($scope, $uibModal, $http, DTOptionsBuilder, DTColumnBuilder
         $scope.selected.destacado = 0;
         $scope.selected.autor = '.';
         var modalInstance = $uibModal.open({
-            templateUrl: "assets/views/articulos/editar.html",
-            controller: ModalInstanceCtrl,
+            templateUrl: "assets/views/galeria/editar.html",
+            controller: GaleriaModalController,
             scope: $scope,
             size: 'lg',
             windowClass: "animated fadeIn"
@@ -72,89 +80,100 @@ function GaleriaCtrl($scope, $uibModal, $http, DTOptionsBuilder, DTColumnBuilder
     }
 
     function publicarSeleccionado() {
-        $scope.selected = $scope.dtEditarArtiulo.DataTable.row('.selected').data();
-        SweetAlert.swal({
-            title: "Cambiar el estado de Publicación de esta Articulo?",
-            text: "Titulo: " + $scope.selected.titulo,
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonText: "Aceptar",
-            cancelButtonText: "Cancelar",
-            closeOnConfirm: false,
-            closeOnCancel: false
-        }, function (isConfirm) {
-            if (isConfirm) {
-                $http.post('/easyapp/novedades/publicar/' + $scope.selected.id).success(function (data) {
-                    SweetAlert.swal(data.mensaje, data.estado, data.codigo === "1" ? "success" : "error");
-                    $scope.dtEditarArtiulo.reloadData();
-                });
-            } else {
-                SweetAlert.swal("Operación Cancelada", "La tarea ha sido cancelada por el usuario", "error");
-            }
-        });
-    }
-
-    function destacarSeleccionado() {
-        $scope.selected = $scope.dtEditarArtiulo.DataTable.row('.selected').data();
-        SweetAlert.swal({
-            title: "Marcar este articulo como destacado?",
-            text: "Titulo: " + $scope.selected.titulo,
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonText: "Aceptar",
-            cancelButtonText: "Cancelar",
-            closeOnConfirm: false,
-            closeOnCancel: false
-        }, function (isConfirm) {
-            if (isConfirm) {
-                $http.post('/easyapp/novedades/destacar/' + $scope.selected.id).success(function (data) {
-                    SweetAlert.swal(data.mensaje, data.estado, data.codigo === "1" ? "success" : "error");
-                    $scope.dtEditarArtiulo.reloadData();
-                });
-            } else {
-                SweetAlert.swal("Operación Cancelada", "La tarea ha sido cancelada por el usuario", "error");
-            }
-        });
+        if ($scope.selected = $scope.dtEditarArtiulo.DataTable.row('.selected').data()) {
+            SweetAlert.swal({
+                title: "Cambiar el estado de Publicación de esta Articulo?",
+                text: "Titulo: " + $scope.selected.titulo,
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Aceptar",
+                cancelButtonText: "Cancelar",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            }, function (isConfirm) {
+                if (isConfirm) {
+                    $http.post('/easyapp/galeria/publicar/' + $scope.selected.id).success(function (data) {
+                        SweetAlert.swal(data.mensaje, data.estado, data.codigo === "1" ? "success" : "error");
+                        $scope.dtEditarArtiulo.reloadData();
+                    });
+                } else {
+                    SweetAlert.swal("Operación Cancelada", "La tarea ha sido cancelada por el usuario", "error");
+                }
+            });
+        } else {
+            SweetAlert.swal({
+                title: "No puede Realizar la accion Solicitada",
+                text: "Debe marcar uno de los elementos de la tabla como seleccionado",
+                type: "warning",
+                showCancelButton: false,
+                confirmButtonText: "Aceptar",
+                closeOnConfirm: true,
+                closeOnCancel: true
+            });
+        }
     }
 
     function borrarSeleccionado() {
-        $scope.selected = $scope.dtEditarArtiulo.DataTable.row('.selected').data();
-        SweetAlert.swal({
-            title: "Borra el articulo Seleccionado?",
-            text: "Titulo: " + $scope.selected.titulo,
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonText: "Aceptar",
-            cancelButtonText: "Cancelar",
-            closeOnConfirm: false,
-            closeOnCancel: false
-        }, function (isConfirm) {
-            if (isConfirm) {
-                $http.post('/easyapp/novedades/borrar', {json: JSON.stringify($scope.selected)}).success(function (data) {
-                    SweetAlert.swal(data.mensaje, data.estado, data.codigo === "1" ? "success" : "error");
-                    $scope.dtEditarArtiulo.reloadData();
-                });
-            } else {
-                SweetAlert.swal("Operación Cancelada", "La tarea ha sido cancelada por el usuario", "error");
-            }
-        });
+        if ($scope.selected = $scope.dtEditarArtiulo.DataTable.row('.selected').data()) {
+            SweetAlert.swal({
+                title: "Borra el articulo Seleccionado?",
+                text: "Titulo: " + $scope.selected.titulo,
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Aceptar",
+                cancelButtonText: "Cancelar",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            }, function (isConfirm) {
+                if (isConfirm) {
+                    $http.post('/easyapp/galeria/borrar', {json: JSON.stringify($scope.selected)}).success(function (data) {
+                        SweetAlert.swal(data.mensaje, data.estado, data.codigo === "1" ? "success" : "error");
+                        $scope.dtEditarArtiulo.reloadData();
+                    });
+                } else {
+                    SweetAlert.swal("Operación Cancelada", "La tarea ha sido cancelada por el usuario", "error");
+                }
+            });
+        } else {
+            SweetAlert.swal({
+                title: "No puede Realizar la accion Solicitada",
+                text: "Debe marcar uno de los elementos de la tabla como seleccionado",
+                type: "warning",
+                showCancelButton: false,
+                confirmButtonText: "Aceptar",
+                closeOnConfirm: true,
+                closeOnCancel: true
+            });
+        }
     }
 
     function editarSeleccionado() {
-        $scope.selected = $scope.dtEditarArtiulo.DataTable.row('.selected').data();
-        $scope.selected.accion = 'editar';
-        var modalInstance = $uibModal.open({
-            templateUrl: "assets/views/articulos/editar.html",
-            controller: ModalInstanceCtrl,
-            scope: $scope,
-            size: 'lg',
-            windowClass: "animated fadeIn"
-        });
+        if ($scope.selected = $scope.dtEditarArtiulo.DataTable.row('.selected').data()) {
+            //$scope.selected = $scope.dtEditarArtiulo.DataTable.row('.selected').data();
+            $scope.selected.accion = 'editar';
+            var modalInstance = $uibModal.open({
+                templateUrl: "assets/views/galeria/editar.html",
+                controller: GaleriaModalController,
+                scope: $scope,
+                size: 'lg',
+                windowClass: "animated fadeIn"
+            });
+        } else {
+            SweetAlert.swal({
+                title: "No puede Realizar la accion Solicitada",
+                text: "Debe marcar uno de los elementos de la tabla como seleccionado",
+                type: "warning",
+                showCancelButton: false,
+                confirmButtonText: "Aceptar",
+                closeOnConfirm: true,
+                closeOnCancel: true
+            });
+        }
     }
 }
-function ModalInstanceCtrl($scope, $uibModalInstance, $http, SweetAlert) {
+function GaleriaModalController($scope, $uibModalInstance, $http, SweetAlert) {
     $scope.ok = function () {
-        $http.post('/easyapp/novedades/agregar', {json: JSON.stringify($scope.selected)}).success(function (data) {
+        $http.post('/easyapp/galeria/agregar', {json: JSON.stringify($scope.selected)}).success(function (data) {
             $uibModalInstance.close();
             $scope.dtEditarArtiulo.reloadData();
             SweetAlert.swal({
@@ -173,6 +192,37 @@ function ModalInstanceCtrl($scope, $uibModalInstance, $http, SweetAlert) {
         $uibModalInstance.dismiss('cancel');
     };
 }
+function GaleriaImagen($scope, $http, $log, resizeService) {
+    $scope.myImage = '';
+    $scope.myCroppedImage = '';
+    $http.post('/easyapp/galeria/imagen/' + $scope.selected.id).success(function (data) {
+        $.each(data, function (k, v) {
+            $scope.selected.url = v.url;
+        });
+    });
+    var handleFileSelect = function (evt) {
+        var file = evt.currentTarget.files[0];
+        var reader = new FileReader();
+        reader.onload = function (evt) {
+            $scope.$apply(function ($scope) {
+                resizeService
+                        .resizeImage(evt.target.result, {
+                            size: 100,
+                            sizeScale: 'ko'
+                                    // Other options ...
+                        })
+                        .then(function (image) {
+                            $scope.myImage = image;
+                            $scope.selected.url = image;
+                        })
+                        .catch($log.error);
+            });
+        };
+        reader.readAsDataURL(file);
+    };
+    angular.element(document.querySelector('#imagenGaleria')).on('change', handleFileSelect);
+}
 angular
         .module('easyapp')
-        .controller('GaleriaCtrl', GaleriaCtrl);
+        .controller('GaleriaCtrl', GaleriaCtrl)
+        .controller('GaleriaImagen', GaleriaImagen);
