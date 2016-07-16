@@ -41,9 +41,17 @@ class Galeria extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var integer
+     * @var string
      */
     public $estado;
+
+    /**
+     * Initialize method for model.
+     */
+    public function initialize()
+    {
+        $this->belongsTo('estado', 'EstadoPublicacion', 'codigo', array('alias' => 'EstadoPublicacion'));
+    }
 
     /**
      * Allows to query a set of records that match the specified conditions

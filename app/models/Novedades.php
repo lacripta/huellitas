@@ -47,7 +47,7 @@ class Novedades extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var integer
+     * @var string
      */
     public $estado;
 
@@ -56,6 +56,15 @@ class Novedades extends \Phalcon\Mvc\Model
      * @var integer
      */
     public $destacado;
+
+    /**
+     * Initialize method for model.
+     */
+    public function initialize()
+    {
+        $this->belongsTo('autor', 'Usuario', 'sid', array('alias' => 'Usuario'));
+        $this->belongsTo('estado', 'EstadoPublicacion', 'codigo', array('alias' => 'EstadoPublicacion'));
+    }
 
     /**
      * Allows to query a set of records that match the specified conditions
