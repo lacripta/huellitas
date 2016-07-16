@@ -3,18 +3,26 @@
 use Phalcon\Mvc\Model\Transaction\Manager as TxManager;
 use Phalcon\Mvc\Model\Transaction\Failed as TxFailed;
 
-class NovedadesController extends \Phalcon\Mvc\Controller {
+/**
+ * @RoutePrefix("/novedades")
+ */
+class NovedadesController extends ControllerBase {
 
     public function initialize() {
-        if (is_null($this->session->get('key'))) {
-            $this->response->redirect("login")->sendHeaders();
-        }
+        $this->response->setContentType('application/json; charset=utf-8');
+        $this->view->disable();
     }
 
+    /**
+     * @Route("/", methods = {"GET"})
+     */
     public function indexAction() {
-
+        $this->response->redirect("login")->sendHeaders();
     }
 
+    /**
+     * @Route("/destacar/{id:[0-9]+}", methods = {"POST"}, name = "novedades-destacar")
+     */
     public function destacarAction($id) {
         try {
             $this->db->begin();
@@ -33,19 +41,22 @@ class NovedadesController extends \Phalcon\Mvc\Controller {
             } else {
                 $error = "";
                 foreach ($tabla->getMessages() as $mensaje) {
-                    $error .= $mensaje;
+                    $error = $error . " " . $mensaje . " ";
                 }
                 $this->db->rollback($mensaje);
             }
         } catch (TxFailed $e) {
             echo json_encode(array(
                 "mensaje" => "No se Han realizado Cambios",
-                "estado" => $e->getRecord(),
+                "estado" => $e->getMessage(),
                 "codigo" => "0"
             ));
         }
     }
 
+    /**
+     * @Route("/publicar/{id:[0-9]+}", methods = {"POST"}, name = "novedades-publicar")
+     */
     public function publicarAction($id) {
         try {
             $this->db->begin();
@@ -64,19 +75,22 @@ class NovedadesController extends \Phalcon\Mvc\Controller {
             } else {
                 $error = "";
                 foreach ($tabla->getMessages() as $mensaje) {
-                    $error .= $mensaje;
+                    $error = $error . " " . $mensaje . " ";
                 }
                 $this->db->rollback($mensaje);
             }
         } catch (TxFailed $e) {
             echo json_encode(array(
                 "mensaje" => "No se Han realizado Cambios",
-                "estado" => $e->getRecord(),
+                "estado" => $e->getMessage(),
                 "codigo" => "0"
             ));
         }
     }
 
+    /**
+     * @Route("/publicar", methods = {"POST"}, name = "novedades-borrar")
+     */
     public function borrarAction() {
         $json = $this->request->getJsonRawBody('json');
         $nuevo = json_decode($json->json, true);
@@ -96,27 +110,30 @@ class NovedadesController extends \Phalcon\Mvc\Controller {
             } else {
                 $error = "";
                 foreach ($tabla->getMessages() as $mensaje) {
-                    $error .= $mensaje;
+                    $error = $error . " " . $mensaje . " ";
                 }
                 $transaction->rollback($error);
             }
         } catch (TxFailed $e) {
             echo json_encode(array(
                 "mensaje" => "No se Han realizado Cambios",
-                "estado" => $e->getRecord(),
+                "estado" => $e->getMessage(),
                 "codigo" => "0"
             ));
         }
     }
 
+    /**
+     * @Route("/agregar", methods = {"POST"}, name = "novedades-agregar")
+     */
     public function agregarAction() {
         $json = $this->request->getJsonRawBody('json');
         $nuevo = json_decode($json->json, true);
         try {
-            $txManager = new TxManager();
-            $transaction = $txManager->get();
             switch ($nuevo["accion"]) {
                 case "nuevo":
+                    $txManager = new TxManager();
+                    $transaction = $txManager->get();
                     $tabla = Phalcon\Mvc\Model::cloneResult(new Novedades(), $nuevo);
                     $tabla->autor = $this->session->get('sid');
                     $tabla->setTransaction($transaction);
@@ -131,39 +148,50 @@ class NovedadesController extends \Phalcon\Mvc\Controller {
                     } else {
                         $error = "";
                         foreach ($tabla->getMessages() as $mensaje) {
-                            $error .= $mensaje;
+                            $error = $error . " " . $mensaje . " ";
                         }
                         $transaction->rollback($error);
                     }
                     break;
                 case "editar":
-                    $tabla = Phalcon\Mvc\Model::cloneResult(new Novedades(), $nuevo);
-                    $tabla->setTransaction($transaction);
-                    if ($tabla->update($nuevo, array("resumen", "titulo", "contenido", "imagen_url"))) {
-                        $transaction->commit();
+                    $this->db->begin();
+                    $tabla = Novedades::find(array(
+                                "conditions" => "id = ?1",
+                                "bind" => array(
+                                    1 => $nuevo["id"]
+                    )));
+                    $tabla[0]->titulo = $nuevo["titulo"];
+                    $tabla[0]->resumen = $nuevo["resumen"];
+                    $tabla[0]->contenido = $nuevo["contenido"];
+                    $tabla[0]->imagen_url = $nuevo["imagen_url"];
+                    if ($tabla[0]->save()) {
+                        $this->db->commit();
                         echo json_encode(array(
                             "mensaje" => "Cambios Realizados Correctamente",
-                            "estado" => "Se actualizo la información del articulo: " . $tabla->titulo,
+                            "estado" => "Se actualizo la información del articulo: " . $nuevo["titulo"],
                             "codigo" => "1"
                         ));
                     } else {
                         $error = "";
                         foreach ($tabla->getMessages() as $mensaje) {
-                            $error .= $mensaje;
+                            $error = $error . " " . $mensaje . " ";
                         }
-                        $transaction->rollback($error);
+                        $this->db->rollback($error);
                     }
                     break;
             }
         } catch (TxFailed $e) {
             echo json_encode(array(
                 "mensaje" => "No se Han realizado Cambios",
-                "estado" => $e->getRecord(),
+                "estado" => $e->getMessage(),
                 "codigo" => "0"
             ));
         }
     }
 
+    /**
+     * @Route("/listar", methods = {"POST"}, name = "novedades-listar")
+     */
     public function listarAction() {
         $usuario = Articulos::find(array(
                     "conditions" => "autor = ?1 or 'admin' = ?2",
@@ -175,6 +203,9 @@ class NovedadesController extends \Phalcon\Mvc\Controller {
         echo json_encode($usuario->toArray(), JSON_PRETTY_PRINT);
     }
 
+    /**
+     * @Route("/imagen/{id:[0-9]+}", methods = {"POST"}, name = "novedades-imagen")
+     */
     public function imagenAction($id) {
         $usuario = Novedades::find(array(
                     "conditions" => "id = ?1",
