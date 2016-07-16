@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="tabs-container">
+            <uib-tabset>
+                <uib-tab>
+                    <uib-tab-heading>
+                        Razas de Animales
+                    </uib-tab-heading>
+                    <div class="panel-body" ng-option>
+                        <fieldset class="form-horizontal">
+                            <div class="form-group" ng-if="raza.especies">
+                                <label class="col-sm-2 control-label" for="especies">Especies</label>
+                                <select name="especies" id="especies" style="width: 350px;"
+                                        class="form-control select"
+                                        ng-model="selected.id_especie"
+                                        ng-options="opt.nombre for opt in raza.especies track by opt.id">
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Nombre</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" ng-model="selected.nombre">
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </uib-tab>
+            </uib-tabset>
+        </div>
+    </div>
+    <div class="space-30"></div>
+    <div class="col-lg-12 pull-right">
+        <button class="btn btn-lg btn-info m-t-n-xs" type="submit" ng-click="ok()">guardar</button>
+        <button class="btn btn-lg btn-danger m-t-n-xs" type="submit" ng-click="cancel()">cancelar</button>
+    </div>
+    <div class="space-30"></div>
+</div>
