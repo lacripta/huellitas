@@ -101,12 +101,15 @@ function AnimalModalController($scope, $uibModalInstance, Animales, Notificar) {
         if (ok) {
             if ($scope.selected.accion === 'nuevo') {
                 Animales.nuevo($scope.selected);
+                $uibModalInstance.close();
+                $scope.dtEditarArtiulo.changeData(Animales.listar());
+                $scope.selected = {};
             } else if ($scope.selected.accion === 'editar') {
                 Animales.editar($scope.selected);
+                $uibModalInstance.close();
+                $scope.dtEditarArtiulo.changeData(Animales.listar());
+                $scope.selected = {};
             }
-            $uibModalInstance.close();
-            $scope.dtEditarArtiulo.changeData(Animales.listar());
-            $scope.selected = {};
         } else {
             Notificar.form();
         }
