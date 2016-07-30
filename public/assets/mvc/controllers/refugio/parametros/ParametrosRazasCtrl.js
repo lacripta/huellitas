@@ -93,12 +93,15 @@ function RazasModalController($scope, $uibModalInstance, Razas, Notificar) {
         if (ok) {
             if ($scope.selected.accion === 'nuevo') {
                 Razas.nuevo($scope.selected);
+                $uibModalInstance.close();
+                $scope.dtEditarArtiulo.changeData(Razas.listar());
+                $scope.selected = {};
             } else if ($scope.selected.accion === 'editar') {
                 Razas.editar($scope.selected);
+                $uibModalInstance.close();
+                $scope.dtEditarArtiulo.changeData(Razas.listar());
+                $scope.selected = {};
             }
-            $uibModalInstance.close();
-            $scope.dtEditarArtiulo.changeData(Razas.listar());
-            $scope.selected = {};
         } else {
             Notificar.form();
         }
