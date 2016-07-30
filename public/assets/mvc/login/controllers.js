@@ -1,4 +1,4 @@
-function MainCtrl() {
+function MainController() {
     /**
      * daterange - Used as initial model for data range picker in Advanced form view
      */
@@ -87,5 +87,5 @@ function LogoutController() {
 }
 angular
         .module('easyapp')
-        .controller('MainCtrl', MainCtrl)
+        .controller('MainController', MainController)
         .controller('LoginController', LoginController);

@@ -3,7 +3,7 @@
 /**
  * @RoutePrefix("/refugio/parametros/colores")
  */
-class ColoresController extends ParametrosController {
+class ColoresController extends WebServiceController {
 
     /**
      * @Route("/", methods = {"POST", "GET"})

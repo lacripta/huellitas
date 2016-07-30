@@ -12,7 +12,7 @@
         <link href="assets/css/animate.css" rel="stylesheet">
         <link id="loadBefore" href="assets/css/style.css" rel="stylesheet">
     </head>
-    <body ng-controller="MainCtrl as main" class="{{$state.current.data.specialClass}}" landing-scrollspy id="page-top">
+    <body ng-controller="MainController as main" class="{{$state.current.data.specialClass}}" landing-scrollspy id="page-top">
         <div ui-view></div>
         <script src="bower_components/jquery/dist/jquery.min.js"></script>
         <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -28,6 +28,7 @@
         <!-- Main Angular scripts-->
         <script src="bower_components/angular/angular.min.js"></script>
         <script src="bower_components/angular/angular-sanitize.min.js"></script>
+        <script src="bower_components/angular/angular-resource.min.js"></script>
         <script src="bower_components/oclazyload/dist/ocLazyLoad.min.js"></script>
         <script src="bower_components/angular-translate/angular-translate.min.js"></script>
         <script src="bower_components/ui-router/angular-ui-router.min.js"></script>
@@ -39,8 +40,17 @@
         <script src="assets/mvc/config.js"></script>
         <script src="assets/mvc/directives.js"></script>
         <script src="assets/mvc/controllers.js"></script>
-        <script src="assets/mvc/controllers/ArticulosCtrl.js"></script>
-        <script src="assets/mvc/controllers/GaleriaCtrl.js"></script>
+        <script src="assets/mvc/factories.js"></script>
+        <script src="assets/mvc/services.js"></script>
+        <script src="assets/mvc/controllers/articulos/ArticulosCtrl.js"></script>
+        <script src="assets/mvc/controllers/galeria/GaleriaCtrl.js"></script>
+        <script src="assets/mvc/controllers/refugio/AnimalesCtrl.js"></script>
+        <script src="assets/mvc/controllers/refugio/AdopcionesCtrl.js"></script>
+        <script src="assets/mvc/controllers/refugio/parametros/ParametrosEspeciesCtrl.js"></script>
+        <script src="assets/mvc/controllers/refugio/parametros/ParametrosColoresCtrl.js"></script>
+        <script src="assets/mvc/controllers/refugio/parametros/ParametrosRazasCtrl.js"></script>
+        <script src="assets/mvc/controllers/refugio/parametros/ParametrosEstadosCtrl.js"></script>
+        <script src="assets/mvc/controllers/refugio/parametros/EstadoAdopcionController.js"></script>
         <script src="assets/mvc/translations.js"></script>
         <script>
                 $(function () {

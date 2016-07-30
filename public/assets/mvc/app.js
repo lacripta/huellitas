@@ -1,6 +1,6 @@
 (function () {
     angular.module('easyapp', [
-        'angular-loading-bar', //loading bar
+        'ngResource',
         'images-resizer',
         'ui.router', // Routing
         'oc.lazyLoad', // ocLazyLoad

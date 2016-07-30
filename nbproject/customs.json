@@ -1,5 +1,72 @@
 {
     "elements": {
+        "select-personas": {
+            "attributes": {
+                "persona": {},
+                "titulo": {}
+            }
+        },
+        "select-sexos": {
+            "attributes": {
+                "sexo": {}
+            }
+        },
+        "select-especie": {
+            "attributes": {
+                "especie": {},
+                "raza": {}
+            }
+        },
+        "select-tipo-edad": {
+            "attributes": {
+                "tipo-edad": {},
+                "titulo": {}
+            }
+        },
+        "select-confirma": {
+            "attributes": {
+                "accion": {},
+                "titulo": {}
+            }
+        },
+        "uib-tabset": {},
+        "uib-tab-heading": {},
+        "input-date": {
+            "attributes": {
+                "valor": {},
+                "titulo": {}
+            }
+        },
+        "select-animales-adopcion": {
+            "attributes": {
+                "titulo": {},
+                "animal": {}
+            }
+        },
+        "select-raza": {
+            "attributes": {
+                "especie": {},
+                "raza": {}
+            }
+        },
+        "select-animales": {
+            "attributes": {
+                "titulo": {},
+                "animal": {}
+            }
+        },
+        "select-estado-adopcion": {
+            "attributes": {
+                "estado": {},
+                "titulo": {}
+            }
+        },
+        "select-padrinos": {
+            "attributes": {
+                "persona": {},
+                "titulo": {}
+            }
+        },
         "img-crop": {
             "attributes": {
                 "image": {},
@@ -7,16 +74,51 @@
                 "result-image": {}
             }
         },
+        "input-image": {
+            "attributes": {
+                "titulo": {},
+                "imagen": {}
+            }
+        },
+        "select-colores": {
+            "attributes": {
+                "color": {},
+                "titulo": {}
+            }
+        },
+        "input-text": {
+            "attributes": {
+                "valor": {},
+                "titulo": {}
+            }
+        },
+        "text-editor": {
+            "attributes": {
+                "contenido": {},
+                "titulo": {}
+            }
+        },
         "uib-tab": {},
-        "uib-tabset": {},
-        "uib-tab-heading": {}
+        "select-estados": {
+            "attributes": {
+                "estado": {},
+                "titulo": {}
+            }
+        }
     },
     "attributes": {
+        "uib-dropdown-menu": {
+            "context": "ul"
+        },
         "dt-columns": {},
         "page-title": {},
         "uib-dropdown-toggle": {},
+        "ui-view": {},
         "dt-columns-def": {},
         "uib-tooltip": {},
+        "side-navigation": {
+            "context": "ul"
+        },
         "summernote": {},
         "ui-sref": {},
         "ui-sref-active": {}

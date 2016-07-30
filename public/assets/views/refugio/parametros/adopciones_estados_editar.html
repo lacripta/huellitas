@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="tabs-container">
+            <uib-tabset>
+                <uib-tab>
+                    <uib-tab-heading>
+                        Estados de Animales
+                    </uib-tab-heading>
+                    <div class="panel-body">
+                        <fieldset class="form-horizontal">
+                            <input-text titulo="Descripción" valor="selected.descripcion"></input-text>
+                            <select-estados titulo="Estado del animal al guardar adopción" estado="selected.estado_final"></select-estados>
+                            <select-estados titulo="Estado del animal al borrar la adopción" estado="selected.estado_borrar"></select-estados>
+                        </fieldset>
+                        <div class="row text-center">
+                            <button class="btn btn-lg btn-info" type="submit" ng-click="ok()"><strong>guardar</strong></button>
+                            <button class="btn btn-lg btn-danger" type="submit" ng-click="cancel()"><strong>cancelar</strong></button>
+                        </div>
+                    </div>
+                </uib-tab>
+            </uib-tabset>
+        </div>
+    </div>
+</div>

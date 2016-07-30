@@ -3,7 +3,7 @@
         <ul side-navigation class="nav metismenu" id="side-menu">
             <li class="nav-header">
 
-                <div class="profile-element" uib-dropdown ng-controller="UsuarioCtrl as main">
+                <div class="profile-element" uib-dropdown ng-controller="UsuarioController as main">
                     <img alt="image" class="img-circle" src="img/profile_small.jpg"/>
                     <a uib-dropdown-toggle href>
                         <span class="clear">
@@ -29,59 +29,28 @@
             <li ui-sref-active="active">
                 <a ui-sref="principal.galeria"><i class="fa fa-image"></i> <span class="nav-label">{{ 'GALERIA' | translate }}</span> </a>
             </li>
-            <li ng-class="{active: $state.includes('mailbox')}">
-                <a ui-sref="inbox"><i class="fa fa-envelope"></i> <span class="nav-label">{{ 'MAILBOX' | translate }} </span><span class="label label-warning pull-right">16/24</span></a>
-                <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('mailbox')}">
-                    <li ui-sref-active="active"><a ui-sref="mailbox.inbox">Inbox</a></li>
-                    <li ui-sref-active="active"><a ui-sref="mailbox.email_view">Email view</a></li>
-                    <li ui-sref-active="active"><a ui-sref="mailbox.email_compose">Compose email</a></li>
-                    <li ui-sref-active="active"><a ui-sref="mailbox.email_template">Email template</a></li>
-                </ul>
-            </li>
-            <li ui-sref-active="active">
-                <a ui-sref="metrics"><i class="fa fa-pie-chart"></i> <span class="nav-label">{{ 'METRICS' | translate }}</span> </a>
-            </li>
-            <li ui-sref-active="active">
-                <a ui-sref="widgets"><i class="fa fa-flask"></i> <span class="nav-label">{{ 'WIDGETS' | translate }}</span></a>
-            </li>
-            <li ng-class="{active: $state.includes('forms')}">
-                <a href=""><i class="fa fa-edit"></i> <span class="nav-label">{{ 'FORMS' | translate }}</span><span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('forms')}">
-                    <li ui-sref-active="active"><a ui-sref="forms.basic_form">Basic form</a></li>
-                    <li ui-sref-active="active"><a ui-sref="forms.advanced_plugins">Advanced Plugins</a></li>
-                    <li ui-sref-active="active"><a ui-sref="forms.wizard.step_one">Wizard</a></li>
-                    <li ui-sref-active="active"><a ui-sref="forms.file_upload">File Upload</a></li>
-                    <li ui-sref-active="active"><a ui-sref="forms.text_editor">Text Editor</a></li>
-                    <li ui-sref-active="active"><a ui-sref="forms.markdown">Markdown</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href=""><i class="fa fa-sitemap"></i> <span class="nav-label">{{ 'MENULEVELS' | translate }}</span><span class="fa arrow"></span></a>
+            <li ng-class="{active: $state.includes('refugio')}">
+                <a ui-sref="inbox"><i class="fa fa-envelope"></i> <span class="nav-label">{{ 'REFUGIO' | translate }} </span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li>
-                        <a href="">Third Level <span class="fa arrow"></span></a>
-                        <ul class="nav nav-third-level">
+                    <li ui-sref-active="active"><a ui-sref="refugio.adopciones">Adopciones</a></li>
+                    <li ui-sref-active="active"><a ui-sref="refugio.animales">Animales</a></li>
+                    <li ng-class="{active: $state.includes('parametros')}">
+                        <a ui-sref="inbox"><span class="nav-label">Parametros</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level collapse">
                             <li>
-                                <a href="">Third Level Item</a>
+                                <a ui-sref="inbox"><span class="nav-label">Caracteristicas</span><span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level collapse">
+                                    <li ui-sref-active="active"><a ui-sref="refugio.parametros.especies">Especies</a></li>
+                                    <li ui-sref-active="active"><a ui-sref="refugio.parametros.razas">Razas</a></li>
+                                    <li ui-sref-active="active"><a ui-sref="refugio.parametros.colores">Colores</a></li>
+                                    <li ui-sref-active="active"><a ui-sref="refugio.parametros.estados">Estados</a></li>
+                                    <li ui-sref-active="active"><a ui-sref="refugio.parametros.estadoAdopcion">Estados Adopcion</a></li>
+                                </ul>
                             </li>
-                            <li>
-                                <a href="">Third Level Item</a>
-                            </li>
-                            <li>
-                                <a href="">Third Level Item</a>
-                            </li>
-
+                            <li ui-sref-active="active"><a ui-sref="principal.animales">Animales</a></li>
                         </ul>
                     </li>
-                    <li><a href="">Second Level Item</a></li>
-                    <li>
-                        <a href="">Second Level Item</a></li>
-                    <li>
-                        <a href="">Second Level Item</a></li>
                 </ul>
-            </li>
-            <li ui-sref-active="active">
-                <a ui-sref="css_animations"><i class="fa fa-magic"></i> <span class="nav-label">{{ 'ANIMATIONS' | translate }}</span><span class="label label-info pull-right">62</span></a>
             </li>
         </ul>
 

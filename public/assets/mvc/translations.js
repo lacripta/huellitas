@@ -26,6 +26,8 @@ function config($translateProvider) {
                 LANDING: 'Landing page',
                 ARTICULOS: 'Articles',
                 GALERIA: 'Gallery',
+                REFUGIO: 'Shelter',
+                PARAMETROS: 'Parameters',
                 // Define some custom text
                 WELCOME: 'Welcome Amelia',
                 MESSAGEINFO: 'You have 42 messages and 6 notifications.',
@@ -54,6 +56,8 @@ function config($translateProvider) {
                 LANDING: 'Página de destino',
                 ARTICULOS: 'Articulos',
                 GALERIA: 'Galeria',
+                REFUGIO: 'Refugio',
+                PARAMETROS: 'Parametros',
                 // Define some custom text
                 WELCOME: 'Bienvenido Amelia',
                 MESSAGEINFO: 'Usted tiene 42 mensajes y 6 notificaciones.',

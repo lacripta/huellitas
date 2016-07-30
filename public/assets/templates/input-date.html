@@ -1,0 +1,12 @@
+<div class="form-group" ng-form="texto">
+    <label class="col-sm-3 control-label">{{titulo}}</label>
+    <div class="col-sm-9">
+        <input type="date" class="form-control" name="entrada"
+               required="" style="width: 350px;"
+               ng-model="valor"
+               ng-readonly="{{readonly}}">
+        <div class="m-t-xs" ng-show="texto.entrada.$touched">
+            <small class="text-danger" ng-show="texto.entrada.$error.required">Este campo es requerido</small>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,58 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="tabs-container">
+            <uib-tabset>
+                <uib-tab>
+                    <uib-tab-heading>
+                        Ingresar datos del animal
+                    </uib-tab-heading>
+                    <div class="panel-body" ng-option>
+                        <form name="datosAnimal" role="form" novalidate>
+                            <fieldset class="form-horizontal">
+                                <input-date titulo="Fecha de Ingreso" valor="selected.fecha_ingreso"></input-date>
+                                <select-sexos sexo="selected.sexo"></select-sexos>
+                                <input-text titulo="Nombre" valor="selected.nombre"></input-text>
+                                <input-text titulo="Edad" valor="selected.edad"></input-text>
+                                <select-tipo-edad titulo="Tipo de edad" tipo-edad="selected.edad_tipo"></select-tipo-edad>
+                                <select-personas titulo="Rescató" persona="selected.rescata"></select-personas>
+                                <select-raza especie="selected.especie" raza="selected.raza"></select-raza>
+                                <select-colores titulo="Color del Animal" color="selected.color"></select-colores>
+                                <select-estados titulo="Estado" estado="selected.estado"></select-estados>
+                            </fieldset>
+                        </form>
+                        <div class="row">
+                            <div class="space-30"></div>
+                        </div>
+                        <div class="row text-center">
+                            <button class="btn btn-lg btn-info" type="submit" ng-click="ok(datosAnimal.$valid)">guardar</button>
+                            <button class="btn btn-lg btn-danger" type="submit" ng-click="cancel()">cancelar</button>
+                        </div>
+                        <div class="row">
+                            <div class="space-30"></div>
+                        </div>
+                    </div>
+                </uib-tab>
+                <uib-tab ng-if="selected.accion == 'editar'">
+                    <uib-tab-heading>
+                        Imagenes del animal
+                    </uib-tab-heading>
+                    <div class="panel-body">
+                        <fieldset class="form-horizontal">
+                            <input-text titulo="Titulo" valor="selected.titulo"></input-text>
+                            <input-image titulo="Seleccionar una Imagen" imagen="selected.url"></input-image>
+                            <div class="row">
+                                <div class="space-30"></div>
+                            </div>
+                            <div class="row text-center">
+                                <button class="btn btn-lg btn-info" type="submit" ng-click="agregar()">guardar</button>
+                            </div>
+                            <div class="row">
+                                <div class="space-30"></div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </uib-tab>
+            </uib-tabset>
+        </div>
+    </div>
+</div>

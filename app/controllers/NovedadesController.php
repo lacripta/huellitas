@@ -6,12 +6,7 @@ use Phalcon\Mvc\Model\Transaction\Failed as TxFailed;
 /**
  * @RoutePrefix("/novedades")
  */
-class NovedadesController extends ControllerBase {
-
-    public function initialize() {
-        $this->response->setContentType('application/json; charset=utf-8');
-        $this->view->disable();
-    }
+class NovedadesController extends WebServiceController {
 
     /**
      * @Route("/", methods = {"GET"})

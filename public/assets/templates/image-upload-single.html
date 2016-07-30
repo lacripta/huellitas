@@ -1,0 +1,14 @@
+<div class="col-md-12" ng-form="texto">
+    <div class="m-b-md">
+        <input type="file" id="SelectImagenDirective" name="entrada" required="" />
+        <div class="m-t-xs" ng-show="texto.entrada.$touched">
+            <small class="text-danger" ng-show="texto.entrada.$error.required">Este campo es requerido</small>
+        </div>
+    </div>
+</div>
+<div class="col-md-12">
+    <h4>{{titulo}}</h4>
+    <div class="m-b-md">
+        <img ng-src="{{imagen}}" width="100%"/>
+    </div>
+</div>

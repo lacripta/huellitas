@@ -1,7 +1,6 @@
 <?php
 
-class EstadoAnimal extends \Phalcon\Mvc\Model
-{
+class EstadoAnimal extends \Phalcon\Mvc\Model {
 
     /**
      *
@@ -18,8 +17,7 @@ class EstadoAnimal extends \Phalcon\Mvc\Model
     /**
      * Initialize method for model.
      */
-    public function initialize()
-    {
+    public function initialize() {
         $this->hasMany('id', 'Animal', 'estado', array('alias' => 'Animal'));
     }
 
@@ -29,8 +27,7 @@ class EstadoAnimal extends \Phalcon\Mvc\Model
      * @param mixed $parameters
      * @return EstadoAnimal[]
      */
-    public static function find($parameters = null)
-    {
+    public static function find($parameters = null) {
         return parent::find($parameters);
     }
 
@@ -40,8 +37,7 @@ class EstadoAnimal extends \Phalcon\Mvc\Model
      * @param mixed $parameters
      * @return EstadoAnimal
      */
-    public static function findFirst($parameters = null)
-    {
+    public static function findFirst($parameters = null) {
         return parent::findFirst($parameters);
     }
 
@@ -50,8 +46,7 @@ class EstadoAnimal extends \Phalcon\Mvc\Model
      *
      * @return string
      */
-    public function getSource()
-    {
+    public function getSource() {
         return 'estado_animal';
     }
 

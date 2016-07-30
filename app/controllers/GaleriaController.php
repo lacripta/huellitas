@@ -3,7 +3,7 @@
 /**
  * @RoutePrefix("/galeria")
  */
-class GaleriaController extends ControllerBase {
+class GaleriaController extends WebServiceController {
 
     /**
      * @Route("/", methods = {"GET"})

@@ -49,7 +49,7 @@ class Usuario extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var integer
+     * @var string
      */
     public $estado;
 
@@ -72,19 +72,29 @@ class Usuario extends \Phalcon\Mvc\Model
     public $ingreso;
 
     /**
+     * Initialize method for model.
+     */
+    public function initialize()
+    {
+        $this->hasMany('sid', 'Novedades', 'autor', array('alias' => 'Novedades'));
+        $this->hasMany('sid', 'Personas', 'sid', array('alias' => 'Personas'));
+        $this->belongsTo('estado', 'EstadoUsuario', 'id', array('alias' => 'EstadoUsuario'));
+        $this->belongsTo('grupo', 'TipoUsuario', 'nombre', array('alias' => 'TipoUsuario'));
+    }
+
+    /**
      * Validations and business logic
      *
      * @return boolean
      */
-    public function validation()
-    {
+    public function validation() {
         $this->validate(
-            new Email(
+                new Email(
                 array(
-                    'field'    => 'email',
-                    'required' => true,
+            'field' => 'email',
+            'required' => true,
                 )
-            )
+                )
         );
 
         if ($this->validationHasFailed() == true) {
@@ -95,23 +105,12 @@ class Usuario extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Returns table name mapped in the model.
-     *
-     * @return string
-     */
-    public function getSource()
-    {
-        return 'usuario';
-    }
-
-    /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
      * @return Usuario[]
      */
-    public static function find($parameters = null)
-    {
+    public static function find($parameters = null) {
         return parent::find($parameters);
     }
 
@@ -121,9 +120,18 @@ class Usuario extends \Phalcon\Mvc\Model
      * @param mixed $parameters
      * @return Usuario
      */
-    public static function findFirst($parameters = null)
-    {
+    public static function findFirst($parameters = null) {
         return parent::findFirst($parameters);
+    }
+
+    /**
+     * Returns table name mapped in the model.
+     *
+     * @return string
+     */
+    public function getSource()
+    {
+        return 'usuario';
     }
 
 }

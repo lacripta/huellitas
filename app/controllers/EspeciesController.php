@@ -3,7 +3,7 @@
 /**
  * @RoutePrefix("/refugio/parametros/especies")
  */
-class EspeciesController extends ParametrosController {
+class EspeciesController extends WebServiceController {
 
     /**
      * @Route("/", methods = {"POST", "GET"})
@@ -13,61 +13,58 @@ class EspeciesController extends ParametrosController {
     }
 
     /**
-     * @Route("/listar", methods = {"POST"}, name = "listar-especies")
+     * @Route("/listar", methods = {"GET"}, name = "listar-especies")
      */
     public function listarAction() {
-        $usuario = Especies::find();
-        echo json_encode($usuario->toArray(), JSON_PRETTY_PRINT);
+        $especies = Especies::find();
+        $this->Ok($especies);
     }
 
     /**
      * @Route("/agregar", methods = {"POST"}, name = "agregar-especies")
      */
     public function agregarAction() {
-        $json = $this->request->getJsonRawBody('json');
-        $nuevo = json_decode($json->json, true);
-        $tabla = Phalcon\Mvc\Model::cloneResult(new Especies(), $nuevo);
+        $json = $this->request->getJsonRawBody(true);
+        $tabla = Phalcon\Mvc\Model::cloneResult(new Especies(), $json);
         $this->db->begin();
-        if ($tabla->update()) {
+        if ($tabla->create()) {
             $this->db->commit();
-            echo json_encode(array(
-                "mensaje" => "Cambios Realizados Correctamente",
-                "estado" => "Se ha creado la especie: " . $tabla->nombre,
-                "codigo" => "1"
-            ));
+            $this->Creado();
         } else {
-            $error = "";
-            echo json_encode(array(
-                "mensaje" => "No se Han realizado Cambios",
-                "estado" => $tabla->getMessages(),
-                "codigo" => "0"
-            ));
-            $this->db->rollback($error);
+            $this->db->rollback();
+            $this->SinCambios($tabla->getMessages());
         }
     }
 
     /**
-     * @Route("/borrar", methods = {"POST"}, name = "borrar-especies")
+     * @Route("/editar", methods = {"PUT"}, name = "editar-especies")
+     */
+    public function editarAction() {
+        $json = $this->request->getJsonRawBody(true);
+        $tabla = Phalcon\Mvc\Model::cloneResult(new Especies(), $json);
+        $this->db->begin();
+        if ($tabla->update()) {
+            $this->db->commit();
+            $this->Editado();
+        } else {
+            $this->db->rollback();
+            $this->SinCambios($tabla->getMessages());
+        }
+    }
+
+    /**
+     * @Route("/borrar", methods = {"DELETE"}, name = "borrar-especies")
      */
     public function borrarAction() {
-        $json = $this->request->getJsonRawBody('json');
-        $nuevo = json_decode($json->json, true);
-        $tabla = Phalcon\Mvc\Model::cloneResult(new Especies(), $nuevo);
+        $json = $this->request->getJsonRawBody(true);
+        $tabla = Phalcon\Mvc\Model::cloneResult(new Especies(), $json);
         $this->db->begin();
         if ($tabla->delete()) {
             $this->db->commit();
-            echo json_encode(array(
-                "mensaje" => "Cambios Realizados Correctamente",
-                "estado" => "Se ha borrado la especie: " . $nuevo["nombre"],
-                "codigo" => "1"
-            ));
+            $this->Borrado();
         } else {
-            echo json_encode(array(
-                "mensaje" => "No se Han realizado Cambios",
-                "estado" => $tabla->getMessages(),
-                "codigo" => "0"
-            ));
             $this->db->rollback();
+            $this->SinCambios($tabla->getMessages());
         }
     }
 

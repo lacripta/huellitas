@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="tabs-container">
+            <uib-tabset>
+                <uib-tab>
+                    <uib-tab-heading>
+                        Ingresar datos del animal
+                    </uib-tab-heading>
+                    <div class="panel-body" ng-option>
+                        <form name="datosAdopcion">
+                            <fieldset class="form-horizontal">
+                                <input-date titulo="Fecha de Adopción" valor="sselected.fecha"></input-date>
+                                <select-animales-adopcion titulo="Animal que adoptaran" animal="selected.adoptado"></select-animales-adopcion>
+                                <select-padrinos titulo="Persona que adopta" persona="selected.adopta"></select-padrinos>
+                                <select-estado-adopcion titulo="Estado de la adopción" estado="selected.estado"></select-estado-adopcion>
+                            </fieldset>
+                        </form>
+                        <div class="row">
+                            <div class="space-30"></div>
+                        </div>
+                        <div class="row text-center">
+                            <button class="btn btn-lg btn-info" type="submit" ng-click="ok(datosAdopcion.$valid)">guardar</button>
+                            <button class="btn btn-lg btn-danger" type="submit" ng-click="cancel()">cancelar</button>
+                        </div>
+                        <div class="row">
+                            <div class="space-30"></div>
+                        </div>
+                    </div>
+                </uib-tab>
+            </uib-tabset>
+        </div>
+    </div>
+</div>

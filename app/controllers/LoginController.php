@@ -1,11 +1,20 @@
 <?php
 
-class LoginController extends \Phalcon\Mvc\Controller {
+/**
+ * @RoutePrefix("/login")
+ */
+class LoginController extends Phalcon\Mvc\Controller {
 
+    /**
+     * @Route("/", methods = {"GET"})
+     */
     public function indexAction() {
 
     }
 
+    /**
+     * @Route("/auth", methods = {"POST"})
+     */
     public function authAction() {
 
         $post = $this->request->getJsonRawBody();
@@ -45,6 +54,9 @@ class LoginController extends \Phalcon\Mvc\Controller {
         }
     }
 
+    /**
+     * @Route("/salir", methods = {"GET","POST"})
+     */
     public function salirAction() {
         $this->session->destroy();
         $this->response->redirect("")->sendHeaders();

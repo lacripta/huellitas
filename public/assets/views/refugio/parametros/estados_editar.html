@@ -8,17 +8,16 @@
                     </uib-tab-heading>
                     <div class="panel-body">
                         <fieldset class="form-horizontal">
-                            <div class="form-group"><label class="col-sm-2 control-label">Descripcion</label>
-                                <div class="col-sm-10"><input type="text" class="form-control" ng-model="selected.descripcion"></div>
-                            </div>
+                            <input-text titulo="Descripción" valor="selected.descripcion"></input-text>
+                            <select-confirma titulo="Permite Adopción" accion="selected.adoptable"></select-confirma>
                         </fieldset>
+                        <div class="row text-center">
+                            <button class="btn btn-lg btn-info" type="submit" ng-click="ok()"><strong>guardar</strong></button>
+                            <button class="btn btn-lg btn-danger" type="submit" ng-click="cancel()"><strong>cancelar</strong></button>
+                        </div>
                     </div>
                 </uib-tab>
             </uib-tabset>
         </div>
-    </div>
-    <div class="col-lg-12 btn-group pull-right">
-        <button class="btn btn-lg btn-info m-t-n-xs" type="submit" ng-click="ok()"><strong>guardar</strong></button>
-        <button class="btn btn-lg btn-danger m-t-n-xs" type="submit" ng-click="cancel()"><strong>cancelar</strong></button>
     </div>
 </div>

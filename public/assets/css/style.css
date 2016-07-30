@@ -6,12 +6,7 @@
  *   version 2.4
  *
 */
-.ng-valid.ng-dirty{
-    border-color: #ed5565;
-}
-.ng-invalid.ng-dirty{
-    border-color: #19b293;
-}
+
 .logo-circular{
     padding: 15px;
     background-color: white;
