@@ -13,61 +13,58 @@ class ColoresController extends WebServiceController {
     }
 
     /**
-     * @Route("/listar", methods = {"POST"}, name = "listar-color")
+     * @Route("/listar", methods = {"GET"}, name = "listar-color")
      */
     public function listarAction() {
         $color = Colores::find();
-        echo json_encode($color->toArray(), JSON_PRETTY_PRINT);
+        $this->Ok($color);
     }
 
     /**
      * @Route("/agregar", methods = {"POST"}, name = "agregar-color")
      */
     public function agregarAction() {
-        $json = $this->request->getJsonRawBody('json');
-        $nuevo = json_decode($json->json, true);
-        $tabla = Phalcon\Mvc\Model::cloneResult(new Colores(), $nuevo);
+        $json = $this->request->getJsonRawBody(true);
+        $tabla = Phalcon\Mvc\Model::cloneResult(new Colores(), $json);
         $this->db->begin();
-        if ($tabla->update()) {
+        if ($tabla->create()) {
             $this->db->commit();
-            echo json_encode(array(
-                "mensaje" => "Cambios Realizados Correctamente",
-                "estado" => "Se ha creado el color: " . $tabla->nombre,
-                "codigo" => "1"
-            ));
+            $this->Creado();
         } else {
-            $error = "";
-            echo json_encode(array(
-                "mensaje" => "No se Han realizado Cambios",
-                "estado" => $tabla->getMessages(),
-                "codigo" => "0"
-            ));
-            $this->db->rollback($error);
+            $this->db->rollback();
+            $this->SinCambios($tabla->getMessages());
         }
     }
 
     /**
-     * @Route("/borrar", methods = {"POST"}, name = "borrar-color")
+     * @Route("/editar", methods = {"PUT"}, name = "editar-color")
+     */
+    public function editarAction() {
+        $json = $this->request->getJsonRawBody(true);
+        $tabla = Phalcon\Mvc\Model::cloneResult(new Colores(), $json);
+        $this->db->begin();
+        if ($tabla->update()) {
+            $this->db->commit();
+            $this->Editado();
+        } else {
+            $this->db->rollback();
+            $this->SinCambios($tabla->getMessages());
+        }
+    }
+
+    /**
+     * @Route("/borrar", methods = {"DELETE"}, name = "borrar-color")
      */
     public function borrarAction() {
-        $json = $this->request->getJsonRawBody('json');
-        $nuevo = json_decode($json->json, true);
-        $tabla = Phalcon\Mvc\Model::cloneResult(new Colores(), $nuevo);
+        $json = $this->request->getJsonRawBody(true);
+        $tabla = Phalcon\Mvc\Model::cloneResult(new Colores(), $json);
         $this->db->begin();
         if ($tabla->delete()) {
             $this->db->commit();
-            echo json_encode(array(
-                "mensaje" => "Cambios Realizados Correctamente",
-                "estado" => "Se ha borrado el color: " . $nuevo["nombre"],
-                "codigo" => "1"
-            ));
+            $this->Borrado();
         } else {
-            echo json_encode(array(
-                "mensaje" => "No se Han realizado Cambios",
-                "estado" => $tabla->getMessages(),
-                "codigo" => "0"
-            ));
             $this->db->rollback();
+            $this->SinCambios($tabla->getMessages());
         }
     }
 

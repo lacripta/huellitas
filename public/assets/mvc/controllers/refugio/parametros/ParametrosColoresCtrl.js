@@ -1,18 +1,9 @@
-
-function ParametrosColoresController($scope, $uibModal, $http, DTOptionsBuilder, DTColumnBuilder, SweetAlert) {
+function ParametrosColoresController($scope, $uibModal, DTOptionsBuilder, DTColumnBuilder, SweetAlert, Colores, Notificar) {
     var vm = this;
-
-    vm.dtOptions = DTOptionsBuilder.newOptions()
+    vm.dtOptions = DTOptionsBuilder.fromFnPromise(Colores.listar())
             .withDOM('lfrti')
             .withDisplayLength(25)
             .withLanguageSource('assets/js/dtSpanish.json')
-            .withOption('ajax', {
-                // Either you specify the AjaxDataProp here
-                //dataSrc: 'data',
-                url: '/easyapp/refugio/parametros/colores/listar',
-                type: 'POST',
-                data: {cosa: ''}
-            })
             .withOption('stateSave', true)
             .withPaginationType('full_numbers')
             .withOption('deferRender', true)
@@ -40,6 +31,7 @@ function ParametrosColoresController($scope, $uibModal, $http, DTOptionsBuilder,
 
     function nuevoArticulo() {
         $scope.selected = {};
+        $scope.selected.accion = 'nuevo';
         var modalInstance = $uibModal.open({
             templateUrl: "assets/views/refugio/parametros/colores_editar.html",
             controller: ColoresModalController,
@@ -63,30 +55,20 @@ function ParametrosColoresController($scope, $uibModal, $http, DTOptionsBuilder,
                 closeOnCancel: false
             }, function (isConfirm) {
                 if (isConfirm) {
-                    $http.post('/easyapp/refugio/parametros/colores/borrar', {json: JSON.stringify($scope.selected)}).success(function (data) {
-                        SweetAlert.swal(data.mensaje, data.estado, data.codigo === "1" ? "success" : "error");
-                        $scope.dtEditarArtiulo.reloadData();
-                    });
+                    Colores.borrar($scope.selected);
+                    $scope.dtEditarArtiulo.changeData(Colores.listar());
+                    $scope.selected = {};
                 } else {
-                    SweetAlert.swal("Operación Cancelada", "La tarea ha sido cancelada por el usuario", "error");
+                    Notificar.cancelado();
                 }
             });
         } else {
-            SweetAlert.swal({
-                title: "No puede Realizar la accion Solicitada",
-                text: "Debe marcar uno de los elementos de la tabla como seleccionado",
-                type: "warning",
-                showCancelButton: false,
-                confirmButtonText: "Aceptar",
-                closeOnConfirm: true,
-                closeOnCancel: true
-            });
+            Notificar.seleccionar();
         }
     }
 
     function editarSeleccionado() {
         if ($scope.selected = $scope.dtEditarArtiulo.DataTable.row('.selected').data()) {
-            //$scope.selected = $scope.dtEditarArtiulo.DataTable.row('.selected').data();
             $scope.selected.accion = 'editar';
             var modalInstance = $uibModal.open({
                 templateUrl: "assets/views/refugio/parametros/colores_editar.html",
@@ -96,34 +78,24 @@ function ParametrosColoresController($scope, $uibModal, $http, DTOptionsBuilder,
                 windowClass: "animated fadeIn"
             });
         } else {
-            SweetAlert.swal({
-                title: "No puede Realizar la accion Solicitada",
-                text: "Debe marcar uno de los elementos de la tabla como seleccionado",
-                type: "warning",
-                showCancelButton: false,
-                confirmButtonText: "Aceptar",
-                closeOnConfirm: true,
-                closeOnCancel: true
-            });
+            Notificar.seleccionar();
         }
     }
 }
-function ColoresModalController($scope, $uibModalInstance, $http, SweetAlert) {
-    $scope.ok = function () {
-        $http.post('/easyapp/refugio/parametros/colores/agregar', {json: JSON.stringify($scope.selected)}).success(function (data) {
+function ColoresModalController($scope, $uibModalInstance, Colores, Notificar) {
+    $scope.ok = function (ok) {
+        if (ok) {
+            if ($scope.selected.accion === 'nuevo') {
+                Colores.nuevo($scope.selected);
+            } else if ($scope.selected.accion === 'editar') {
+                Colores.editar($scope.selected);
+            }
             $uibModalInstance.close();
-            $scope.dtEditarArtiulo.reloadData();
-            SweetAlert.swal({
-                title: data.mensaje,
-                text: data.estado,
-                type: data.codigo === "1" ? "success" : "error",
-                showCancelButton: false,
-                confirmButtonText: "Aceptar",
-                closeOnConfirm: true,
-                closeOnCancel: true
-            });
+            $scope.dtEditarArtiulo.changeData(Colores.listar());
             $scope.selected = {};
-        });
+        } else {
+            Notificar.form();
+        }
     };
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');

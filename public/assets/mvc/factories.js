@@ -127,6 +127,50 @@ function Razas(RazasRest, Notificar) {
     return Raza;
 }
 
+function Colores(ColoresRest, Notificar) {
+    var Raza = {};
+
+    Raza.listar = function () {
+        return ColoresRest.listar();
+    };
+
+    Raza.buscar = function (id) {
+        return ColoresRest.buscar(id);
+    };
+
+    Raza.nuevo = function (selected) {
+        if (selected) {
+            ColoresRest.nuevo(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function () {
+                Notificar.error();
+            });
+        }
+    };
+
+    Raza.editar = function (selected) {
+        if (selected) {
+            ColoresRest.editar(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function () {
+                Notificar.error();
+            });
+        }
+    };
+
+    Raza.borrar = function (selected) {
+        if (selected) {
+            ColoresRest.borrar(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function () {
+                Notificar.error();
+            });
+        }
+    };
+
+    return Raza;
+}
+
 function Especies(EspeciesRest, Notificar) {
     var Especie = {};
 
@@ -348,6 +392,7 @@ angular
         .factory('Personas', Personas)
         .factory('Sexos', Sexos)
         .factory('Razas', Razas)
+        .factory('Colores', Colores)
         .factory('Especies', Especies)
         .factory('EstadosAnimales', EstadosAnimales)
         .factory('Adopciones', Adopciones)

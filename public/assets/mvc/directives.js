@@ -170,7 +170,7 @@ function selectEstados(EstadosAnimales, Notificar) {
         }
     };
 }
-function selectColores() {
+function selectColores(Colores) {
     return {
         restrict: 'E',
         templateUrl: '/easyapp/assets/templates/select-animales-colores.html',
@@ -178,8 +178,8 @@ function selectColores() {
             color: '=',
             titulo: '@'
         },
-        controller: function ($http, $scope) {
-            $http.post('/easyapp/refugio/parametros/colores/listar').then(function (data) {
+        controller: function ($scope) {
+            Colores.listar().then(function (data) {
                 $scope.colores = data.data;
             });
         }
