@@ -1,22 +1,12 @@
 
-function ParametrosRazasController($scope, $uibModal, $http, DTOptionsBuilder, DTColumnBuilder, SweetAlert) {
+function ParametrosRazasController($scope, $uibModal, DTOptionsBuilder, DTColumnBuilder, SweetAlert, Razas, Notificar) {
     var vm = this;
     vm.especies = {};
     $scope.raza = {};
-    $http.post('/easyapp/refugio/parametros/especies/listar').then(function (data) {
-        vm.especies = data.data;
-    });
-    vm.dtOptions = DTOptionsBuilder.newOptions()
+    vm.dtOptions = DTOptionsBuilder.fromFnPromise(Razas.listar())
             .withDOM('lfrti')
             .withDisplayLength(25)
             .withLanguageSource('assets/js/dtSpanish.json')
-            .withOption('ajax', {
-                // Either you specify the AjaxDataProp here
-                //dataSrc: 'data',
-                url: '/easyapp/refugio/parametros/razas/listar',
-                type: 'POST',
-                data: {cosa: ''}
-            })
             .withOption('stateSave', true)
             .withPaginationType('full_numbers')
             .withOption('deferRender', true)
@@ -46,6 +36,7 @@ function ParametrosRazasController($scope, $uibModal, $http, DTOptionsBuilder, D
 
     function nuevoArticulo() {
         $scope.selected = {};
+        $scope.selected.accion = 'nuevo';
         var modalInstance = $uibModal.open({
             templateUrl: "assets/views/refugio/parametros/razas_editar.html",
             controller: RazasModalController,
@@ -69,24 +60,15 @@ function ParametrosRazasController($scope, $uibModal, $http, DTOptionsBuilder, D
                 closeOnCancel: false
             }, function (isConfirm) {
                 if (isConfirm) {
-                    $http.post('/easyapp/refugio/parametros/razas/borrar', {json: JSON.stringify($scope.selected)}).success(function (data) {
-                        SweetAlert.swal(data.mensaje, data.estado, data.codigo === "1" ? "success" : "error");
-                        $scope.dtEditarArtiulo.reloadData();
-                    });
+                    Razas.borrar($scope.selected);
+                    $scope.dtEditarArtiulo.changeData(Razas.listar());
+                    $scope.selected = {};
                 } else {
-                    SweetAlert.swal("Operación Cancelada", "La tarea ha sido cancelada por el usuario", "error");
+                    Notificar.cancelado();
                 }
             });
         } else {
-            SweetAlert.swal({
-                title: "No puede Realizar la accion Solicitada",
-                text: "Debe marcar uno de los elementos de la tabla como seleccionado",
-                type: "warning",
-                showCancelButton: false,
-                confirmButtonText: "Aceptar",
-                closeOnConfirm: true,
-                closeOnCancel: true
-            });
+            Notificar.seleccionar()();
         }
     }
 
@@ -102,35 +84,24 @@ function ParametrosRazasController($scope, $uibModal, $http, DTOptionsBuilder, D
                 windowClass: "animated fadeIn"
             });
         } else {
-            SweetAlert.swal({
-                title: "No puede Realizar la accion Solicitada",
-                text: "Debe marcar uno de los elementos de la tabla como seleccionado",
-                type: "warning",
-                showCancelButton: false,
-                confirmButtonText: "Aceptar",
-                closeOnConfirm: true,
-                closeOnCancel: true
-            });
+            Notificar.seleccionar();
         }
     }
 }
-function RazasModalController($scope, $uibModalInstance, $http, SweetAlert) {
-    $scope.ok = function () {
-        $scope.selected.id_especie = $scope.selected.id_especie.id;
-        $http.post('/easyapp/refugio/parametros/razas/agregar', {json: JSON.stringify($scope.selected)}).success(function (data) {
+function RazasModalController($scope, $uibModalInstance, Razas, Notificar) {
+    $scope.ok = function (ok) {
+        if (ok) {
+            if ($scope.selected.accion === 'nuevo') {
+                Razas.nuevo($scope.selected);
+            } else if ($scope.selected.accion === 'editar') {
+                Razas.editar($scope.selected);
+            }
             $uibModalInstance.close();
-            $scope.dtEditarArtiulo.reloadData();
-            SweetAlert.swal({
-                title: data.mensaje,
-                text: data.estado,
-                type: data.codigo === "1" ? "success" : "error",
-                showCancelButton: false,
-                confirmButtonText: "Aceptar",
-                closeOnConfirm: true,
-                closeOnCancel: true
-            });
+            $scope.dtEditarArtiulo.changeData(Razas.listar());
             $scope.selected = {};
-        });
+        } else {
+            Notificar.form();
+        }
     };
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');

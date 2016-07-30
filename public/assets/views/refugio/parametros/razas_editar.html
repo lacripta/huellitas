@@ -7,16 +7,18 @@
                         Razas de Animales
                     </uib-tab-heading>
                     <div class="panel-body" ng-option>
-                        <fieldset class="form-horizontal">
-                            <select-especie especie="selected.id_especie"></select-especie>
-                            <input-text titulo="Nombre" valor="selected.nombre"></input-text>
-                            <div class="space-30"></div>
-                            <div class="row text-center">
-                                <button class="btn btn-lg btn-info" type="submit" ng-click="ok()">guardar</button>
-                                <button class="btn btn-lg btn-danger" type="submit" ng-click="cancel()">cancelar</button>
-                            </div>
-                            <div class="space-30"></div>
-                        </fieldset>
+                        <form name="razasDatos">
+                            <fieldset class="form-horizontal">
+                                <select-especie especie="selected.id_especie"></select-especie>
+                                <input-text titulo="Nombre" valor="selected.nombre"></input-text>
+                                <div class="space-30"></div>
+                                <div class="row text-center">
+                                    <button class="btn btn-lg btn-info" type="submit" ng-click="ok(razasDatos.$valid)">guardar</button>
+                                    <button class="btn btn-lg btn-danger" type="submit" ng-click="cancel()">cancelar</button>
+                                </div>
+                                <div class="space-30"></div>
+                            </fieldset>
+                        </form>
                     </div>
                 </uib-tab>
             </uib-tabset>

@@ -247,7 +247,7 @@ function selectConfirma() {
         }
     };
 }
-function selectEspecie() {
+function selectEspecie(Especies) {
     return {
         restrict: 'E',
         templateUrl: '/easyapp/assets/templates/select-animales-especies.html',
@@ -255,8 +255,8 @@ function selectEspecie() {
             especie: '='
         },
         controller: function ($http, $scope) {
-            $http.post('/easyapp/refugio/parametros/especies/listar').then(function (data) {
-                $scope.especies = data.data;
+            Especies.listar().then(function (data) {
+                $scope.especies = data;
             });
         }
     };
