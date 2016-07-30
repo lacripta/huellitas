@@ -87,12 +87,15 @@ function EspeciesModalController($scope, $uibModalInstance, Especies, Notificar)
         if (ok) {
             if ($scope.selected.accion === 'nuevo') {
                 Especies.nuevo($scope.selected);
+                $uibModalInstance.close();
+                $scope.dtEditarArtiulo.changeData(Especies.listar());
+                $scope.selected = {};
             } else if ($scope.selected.accion === 'editar') {
                 Especies.editar($scope.selected);
+                $uibModalInstance.close();
+                $scope.dtEditarArtiulo.changeData(Especies.listar());
+                $scope.selected = {};
             }
-            $uibModalInstance.close();
-            $scope.dtEditarArtiulo.changeData(Especies.listar());
-            $scope.selected = {};
         } else {
             Notificar.form();
         }
