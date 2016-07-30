@@ -87,12 +87,15 @@ function ColoresModalController($scope, $uibModalInstance, Colores, Notificar) {
         if (ok) {
             if ($scope.selected.accion === 'nuevo') {
                 Colores.nuevo($scope.selected);
+                $uibModalInstance.close();
+                $scope.dtEditarArtiulo.changeData(Colores.listar());
+                $scope.selected = {};
             } else if ($scope.selected.accion === 'editar') {
                 Colores.editar($scope.selected);
+                $uibModalInstance.close();
+                $scope.dtEditarArtiulo.changeData(Colores.listar());
+                $scope.selected = {};
             }
-            $uibModalInstance.close();
-            $scope.dtEditarArtiulo.changeData(Colores.listar());
-            $scope.selected = {};
         } else {
             Notificar.form();
         }
