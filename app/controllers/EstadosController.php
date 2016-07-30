@@ -17,54 +17,38 @@ class EstadosController extends WebServiceController {
      */
     public function listarAction() {
         $color = EstadoAnimal::find();
-        echo json_encode($color->toArray(), JSON_PRETTY_PRINT);
+        $this->Ok($color);
     }
 
     /**
      * @Route("/agregar", methods = {"POST"}, name = "agregar-estado")
      */
     public function agregarAction() {
-        $json = $this->request->getJsonRawBody(TRUE);
+        $json = $this->request->getJsonRawBody(true);
         $tabla = Phalcon\Mvc\Model::cloneResult(new EstadoAnimal(), $json);
         $this->db->begin();
         if ($tabla->create()) {
             $this->db->commit();
-            echo json_encode(array(
-                "mensaje" => "Registro Creado Correctamente",
-                "estado" => "Se ha creado el estado: " . $tabla->descripcion,
-                "codigo" => "1"
-            ));
+            $this->Creado();
         } else {
-            echo json_encode(array(
-                "mensaje" => "No se Han realizado Cambios",
-                "estado" => $tabla->getMessages(),
-                "codigo" => "0"
-            ));
             $this->db->rollback();
+            $this->SinCambios($tabla->getMessages());
         }
     }
 
     /**
-     * @Route("/agregar", methods = {"PUT"}, name = "editar-estado")
+     * @Route("/editar", methods = {"PUT"}, name = "editar-estado")
      */
     public function editarAction() {
-        $json = $this->request->getJsonRawBody(TRUE);
+        $json = $this->request->getJsonRawBody(true);
         $tabla = Phalcon\Mvc\Model::cloneResult(new EstadoAnimal(), $json);
         $this->db->begin();
         if ($tabla->update()) {
             $this->db->commit();
-            echo json_encode(array(
-                "mensaje" => "Datos Actualizados Correctamente",
-                "estado" => "Se ha modificado el estado: " . $tabla->descripcion,
-                "codigo" => "1"
-            ));
+            $this->Editado();
         } else {
-            echo json_encode(array(
-                "mensaje" => "No se Han realizado Cambios",
-                "estado" => $tabla->getMessages(),
-                "codigo" => "0"
-            ));
             $this->db->rollback();
+            $this->SinCambios($tabla->getMessages());
         }
     }
 
@@ -77,18 +61,10 @@ class EstadosController extends WebServiceController {
         $this->db->begin();
         if ($tabla->delete()) {
             $this->db->commit();
-            echo json_encode(array(
-                "mensaje" => "Cambios Realizados Correctamente",
-                "estado" => "Se ha borrado el estado: " . $json["descripcion"],
-                "codigo" => "1"
-            ));
+            $this->Borrado();
         } else {
-            echo json_encode(array(
-                "mensaje" => "No se Han realizado Cambios",
-                "estado" => $tabla->getMessages(),
-                "codigo" => "0"
-            ));
             $this->db->rollback();
+            $this->SinCambios($tabla->getMessages());
         }
     }
 

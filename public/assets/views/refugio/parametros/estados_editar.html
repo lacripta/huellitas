@@ -7,12 +7,14 @@
                         Estados de Animales
                     </uib-tab-heading>
                     <div class="panel-body">
-                        <fieldset class="form-horizontal">
-                            <input-text titulo="Descripción" valor="selected.descripcion"></input-text>
-                            <select-confirma titulo="Permite Adopción" accion="selected.adoptable"></select-confirma>
-                        </fieldset>
+                        <form name="estadosDatos">
+                            <fieldset class="form-horizontal">
+                                <input-text titulo="Descripción" valor="selected.descripcion"></input-text>
+                                <select-confirma titulo="Permite Adopción" accion="selected.adoptable"></select-confirma>
+                            </fieldset>
+                        </form>
                         <div class="row text-center">
-                            <button class="btn btn-lg btn-info" type="submit" ng-click="ok()"><strong>guardar</strong></button>
+                            <button class="btn btn-lg btn-info" type="submit" ng-click="ok(estadosDatos.$valid)"><strong>guardar</strong></button>
                             <button class="btn btn-lg btn-danger" type="submit" ng-click="cancel()"><strong>cancelar</strong></button>
                         </div>
                     </div>
