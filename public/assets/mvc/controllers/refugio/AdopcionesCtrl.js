@@ -99,12 +99,15 @@ function AdopcionesModalController($scope, $uibModalInstance, Adopciones, Notifi
         if (ok) {
             if ($scope.selected.accion === 'nuevo') {
                 Adopciones.nuevo($scope.selected);
+                $scope.dtInstance.changeData(Adopciones.listar());
+                $uibModalInstance.close();
+                $scope.selected = {};
             } else if ($scope.selected.accion === 'editar') {
                 Adopciones.editar($scope.selected);
+                $scope.dtInstance.changeData(Adopciones.listar());
+                $uibModalInstance.close();
+                $scope.selected = {};
             }
-            $scope.dtInstance.changeData(Adopciones.listar());
-            $uibModalInstance.close();
-            $scope.selected = {};
         } else {
             Notificar.form();
         }
