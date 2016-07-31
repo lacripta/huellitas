@@ -694,6 +694,91 @@ function EstadosAnimalesRest($http, $q) {
     }
 }
 
+function EstadoAdopcionRest($http, $q) {
+    return {
+        listar: listarTodas,
+        buscar: buscar,
+        nuevo: guardar,
+        editar: editar,
+        borrar: borrar
+    };
+    function listarTodas() {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'GET',
+            url: '/easyapp/refugio/parametros/adopciones/estados/listar',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+    function buscar(id) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'GET',
+            url: '/easyapp/refugio/parametros/adopciones/estados/listar/' + id,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+    function guardar(datos) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'POST',
+            url: '/easyapp/refugio/parametros/adopciones/estados/agregar',
+            data: datos,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+
+    function editar(datos) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'PUT',
+            url: '/easyapp/refugio/parametros/adopciones/estados/editar',
+            data: datos,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+
+    function borrar(datos) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'DELETE',
+            url: '/easyapp/refugio/parametros/adopciones/estados/borrar',
+            data: datos,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+}
+
 angular
         .module('easyapp')
         .service('AnimalesRest', AnimalesRest)
@@ -701,6 +786,7 @@ angular
         .service('RazasRest', RazasRest)
         .service('ColoresRest', ColoresRest)
         .service('EspeciesRest', EspeciesRest)
+        .service('EstadoAdopcionRest', EstadoAdopcionRest)
         .service('AdopcionesRest', AdopcionesRest)
         .service('EstadosAnimalesRest', EstadosAnimalesRest)
         .service('PersonasRest', PersonasRest);

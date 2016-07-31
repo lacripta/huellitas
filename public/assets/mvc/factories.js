@@ -259,6 +259,50 @@ function EstadosAnimales(EstadosAnimalesRest, Notificar) {
     return Estado;
 }
 
+function EstadoAdopcion(EstadoAdopcionRest, Notificar) {
+    var Estado = {};
+
+    Estado.listar = function () {
+        return EstadoAdopcionRest.listar();
+    };
+
+    Estado.buscar = function (id) {
+        return EstadoAdopcionRest.buscar(id);
+    };
+
+    Estado.nuevo = function (selected) {
+        if (selected) {
+            EstadoAdopcionRest.nuevo(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function () {
+                Notificar.error();
+            });
+        }
+    };
+
+    Estado.editar = function (selected) {
+        if (selected) {
+            EstadoAdopcionRest.editar(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function () {
+                Notificar.error();
+            });
+        }
+    };
+
+    Estado.borrar = function (selected) {
+        if (selected) {
+            EstadoAdopcionRest.borrar(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function () {
+                Notificar.error();
+            });
+        }
+    };
+
+    return Estado;
+}
+
 function Personas(PersonasRest, Notificar) {
     var Persona = {};
 
@@ -395,5 +439,6 @@ angular
         .factory('Colores', Colores)
         .factory('Especies', Especies)
         .factory('EstadosAnimales', EstadosAnimales)
+        .factory('EstadoAdopcion', EstadoAdopcion)
         .factory('Adopciones', Adopciones)
         .factory('Notificar', Notificar);

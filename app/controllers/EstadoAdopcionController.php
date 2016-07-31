@@ -13,13 +13,13 @@ class EstadoAdopcionController extends WebServiceController {
     }
 
     /**
-     * @Route("/listar", methods = {"POST"}, name = "listar-estadoAdopcion")
+     * @Route("/listar", methods = {"GET"}, name = "listar-estadoAdopcion")
      */
     public function listarAction() {
         $estados = EstadoAdopcion::find(array("order" => "id"));
-        $razas = array();
+        $salida = array();
         foreach ($estados as $key) {
-            $razas[] = array(
+            $salida[] = array(
                 "id" => $key->id,
                 "descripcion" => $key->descripcion,
                 "estado_final" => $key->estado_final,
@@ -28,57 +28,54 @@ class EstadoAdopcionController extends WebServiceController {
                 "desborrar" => $key->EstadoBorrar->descripcion
             );
         }
-        echo json_encode($razas, JSON_PRETTY_PRINT);
+        $this->Ok($salida);
     }
 
     /**
      * @Route("/agregar", methods = {"POST"}, name = "agregar-estadoAdopcion")
      */
     public function agregarAction() {
-        $json = $this->request->getJsonRawBody('json');
-        $nuevo = json_decode($json->json, true);
-        $tabla = Phalcon\Mvc\Model::cloneResult(new EstadoAdopcion(), $nuevo);
+        $json = $this->request->getJsonRawBody(true);
+        $tabla = Phalcon\Mvc\Model::cloneResult(new EstadoAdopcion(), $json);
         $this->db->begin();
-        if ($tabla->update()) {
+        if ($tabla->create()) {
             $this->db->commit();
-            echo json_encode(array(
-                "mensaje" => "Cambios Realizados Correctamente",
-                "estado" => "Se ha creado el estado: " . $tabla->descripcion,
-                "codigo" => "1"
-            ));
+            $this->Creado();
         } else {
-            $error = "";
-            echo json_encode(array(
-                "mensaje" => "No se Han realizado Cambios",
-                "estado" => $tabla->getMessages(),
-                "codigo" => "0"
-            ));
-            $this->db->rollback($error);
+            $this->db->rollback();
+            $this->SinCambios($tabla->getMessages());
         }
     }
 
     /**
-     * @Route("/borrar", methods = {"POST"}, name = "borrar-estadoAdopcion")
+     * @Route("/editar", methods = {"PUT"}, name = "editar-estadoAdopcion")
+     */
+    public function editarAction() {
+        $json = $this->request->getJsonRawBody(true);
+        $tabla = Phalcon\Mvc\Model::cloneResult(new EstadoAdopcion(), $json);
+        $this->db->begin();
+        if ($tabla->update()) {
+            $this->db->commit();
+            $this->Editado();
+        } else {
+            $this->db->rollback();
+            $this->SinCambios($tabla->getMessages());
+        }
+    }
+
+    /**
+     * @Route("/borrar", methods = {"DELETE"}, name = "borrar-estadoAdopcion")
      */
     public function borrarAction() {
-        $json = $this->request->getJsonRawBody('json');
-        $nuevo = json_decode($json->json, true);
-        $tabla = Phalcon\Mvc\Model::cloneResult(new EstadoAdopcion(), $nuevo);
+        $json = $this->request->getJsonRawBody(TRUE);
+        $tabla = Phalcon\Mvc\Model::cloneResult(new EstadoAdopcion(), $json);
         $this->db->begin();
         if ($tabla->delete()) {
             $this->db->commit();
-            echo json_encode(array(
-                "mensaje" => "Cambios Realizados Correctamente",
-                "estado" => "Se ha borrado el estado: " . $nuevo["descripcion"],
-                "codigo" => "1"
-            ));
+            $this->Borrado();
         } else {
-            echo json_encode(array(
-                "mensaje" => "No se Han realizado Cambios",
-                "estado" => $tabla->getMessages(),
-                "codigo" => "0"
-            ));
             $this->db->rollback();
+            $this->SinCambios($tabla->getMessages());
         }
     }
 
