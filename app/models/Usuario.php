@@ -2,8 +2,7 @@
 
 use Phalcon\Mvc\Model\Validator\Email as Email;
 
-class Usuario extends \Phalcon\Mvc\Model
-{
+class Usuario extends \Phalcon\Mvc\Model {
 
     /**
      *
@@ -74,9 +73,9 @@ class Usuario extends \Phalcon\Mvc\Model
     /**
      * Initialize method for model.
      */
-    public function initialize()
-    {
+    public function initialize() {
         $this->hasMany('sid', 'Novedades', 'autor', array('alias' => 'Novedades'));
+        $this->hasMany('sid', 'PermisosUsuario', 'sid', array('alias' => 'PermisosUsuario'));
         $this->hasMany('sid', 'Personas', 'sid', array('alias' => 'Personas'));
         $this->belongsTo('estado', 'EstadoUsuario', 'id', array('alias' => 'EstadoUsuario'));
         $this->belongsTo('grupo', 'TipoUsuario', 'nombre', array('alias' => 'TipoUsuario'));
@@ -88,14 +87,7 @@ class Usuario extends \Phalcon\Mvc\Model
      * @return boolean
      */
     public function validation() {
-        $this->validate(
-                new Email(
-                array(
-            'field' => 'email',
-            'required' => true,
-                )
-                )
-        );
+        $this->validate(new Email(array('field' => 'email', 'required' => true,)));
 
         if ($this->validationHasFailed() == true) {
             return false;
@@ -129,8 +121,7 @@ class Usuario extends \Phalcon\Mvc\Model
      *
      * @return string
      */
-    public function getSource()
-    {
+    public function getSource() {
         return 'usuario';
     }
 

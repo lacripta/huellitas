@@ -9,15 +9,15 @@ class AnimalImagenController extends WebServiceController {
      * @Route("/", methods = {"POST", "GET"})
      */
     public function indexAction() {
-        $this->response->redirect("login")->sendHeaders();
+        $this->Denegado();
     }
 
     /**
      * @Route("/listar/{id:[0-9]+}", methods = {"POST"}, name = "listar-imagenes-animal")
      */
     public function listarAction($id) {
-        $animal = AnimalImagen::find("id_animal = $id");
-        echo json_encode($animal->toArray(), JSON_PRETTY_PRINT);
+        $animal = AnimalImagen::find(["conditions" => "id_animal = ?1", "bind" => [1 => $id]]);
+        $this->Ok($animal);
     }
 
 }

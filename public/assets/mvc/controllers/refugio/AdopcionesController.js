@@ -9,7 +9,6 @@ function AdopcionesController($scope, $uibModal, $http, DTOptionsBuilder, DTColu
     $scope.animales = {};
 
     vm.dtOptions = DTOptionsBuilder.fromFnPromise(Adopciones.listar())
-            .withDOM('lfrti')
             .withDisplayLength(25)
             .withLanguageSource('assets/js/dtSpanish.json')
             .withOption('stateSave', true)

@@ -237,6 +237,13 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                 controller: 'AdopcionesController',
                 controllerAs: 'adopt'
             })
+            .state('refugio.personas', {
+                url: "/personas",
+                data: {pageTitle: 'Personas Registradas', pageDesc: 'Gestión de Datos personales'},
+                templateUrl: "assets/views/refugio/personas/personas.html",
+                controller: 'PersonasController',
+                controllerAs: 'per'
+            })
             .state('refugio.animales', {
                 url: "/animales",
                 data: {pageTitle: 'Gestión de Animales', pageDesc: 'Animales que estan bajo el cuidado del refugió'},

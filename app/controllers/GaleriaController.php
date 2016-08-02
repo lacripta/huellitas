@@ -9,7 +9,7 @@ class GaleriaController extends WebServiceController {
      * @Route("/", methods = {"GET"})
      */
     public function indexAction() {
-        $this->response->redirect("login")->sendHeaders();
+        $this->Denegado();
     }
 
     /**

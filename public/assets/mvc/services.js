@@ -95,7 +95,6 @@ function AnimalesRest($http, $q) {
         return promise;
     }
 }
-
 function PersonasRest($http, $q) {
     return {
         listar: listarTodas,
@@ -193,7 +192,6 @@ function PersonasRest($http, $q) {
         return promise;
     }
 }
-
 function AdopcionesRest($http, $q) {
     return {
         listar: listarTodas,
@@ -276,7 +274,6 @@ function AdopcionesRest($http, $q) {
         return promise;
     }
 }
-
 function SexosRest($http, $q) {
     return {
         listar: listarTodas,
@@ -359,7 +356,6 @@ function SexosRest($http, $q) {
         return promise;
     }
 }
-
 function ColoresRest($http, $q) {
     return {
         listar: listarTodas,
@@ -442,7 +438,6 @@ function ColoresRest($http, $q) {
         return promise;
     }
 }
-
 function RazasRest($http, $q) {
     return {
         listar: listarTodas,
@@ -525,7 +520,6 @@ function RazasRest($http, $q) {
         return promise;
     }
 }
-
 function EspeciesRest($http, $q) {
     return {
         listar: listarTodas,
@@ -608,7 +602,6 @@ function EspeciesRest($http, $q) {
         return promise;
     }
 }
-
 function EstadosAnimalesRest($http, $q) {
     return {
         listar: listarTodas,
@@ -636,7 +629,7 @@ function EstadosAnimalesRest($http, $q) {
         var promise = defered.promise;
         $http({
             method: 'GET',
-            url: '/easyapp/refugio/parametros/estados/listar/' + id,
+            url: '/easyapp/refugio/parametros/estados/buscar/' + id,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function (data) {
             defered.resolve(data);
@@ -693,7 +686,6 @@ function EstadosAnimalesRest($http, $q) {
         return promise;
     }
 }
-
 function EstadoAdopcionRest($http, $q) {
     return {
         listar: listarTodas,
@@ -721,7 +713,7 @@ function EstadoAdopcionRest($http, $q) {
         var promise = defered.promise;
         $http({
             method: 'GET',
-            url: '/easyapp/refugio/parametros/adopciones/estados/listar/' + id,
+            url: '/easyapp/refugio/parametros/adopciones/estados/buscar/' + id,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function (data) {
             defered.resolve(data);
@@ -778,6 +770,510 @@ function EstadoAdopcionRest($http, $q) {
         return promise;
     }
 }
+function EstadoUsuarioRest($http, $q) {
+    return {
+        listar: listarTodas,
+        buscar: buscar,
+        nuevo: guardar,
+        editar: editar,
+        borrar: borrar
+    };
+    function listarTodas() {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'GET',
+            url: '/easyapp/configuracion/usuarios/estados/listar',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+    function buscar(id) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'GET',
+            url: '/easyapp//configuracion/usuarios/estados/buscar/' + id,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+    function guardar(datos) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'POST',
+            url: '/easyapp/configuracion/usuarios/estados/agregar',
+            data: datos,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+
+    function editar(datos) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'PUT',
+            url: '/easyapp/configuracion/usuarios/estados/editar',
+            data: datos,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+
+    function borrar(datos) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'DELETE',
+            url: '/easyapp/configuracion/usuarios/estados/borrar',
+            data: datos,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+}
+function TipoUsuarioRest($http, $q) {
+    return {
+        listar: listarTodas,
+        buscar: buscar,
+        nuevo: guardar,
+        editar: editar,
+        borrar: borrar
+    };
+    function listarTodas() {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'GET',
+            url: '/easyapp/configuracion/usuarios/tipos/listar',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+    function buscar(id) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'GET',
+            url: '/easyapp/configuracion/usuarios/tipos/buscar/' + id,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+    function guardar(datos) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'POST',
+            url: '/easyapp/configuracion/usuarios/tipos/agregar',
+            data: datos,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+
+    function editar(datos) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'PUT',
+            url: '/easyapp/configuracion/usuarios/tipos/editar',
+            data: datos,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+
+    function borrar(datos) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'DELETE',
+            url: '/easyapp/configuracion/usuarios/tipos/borrar',
+            data: datos,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+}
+function DepartamentoRest($http, $q) {
+    return {
+        listar: listarTodas,
+        buscar: buscar,
+        nuevo: guardar,
+        editar: editar,
+        borrar: borrar
+    };
+    function listarTodas() {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'GET',
+            url: '/easyapp/configuracion/regiones/departamentos/listar',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+    function buscar(id) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'GET',
+            url: '/easyapp/configuracion/regiones/departamentos/buscar/' + id,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+    function guardar(datos) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'POST',
+            url: '/easyapp/configuracion/regiones/departamentos/agregar',
+            data: datos,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+
+    function editar(datos) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'PUT',
+            url: '/easyapp/configuracion/regiones/departamentos/editar',
+            data: datos,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+
+    function borrar(datos) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'DELETE',
+            url: '/easyapp/configuracion/regiones/departamentos/borrar',
+            data: datos,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+}
+function MunicipioRest($http, $q) {
+    return {
+        listar: listarTodas,
+        buscar: buscar,
+        nuevo: guardar,
+        editar: editar,
+        borrar: borrar
+    };
+    function listarTodas() {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'GET',
+            url: '/easyapp/configuracion/regiones/municipios/listar',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+    function buscar(id) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'GET',
+            url: '/easyapp/configuracion/regiones/municipios/buscar/' + id,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+    function guardar(datos) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'POST',
+            url: '/easyapp/configuracion/regiones/municipios/agregar',
+            data: datos,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+
+    function editar(datos) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'PUT',
+            url: '/easyapp/configuracion/regiones/municipios/editar',
+            data: datos,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+
+    function borrar(datos) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'DELETE',
+            url: '/easyapp/configuracion/regiones/municipios/borrar',
+            data: datos,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+}
+function PoblacionRest($http, $q) {
+    return {
+        listar: listarTodas,
+        buscar: buscar,
+        nuevo: guardar,
+        editar: editar,
+        borrar: borrar
+    };
+    function listarTodas() {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'GET',
+            url: '/easyapp/configuracion/regiones/poblaciones/listar',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+    function buscar(id) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'GET',
+            url: '/easyapp/configuracion/regiones/poblaciones/buscar/' + id,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+    function guardar(datos) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'POST',
+            url: '/easyapp/configuracion/regiones/poblaciones/agregar',
+            data: datos,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+
+    function editar(datos) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'PUT',
+            url: '/easyapp/configuracion/regiones/poblaciones/editar',
+            data: datos,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+
+    function borrar(datos) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'DELETE',
+            url: '/easyapp/configuracion/regiones/poblaciones/borrar',
+            data: datos,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+}
+function AreaPoblacionRest($http, $q) {
+    return {
+        listar: listarTodas,
+        buscar: buscar,
+        nuevo: guardar,
+        editar: editar,
+        borrar: borrar
+    };
+    function listarTodas() {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'GET',
+            url: '/easyapp/configuracion/regiones/areas/listar',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+    function buscar(id) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'GET',
+            url: '/easyapp/configuracion/regiones/areas/buscar/' + id,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+    function guardar(datos) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'POST',
+            url: '/easyapp/configuracion/regiones/areas/agregar',
+            data: datos,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+
+    function editar(datos) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'PUT',
+            url: '/easyapp/configuracion/regiones/areas/editar',
+            data: datos,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+
+    function borrar(datos) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'DELETE',
+            url: '/easyapp/configuracion/regiones/areas/borrar',
+            data: datos,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+}
 
 angular
         .module('easyapp')
@@ -789,4 +1285,10 @@ angular
         .service('EstadoAdopcionRest', EstadoAdopcionRest)
         .service('AdopcionesRest', AdopcionesRest)
         .service('EstadosAnimalesRest', EstadosAnimalesRest)
+        .service('EstadoUsuarioRest', EstadoUsuarioRest)
+        .service('TipoUsuarioRest', TipoUsuarioRest)
+        .service('DepartamentoRest', DepartamentoRest)
+        .service('MunicipioRest', MunicipioRest)
+        .service('PoblacionRest', PoblacionRest)
+        .service('AreaPoblacionRest', AreaPoblacionRest)
         .service('PersonasRest', PersonasRest);

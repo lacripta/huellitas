@@ -9,7 +9,7 @@ class SexosController extends WebServiceController {
      * @Route("/", methods = {"POST", "GET"})
      */
     public function indexAction() {
-        $this->response->redirect("login")->sendHeaders();
+        $this->Denegado();
     }
 
     /**
@@ -18,6 +18,14 @@ class SexosController extends WebServiceController {
     public function listarAction() {
         $sexos = Sexos::find();
         $this->Ok($sexos);
+    }
+
+    /**
+     * @Route("/buscar/{id:[0-9]+}", methods = {"GET"}, name = "buscar-sexos")
+     */
+    public function buscarAction($id) {
+        $tabla = Sexos::findFirst(["conditions" => "id = ?1", "bind" => [1 => $id]]);
+        $this->Ok($tabla);
     }
 
 }

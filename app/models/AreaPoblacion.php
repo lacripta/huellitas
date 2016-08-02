@@ -1,13 +1,13 @@
 <?php
 
-class EstadoUsuario extends \Phalcon\Mvc\Model
+class AreaPoblacion extends \Phalcon\Mvc\Model
 {
 
     /**
      *
      * @var string
      */
-    public $id;
+    public $area;
 
     /**
      *
@@ -20,14 +20,24 @@ class EstadoUsuario extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->hasMany('id', 'Usuario', 'estado', array('alias' => 'Usuario'));
+        $this->hasMany('area', 'Personas', 'area', array('alias' => 'Personas'));
+    }
+
+    /**
+     * Returns table name mapped in the model.
+     *
+     * @return string
+     */
+    public function getSource()
+    {
+        return 'area_poblacion';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return EstadoUsuario[]
+     * @return AreaPoblacion[]
      */
     public static function find($parameters = null)
     {
@@ -38,21 +48,11 @@ class EstadoUsuario extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return EstadoUsuario
+     * @return AreaPoblacion
      */
     public static function findFirst($parameters = null)
     {
         return parent::findFirst($parameters);
-    }
-
-    /**
-     * Returns table name mapped in the model.
-     *
-     * @return string
-     */
-    public function getSource()
-    {
-        return 'estado_usuario';
     }
 
 }

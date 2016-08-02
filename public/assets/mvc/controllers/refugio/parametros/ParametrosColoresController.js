@@ -1,9 +1,6 @@
-
-function ParametrosEstadosController($scope, $uibModal, $http, DTOptionsBuilder, DTColumnBuilder, SweetAlert, EstadosAnimales, Notificar) {
+function ParametrosColoresController($scope, $uibModal, DTOptionsBuilder, DTColumnBuilder, SweetAlert, Colores, Notificar) {
     var vm = this;
-
-    vm.dtOptions = DTOptionsBuilder.fromFnPromise(EstadosAnimales.listar())
-            .withDOM('lfrti')
+    vm.dtOptions = DTOptionsBuilder.fromFnPromise(Colores.listar())
             .withDisplayLength(25)
             .withLanguageSource('assets/js/dtSpanish.json')
             .withOption('stateSave', true)
@@ -23,8 +20,7 @@ function ParametrosEstadosController($scope, $uibModal, $http, DTOptionsBuilder,
                 .renderWith(function () {
                     return '';
                 }),
-        DTColumnBuilder.newColumn('descripcion').withTitle('Descripcion'),
-        DTColumnBuilder.newColumn('adoptable').withTitle('Adoptable'),
+        DTColumnBuilder.newColumn('nombre').withTitle('Descripcion'),
         DTColumnBuilder.newColumn('id').withTitle('ID').notVisible()
     ];
     vm.editarSeleccionado = editarSeleccionado;
@@ -36,8 +32,8 @@ function ParametrosEstadosController($scope, $uibModal, $http, DTOptionsBuilder,
         $scope.selected = {};
         $scope.selected.accion = 'nuevo';
         var modalInstance = $uibModal.open({
-            templateUrl: "assets/views/refugio/parametros/estados_editar.html",
-            controller: EstadosAnimalModalController,
+            templateUrl: "assets/views/refugio/parametros/colores_editar.html",
+            controller: ColoresModalController,
             scope: $scope,
             size: 'lg',
             windowClass: "animated fadeIn"
@@ -58,8 +54,8 @@ function ParametrosEstadosController($scope, $uibModal, $http, DTOptionsBuilder,
                 closeOnCancel: false
             }, function (isConfirm) {
                 if (isConfirm) {
-                    EstadosAnimales.borrar($scope.selected);
-                    $scope.dtEditarArtiulo.changeData(EstadosAnimales.listar());
+                    Colores.borrar($scope.selected);
+                    $scope.dtEditarArtiulo.changeData(Colores.listar());
                     $scope.selected = {};
                 } else {
                     Notificar.cancelado();
@@ -72,11 +68,10 @@ function ParametrosEstadosController($scope, $uibModal, $http, DTOptionsBuilder,
 
     function editarSeleccionado() {
         if ($scope.selected = $scope.dtEditarArtiulo.DataTable.row('.selected').data()) {
-            //$scope.selected = $scope.dtEditarArtiulo.DataTable.row('.selected').data();
             $scope.selected.accion = 'editar';
             var modalInstance = $uibModal.open({
-                templateUrl: "assets/views/refugio/parametros/estados_editar.html",
-                controller: EstadosAnimalModalController,
+                templateUrl: "assets/views/refugio/parametros/colores_editar.html",
+                controller: ColoresModalController,
                 scope: $scope,
                 size: 'lg',
                 windowClass: "animated fadeIn"
@@ -86,18 +81,18 @@ function ParametrosEstadosController($scope, $uibModal, $http, DTOptionsBuilder,
         }
     }
 }
-function EstadosAnimalModalController($scope, $uibModalInstance, EstadosAnimales, Notificar) {
+function ColoresModalController($scope, $uibModalInstance, Colores, Notificar) {
     $scope.ok = function (ok) {
         if (ok) {
             if ($scope.selected.accion === 'nuevo') {
-                EstadosAnimales.nuevo($scope.selected);
+                Colores.nuevo($scope.selected);
                 $uibModalInstance.close();
-                $scope.dtEditarArtiulo.changeData(EstadosAnimales.listar());
+                $scope.dtEditarArtiulo.changeData(Colores.listar());
                 $scope.selected = {};
             } else if ($scope.selected.accion === 'editar') {
-                EstadosAnimales.editar($scope.selected);
+                Colores.editar($scope.selected);
                 $uibModalInstance.close();
-                $scope.dtEditarArtiulo.changeData(EstadosAnimales.listar());
+                $scope.dtEditarArtiulo.changeData(Colores.listar());
                 $scope.selected = {};
             }
         } else {
@@ -110,4 +105,4 @@ function EstadosAnimalModalController($scope, $uibModalInstance, EstadosAnimales
 }
 angular
         .module('easyapp')
-        .controller('ParametrosEstadosController', ParametrosEstadosController);
+        .controller('ParametrosColoresController', ParametrosColoresController);

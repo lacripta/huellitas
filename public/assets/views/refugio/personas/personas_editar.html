@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="tabs-container">
+            <uib-tabset>
+                <uib-tab>
+                    <uib-tab-heading>
+                        {{pageTitle}}
+                    </uib-tab-heading>
+                    <div class="panel-body" ng-option>
+                        <form name="datosAdopcion">
+                            <fieldset class="form-horizontal">
+                                <input-text titulo="Nombre" valor="selected.nombre"></input-text>
+                                <input-text titulo="Apellido" valor="selected.apellido"></input-text>
+                                <input-number titulo="Cedula" valor="selected.cedula"></input-number>
+                                <input-mail titulo="Correo Electronico" valor="selected.email"></input-mail>
+                                <input-number titulo="Teléfono" valor="selected.telefono"></input-number>
+                                <input-number titulo="Celular" valor="selected.celular"></input-number>
+                                <input-direccion titulo="Dirección" valor="selected.direccion"></input-direccion>
+                                <select-region departamento="selected.departamento" municipio="selected.municipio" poblacion="selected.poblacion" area="selected.area"></select-region>
+                                <select-tipo-usuario titulo="Tipo de Usuario" tipo="selected.tipo"></select-tipo-usuario>
+                                <select-estado-usuario titulo="Estado" estado="selected.estado"></select-estado-usuario>
+                            </fieldset>
+                        </form>
+                        <div class="row">
+                            <div class="space-30"></div>
+                        </div>
+                        <div class="row text-center">
+                            <button class="btn btn-lg btn-info" type="submit" ng-click="ok(datosAdopcion.$valid)">guardar</button>
+                            <button class="btn btn-lg btn-danger" type="submit" ng-click="cancel()">cancelar</button>
+                        </div>
+                        <div class="row">
+                            <div class="space-30"></div>
+                        </div>
+                    </div>
+                </uib-tab>
+            </uib-tabset>
+        </div>
+    </div>
+</div>

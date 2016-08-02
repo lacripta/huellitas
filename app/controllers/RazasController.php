@@ -9,7 +9,7 @@ class RazasController extends WebServiceController {
      * @Route("/", methods = {"POST", "GET"})
      */
     public function indexAction() {
-        $this->response->redirect("login")->sendHeaders();
+        $this->Denegado();
     }
 
     /**
@@ -30,10 +30,10 @@ class RazasController extends WebServiceController {
     }
 
     /**
-     * @Route("/buscar/{id:[0-9]+}", methods = {"POST"}, name = "listar-razas")
+     * @Route("/buscar/{id:[0-9]+}", methods = {"GET"}, name = "listar-razas")
      */
     public function buscarAction($id) {
-        $raza = Razas::findFirst("id_especie = $id");
+        $raza = Razas::find(["conditions" => "id_especie = ?1", "bind" => [1 => $id]]);
         $this->Ok($raza);
     }
 

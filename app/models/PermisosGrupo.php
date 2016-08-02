@@ -1,33 +1,51 @@
 <?php
 
-class EstadoUsuario extends \Phalcon\Mvc\Model
+class PermisosGrupo extends \Phalcon\Mvc\Model
 {
 
     /**
      *
      * @var string
      */
-    public $id;
+    public $tipo_usuario;
 
     /**
      *
      * @var string
      */
-    public $descripcion;
+    public $componente;
+
+    /**
+     *
+     * @var string
+     */
+    public $estado;
 
     /**
      * Initialize method for model.
      */
     public function initialize()
     {
-        $this->hasMany('id', 'Usuario', 'estado', array('alias' => 'Usuario'));
+        $this->belongsTo('componente', 'Componente', 'id', array('alias' => 'Componente'));
+        $this->belongsTo('estado', 'EstadoAplicacion', 'id', array('alias' => 'EstadoAplicacion'));
+        $this->belongsTo('tipo_usuario', 'TipoUsuario', 'nombre', array('alias' => 'TipoUsuario'));
+    }
+
+    /**
+     * Returns table name mapped in the model.
+     *
+     * @return string
+     */
+    public function getSource()
+    {
+        return 'permisos_grupo';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return EstadoUsuario[]
+     * @return PermisosGrupo[]
      */
     public static function find($parameters = null)
     {
@@ -38,21 +56,11 @@ class EstadoUsuario extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return EstadoUsuario
+     * @return PermisosGrupo
      */
     public static function findFirst($parameters = null)
     {
         return parent::findFirst($parameters);
-    }
-
-    /**
-     * Returns table name mapped in the model.
-     *
-     * @return string
-     */
-    public function getSource()
-    {
-        return 'estado_usuario';
     }
 
 }

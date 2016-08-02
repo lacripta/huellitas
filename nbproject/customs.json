@@ -1,11 +1,5 @@
 {
     "elements": {
-        "select-personas": {
-            "attributes": {
-                "persona": {},
-                "titulo": {}
-            }
-        },
         "select-sexos": {
             "attributes": {
                 "sexo": {}
@@ -17,10 +11,12 @@
                 "raza": {}
             }
         },
-        "select-tipo-edad": {
+        "select-region": {
             "attributes": {
-                "tipo-edad": {},
-                "titulo": {}
+                "area": {},
+                "municipio": {},
+                "departamento": {},
+                "poblacion": {}
             }
         },
         "select-confirma": {
@@ -37,10 +33,10 @@
                 "titulo": {}
             }
         },
-        "select-animales-adopcion": {
+        "input-number": {
             "attributes": {
-                "titulo": {},
-                "animal": {}
+                "valor": {},
+                "titulo": {}
             }
         },
         "select-raza": {
@@ -53,18 +49,6 @@
             "attributes": {
                 "titulo": {},
                 "animal": {}
-            }
-        },
-        "select-estado-adopcion": {
-            "attributes": {
-                "estado": {},
-                "titulo": {}
-            }
-        },
-        "select-padrinos": {
-            "attributes": {
-                "persona": {},
-                "titulo": {}
             }
         },
         "img-crop": {
@@ -86,6 +70,66 @@
                 "titulo": {}
             }
         },
+        "select-departamento": {
+            "attributes": {
+                "departamento": {}
+            }
+        },
+        "select-estados": {
+            "attributes": {
+                "estado": {},
+                "titulo": {}
+            }
+        },
+        "input-direccion": {},
+        "select-personas": {
+            "attributes": {
+                "persona": {},
+                "titulo": {}
+            }
+        },
+        "select-tipo-edad": {
+            "attributes": {
+                "tipo-edad": {},
+                "titulo": {}
+            }
+        },
+        "select-estado-persona": {},
+        "select-area": {
+            "attributes": {
+                "area": {}
+            }
+        },
+        "select-animales-adopcion": {
+            "attributes": {
+                "titulo": {},
+                "animal": {}
+            }
+        },
+        "select-poblacion": {
+            "attributes": {
+                "poblacion": {}
+            }
+        },
+        "select-estado-adopcion": {
+            "attributes": {
+                "estado": {},
+                "titulo": {}
+            }
+        },
+        "select-padrinos": {
+            "attributes": {
+                "persona": {},
+                "titulo": {}
+            }
+        },
+        "select-tipo-usuario": {
+            "attributes": {
+                "tipo": {},
+                "valor": {},
+                "titulo": {}
+            }
+        },
         "input-text": {
             "attributes": {
                 "valor": {},
@@ -99,28 +143,35 @@
             }
         },
         "uib-tab": {},
-        "select-estados": {
+        "input-mail": {
             "attributes": {
-                "estado": {},
+                "valor": {},
                 "titulo": {}
+            }
+        },
+        "select-municipio": {
+            "attributes": {
+                "municipio": {}
             }
         }
     },
     "attributes": {
-        "uib-dropdown-menu": {
-            "context": "ul"
-        },
         "dt-columns": {},
         "page-title": {},
         "uib-dropdown-toggle": {},
+        "valor": {},
         "ui-view": {},
+        "titulo": {},
         "dt-columns-def": {},
-        "uib-tooltip": {},
         "side-navigation": {
             "context": "ul"
         },
-        "summernote": {},
         "ui-sref": {},
+        "uib-dropdown-menu": {
+            "context": "ul"
+        },
+        "uib-tooltip": {},
+        "summernote": {},
         "ui-sref-active": {}
     }
 }

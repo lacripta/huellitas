@@ -1,14 +1,11 @@
-function ParametrosColoresController($scope, $uibModal, DTOptionsBuilder, DTColumnBuilder, SweetAlert, Colores, Notificar) {
+function PersonasController($scope, $uibModal, DTOptionsBuilder, DTColumnBuilder, Notificar, SweetAlert, Personas) {
     var vm = this;
-    vm.dtOptions = DTOptionsBuilder.fromFnPromise(Colores.listar())
-            .withDOM('lfrti')
+    vm.dtOptions = DTOptionsBuilder.fromFnPromise(Personas.listar())
             .withDisplayLength(25)
             .withLanguageSource('assets/js/dtSpanish.json')
             .withOption('stateSave', true)
             .withPaginationType('full_numbers')
             .withOption('deferRender', true)
-            // Do not forget to add the scorllY option!!!
-            .withOption('scrollY', 350)
             .withSelect({
                 style: 'os',
                 selector: 'td:first-child'
@@ -21,32 +18,37 @@ function ParametrosColoresController($scope, $uibModal, DTOptionsBuilder, DTColu
                 .renderWith(function () {
                     return '';
                 }),
-        DTColumnBuilder.newColumn('nombre').withTitle('Descripcion'),
-        DTColumnBuilder.newColumn('id').withTitle('ID').notVisible()
+        DTColumnBuilder.newColumn('cedula').withTitle('Cedula'),
+        DTColumnBuilder.newColumn('nombre').withTitle('Nombre'),
+        DTColumnBuilder.newColumn('apellido').withTitle('Apellido'),
+        DTColumnBuilder.newColumn('direccion').withTitle('Dirección'),
+        DTColumnBuilder.newColumn('email').withTitle('E-Mail'),
+        DTColumnBuilder.newColumn('celular').withTitle('Celular'),
+        DTColumnBuilder.newColumn('telefono').withTitle('Telefono'),
+        DTColumnBuilder.newColumn('tipo').withTitle('Tipo')
     ];
     vm.editarSeleccionado = editarSeleccionado;
     vm.nuevoArticulo = nuevoArticulo;
     vm.borrarArticulo = borrarSeleccionado;
-    $scope.dtEditarArtiulo = {};
+    $scope.dtInstance = {};
 
     function nuevoArticulo() {
         $scope.selected = {};
         $scope.selected.accion = 'nuevo';
         var modalInstance = $uibModal.open({
-            templateUrl: "assets/views/refugio/parametros/colores_editar.html",
-            controller: ColoresModalController,
+            templateUrl: "assets/views/refugio/personas/personas_editar.html",
+            controller: PersonasModalController,
             scope: $scope,
             size: 'lg',
             windowClass: "animated fadeIn"
         });
     }
 
-
     function borrarSeleccionado() {
-        if ($scope.selected = $scope.dtEditarArtiulo.DataTable.row('.selected').data()) {
+        if ($scope.selected = $scope.dtInstance.DataTable.row('.selected').data()) {
             SweetAlert.swal({
                 title: "Borra el articulo Seleccionado?",
-                text: "Titulo: " + $scope.selected.nombre,
+                text: "Titulo: " + $scope.selected.titulo,
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonText: "Aceptar",
@@ -55,9 +57,8 @@ function ParametrosColoresController($scope, $uibModal, DTOptionsBuilder, DTColu
                 closeOnCancel: false
             }, function (isConfirm) {
                 if (isConfirm) {
-                    Colores.borrar($scope.selected);
-                    $scope.dtEditarArtiulo.changeData(Colores.listar());
-                    $scope.selected = {};
+                    Personas.borrar($scope.selected);
+                    $scope.dtInstance.changeData(Personas.listar());
                 } else {
                     Notificar.cancelado();
                 }
@@ -68,11 +69,11 @@ function ParametrosColoresController($scope, $uibModal, DTOptionsBuilder, DTColu
     }
 
     function editarSeleccionado() {
-        if ($scope.selected = $scope.dtEditarArtiulo.DataTable.row('.selected').data()) {
+        if ($scope.selected = $scope.dtInstance.DataTable.row('.selected').data()) {
             $scope.selected.accion = 'editar';
             var modalInstance = $uibModal.open({
-                templateUrl: "assets/views/refugio/parametros/colores_editar.html",
-                controller: ColoresModalController,
+                templateUrl: "assets/views/refugio/personas/personas_editar.html",
+                controller: PersonasModalController,
                 scope: $scope,
                 size: 'lg',
                 windowClass: "animated fadeIn"
@@ -82,18 +83,18 @@ function ParametrosColoresController($scope, $uibModal, DTOptionsBuilder, DTColu
         }
     }
 }
-function ColoresModalController($scope, $uibModalInstance, Colores, Notificar) {
+function PersonasModalController($scope, $uibModalInstance, Personas, Notificar) {
     $scope.ok = function (ok) {
         if (ok) {
             if ($scope.selected.accion === 'nuevo') {
-                Colores.nuevo($scope.selected);
+                Personas.nuevo($scope.selected);
                 $uibModalInstance.close();
-                $scope.dtEditarArtiulo.changeData(Colores.listar());
+                $scope.dtInstance.changeData(Personas.listar());
                 $scope.selected = {};
             } else if ($scope.selected.accion === 'editar') {
-                Colores.editar($scope.selected);
+                Personas.editar($scope.selected);
                 $uibModalInstance.close();
-                $scope.dtEditarArtiulo.changeData(Colores.listar());
+                $scope.dtInstance.changeData(Personas.listar());
                 $scope.selected = {};
             }
         } else {
@@ -106,4 +107,4 @@ function ColoresModalController($scope, $uibModalInstance, Colores, Notificar) {
 }
 angular
         .module('easyapp')
-        .controller('ParametrosColoresController', ParametrosColoresController);
+        .controller('PersonasController', PersonasController);

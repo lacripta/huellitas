@@ -1,14 +1,16 @@
 
-function AnimalesController($scope, $uibModal, DTOptionsBuilder, DTColumnBuilder, Notificar, SweetAlert, Animales) {
+function ParametrosRazasController($scope, $uibModal, DTOptionsBuilder, DTColumnBuilder, SweetAlert, Razas, Notificar) {
     var vm = this;
-    $scope.animal = {};
-    vm.dtOptions = DTOptionsBuilder.fromFnPromise(Animales.listar())
-            .withDOM('lfrti')
+    vm.especies = {};
+    $scope.raza = {};
+    vm.dtOptions = DTOptionsBuilder.fromFnPromise(Razas.listar())
             .withDisplayLength(25)
             .withLanguageSource('assets/js/dtSpanish.json')
             .withOption('stateSave', true)
             .withPaginationType('full_numbers')
             .withOption('deferRender', true)
+            // Do not forget to add the scorllY option!!!
+            .withOption('scrollY', 350)
             .withSelect({
                 style: 'os',
                 selector: 'td:first-child'
@@ -18,27 +20,13 @@ function AnimalesController($scope, $uibModal, DTOptionsBuilder, DTColumnBuilder
         DTColumnBuilder.newColumn(null).withTitle('')
                 .notSortable()
                 .withClass('select-checkbox')
-                // Need to define the mRender function, otherwise we get a [Object Object]
                 .renderWith(function () {
                     return '';
                 }),
+        DTColumnBuilder.newColumn('nombre').withTitle('Raza'),
+        DTColumnBuilder.newColumn('especie').withTitle('Especie'),
         DTColumnBuilder.newColumn('id').withTitle('ID').notVisible(),
-        DTColumnBuilder.newColumn('especie').withTitle('especie').notVisible(),
-        DTColumnBuilder.newColumn('raza').withTitle('raza').notVisible(),
-        DTColumnBuilder.newColumn('color').withTitle('color').notVisible(),
-        DTColumnBuilder.newColumn('estado').withTitle('estado').notVisible(),
-        DTColumnBuilder.newColumn('rescata').withTitle('rescata').notVisible(),
-        DTColumnBuilder.newColumn('nombre').withTitle('Nombre'),
-        DTColumnBuilder.newColumn('edad').withTitle('Edad'),
-        DTColumnBuilder.newColumn('edad_tipo').withTitle('Edad Tipo'),
-        DTColumnBuilder.newColumn('fecha_ingreso').withTitle('Ingreso'),
-        DTColumnBuilder.newColumn('desrescata').withTitle('Rescató'),
-        DTColumnBuilder.newColumn('fecha_salida').withTitle('Salida').notVisible(),
-        DTColumnBuilder.newColumn('desespecie').withTitle('Especie'),
-        DTColumnBuilder.newColumn('desraza').withTitle('Raza'),
-        DTColumnBuilder.newColumn('descolor').withTitle('Color'),
-        DTColumnBuilder.newColumn('sexo').withTitle('Sexo'),
-        DTColumnBuilder.newColumn('desestado').withTitle('Estado')
+        DTColumnBuilder.newColumn('id_especie').withTitle('ID Especie').notVisible()
     ];
     vm.editarSeleccionado = editarSeleccionado;
     vm.nuevoArticulo = nuevoArticulo;
@@ -49,19 +37,20 @@ function AnimalesController($scope, $uibModal, DTOptionsBuilder, DTColumnBuilder
         $scope.selected = {};
         $scope.selected.accion = 'nuevo';
         var modalInstance = $uibModal.open({
-            templateUrl: "assets/views/refugio/animales/animales_editar.html",
-            controller: AnimalModalController,
+            templateUrl: "assets/views/refugio/parametros/razas_editar.html",
+            controller: RazasModalController,
             scope: $scope,
             size: 'lg',
             windowClass: "animated fadeIn"
         });
     }
 
+
     function borrarSeleccionado() {
         if ($scope.selected = $scope.dtEditarArtiulo.DataTable.row('.selected').data()) {
             SweetAlert.swal({
                 title: "Borra el articulo Seleccionado?",
-                text: "Titulo: " + $scope.selected.titulo,
+                text: "Titulo: " + $scope.selected.nombre,
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonText: "Aceptar",
@@ -70,23 +59,25 @@ function AnimalesController($scope, $uibModal, DTOptionsBuilder, DTColumnBuilder
                 closeOnCancel: false
             }, function (isConfirm) {
                 if (isConfirm) {
-                    Animales.borrar($scope.selected);
-                    $scope.dtEditarArtiulo.changeData(Animales.listar());
+                    Razas.borrar($scope.selected);
+                    $scope.dtEditarArtiulo.changeData(Razas.listar());
+                    $scope.selected = {};
                 } else {
                     Notificar.cancelado();
                 }
             });
         } else {
-            Notificar.seleccionar();
+            Notificar.seleccionar()();
         }
     }
 
     function editarSeleccionado() {
         if ($scope.selected = $scope.dtEditarArtiulo.DataTable.row('.selected').data()) {
+            //$scope.selected = $scope.dtEditarArtiulo.DataTable.row('.selected').data();
             $scope.selected.accion = 'editar';
             var modalInstance = $uibModal.open({
-                templateUrl: "assets/views/refugio/animales/animales_editar.html",
-                controller: AnimalModalController,
+                templateUrl: "assets/views/refugio/parametros/razas_editar.html",
+                controller: RazasModalController,
                 scope: $scope,
                 size: 'lg',
                 windowClass: "animated fadeIn"
@@ -96,26 +87,23 @@ function AnimalesController($scope, $uibModal, DTOptionsBuilder, DTColumnBuilder
         }
     }
 }
-function AnimalModalController($scope, $uibModalInstance, Animales, Notificar) {
+function RazasModalController($scope, $uibModalInstance, Razas, Notificar) {
     $scope.ok = function (ok) {
         if (ok) {
             if ($scope.selected.accion === 'nuevo') {
-                Animales.nuevo($scope.selected);
+                Razas.nuevo($scope.selected);
                 $uibModalInstance.close();
-                $scope.dtEditarArtiulo.changeData(Animales.listar());
+                $scope.dtEditarArtiulo.changeData(Razas.listar());
                 $scope.selected = {};
             } else if ($scope.selected.accion === 'editar') {
-                Animales.editar($scope.selected);
+                Razas.editar($scope.selected);
                 $uibModalInstance.close();
-                $scope.dtEditarArtiulo.changeData(Animales.listar());
+                $scope.dtEditarArtiulo.changeData(Razas.listar());
                 $scope.selected = {};
             }
         } else {
             Notificar.form();
         }
-    };
-    $scope.agregar = function () {
-
     };
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');
@@ -123,4 +111,4 @@ function AnimalModalController($scope, $uibModalInstance, Animales, Notificar) {
 }
 angular
         .module('easyapp')
-        .controller('AnimalesController', AnimalesController);
+        .controller('ParametrosRazasController', ParametrosRazasController);

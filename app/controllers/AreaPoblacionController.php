@@ -1,9 +1,9 @@
 <?php
 
 /**
- * @RoutePrefix("/configuracion/regiones/municipios")
+ * @RoutePrefix("/configuracion/regiones/areas")
  */
-class MunicipioController extends WebServiceController {
+class AreaPoblacionController extends WebServiceController {
 
     /**
      * @Route("/", methods = {"POST", "GET"})
@@ -13,27 +13,19 @@ class MunicipioController extends WebServiceController {
     }
 
     /**
-     * @Route("/listar", methods = {"GET"}, name = "buscar-municipios")
+     * @Route("/listar", methods = {"GET"}, name = "listar-areaPoblacion")
      */
     public function listarAction() {
-        $municipios = Municipio::find();
-        $this->Ok($municipios);
+        $color = AreaPoblacion::find();
+        $this->Ok($color);
     }
 
     /**
-     * @Route("/buscar/{id:[0-9]+}", methods = {"GET"}, name = "listar-municipios")
-     */
-    public function buscarAction($id) {
-        $municipios = Municipio::find(["conditions" => "departamento = ?1", "bind" => [1 => $id]]);
-        $this->Ok($municipios);
-    }
-
-    /**
-     * @Route("/agregar", methods = {"POST"}, name = "agregar-municipios")
+     * @Route("/agregar", methods = {"POST"}, name = "agregar-areaPoblacion")
      */
     public function agregarAction() {
         $json = $this->request->getJsonRawBody(true);
-        $tabla = Phalcon\Mvc\Model::cloneResult(new Municipio(), $json);
+        $tabla = Phalcon\Mvc\Model::cloneResult(new AreaPoblacion(), $json);
         $this->db->begin();
         if ($tabla->create()) {
             $this->db->commit();
@@ -45,11 +37,11 @@ class MunicipioController extends WebServiceController {
     }
 
     /**
-     * @Route("/editar", methods = {"PUT"}, name = "editar-municipios")
+     * @Route("/editar", methods = {"PUT"}, name = "editar-areaPoblacion")
      */
     public function editarAction() {
         $json = $this->request->getJsonRawBody(true);
-        $tabla = Phalcon\Mvc\Model::cloneResult(new Municipio(), $json);
+        $tabla = Phalcon\Mvc\Model::cloneResult(new AreaPoblacion(), $json);
         $this->db->begin();
         if ($tabla->update()) {
             $this->db->commit();
@@ -61,11 +53,11 @@ class MunicipioController extends WebServiceController {
     }
 
     /**
-     * @Route("/borrar", methods = {"DELETE"}, name = "borrar-municipios")
+     * @Route("/borrar", methods = {"DELETE"}, name = "borrar-areaPoblacion")
      */
     public function borrarAction() {
         $json = $this->request->getJsonRawBody(true);
-        $tabla = Phalcon\Mvc\Model::cloneResult(new Municipio(), $json);
+        $tabla = Phalcon\Mvc\Model::cloneResult(new AreaPoblacion(), $json);
         $this->db->begin();
         if ($tabla->delete()) {
             $this->db->commit();

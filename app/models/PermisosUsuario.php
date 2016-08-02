@@ -1,49 +1,39 @@
 <?php
 
-class GdComponente extends \Phalcon\Mvc\Model
+class PermisosUsuario extends \Phalcon\Mvc\Model
 {
 
     /**
      *
      * @var integer
      */
-    public $componente_id;
+    public $id;
 
     /**
      *
      * @var string
      */
-    public $componente_nombre;
-
-    /**
-     *
-     * @var string
-     */
-    public $componente_slug;
-
-    /**
-     *
-     * @var string
-     */
-    public $componente_enlace;
-
-    /**
-     *
-     * @var string
-     */
-    public $componente_archivo;
+    public $sid;
 
     /**
      *
      * @var integer
      */
-    public $componente_estado;
+    public $componente;
 
     /**
      *
-     * @var string
+     * @var integer
      */
-    public $componente_url;
+    public $estado;
+
+    /**
+     * Initialize method for model.
+     */
+    public function initialize()
+    {
+        $this->belongsTo('sid', 'Usuario', 'sid', array('alias' => 'Usuario'));
+    }
 
     /**
      * Returns table name mapped in the model.
@@ -52,14 +42,14 @@ class GdComponente extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'gd_componente';
+        return 'permisos_usuario';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return GdComponente[]
+     * @return PermisosUsuario[]
      */
     public static function find($parameters = null)
     {
@@ -70,7 +60,7 @@ class GdComponente extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return GdComponente
+     * @return PermisosUsuario
      */
     public static function findFirst($parameters = null)
     {

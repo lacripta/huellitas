@@ -32,8 +32,29 @@ class TipoUsuario extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
+        $this->hasMany('nombre', 'PermisosGrupo', 'tipo_usuario', array('alias' => 'PermisosGrupo'));
         $this->hasMany('nombre', 'Personas', 'tipo', array('alias' => 'Personas'));
         $this->hasMany('nombre', 'Usuario', 'grupo', array('alias' => 'Usuario'));
+    }
+
+    /**
+     * Allows to query a set of records that match the specified conditions
+     *
+     * @param mixed $parameters
+     * @return TipoUsuario[]
+     */
+    public static function find($parameters = null) {
+        return parent::find($parameters);
+    }
+
+    /**
+     * Allows to query the first record that match the specified conditions
+     *
+     * @param mixed $parameters
+     * @return TipoUsuario
+     */
+    public static function findFirst($parameters = null) {
+        return parent::findFirst($parameters);
     }
 
     /**
@@ -44,28 +65,6 @@ class TipoUsuario extends \Phalcon\Mvc\Model
     public function getSource()
     {
         return 'tipo_usuario';
-    }
-
-    /**
-     * Allows to query a set of records that match the specified conditions
-     *
-     * @param mixed $parameters
-     * @return TipoUsuario[]
-     */
-    public static function find($parameters = null)
-    {
-        return parent::find($parameters);
-    }
-
-    /**
-     * Allows to query the first record that match the specified conditions
-     *
-     * @param mixed $parameters
-     * @return TipoUsuario
-     */
-    public static function findFirst($parameters = null)
-    {
-        return parent::findFirst($parameters);
     }
 
 }

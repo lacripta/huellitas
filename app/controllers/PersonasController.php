@@ -9,7 +9,7 @@ class PersonasController extends WebServiceController {
      * @Route("/", methods = {"POST", "GET"})
      */
     public function indexAction() {
-        $this->response->redirect("login")->sendHeaders();
+        $this->Denegado();
     }
 
     /**
@@ -19,18 +19,23 @@ class PersonasController extends WebServiceController {
         $usuario = Personas::find(array(
                     "columns" => "id,concat(nombre,' ',apellido) nombre"
         ));
-        echo json_encode($usuario->toArray(), JSON_PRETTY_PRINT);
+        $this->Ok($usuario);
     }
 
     /**
      * @Route("/listar", methods = {"GET"}, name = "listar-personas")
      */
     public function listarAction() {
-        $usuario = Personas::find(array(
-                    "columns" => "id,concat(nombre,' ',apellido) nombre",
-                    "conditions" => "tipo = 'voluntario'"
-        ));
-        echo json_encode($usuario->toArray(), JSON_PRETTY_PRINT);
+        $usuario = Personas::find();
+        $this->Ok($usuario);
+    }
+
+    /**
+     * @Route("/buscar/{id:[0-9]+}", methods = {"GET"}, name = "buscar-personas")
+     */
+    public function buscarAction($id) {
+        $tabla = Personas::findFirst(["conditions" => "id = ?1", "bind" => [1 => $id]]);
+        $this->Ok($tabla);
     }
 
     /**
@@ -42,19 +47,10 @@ class PersonasController extends WebServiceController {
         $this->db->begin();
         if ($tabla->create()) {
             $this->db->commit();
-            echo json_encode(array(
-                "mensaje" => "Registro Creado Correctamente",
-                "estado" => "Se ha registrado a: " . $tabla->nombre,
-                "codigo" => "1"
-            ));
+            $this->Creado();
         } else {
-            $error = "";
-            echo json_encode(array(
-                "mensaje" => "No se Han realizado Cambios",
-                "estado" => $tabla->getMessages(),
-                "codigo" => "0"
-            ));
-            $this->db->rollback($error);
+            $this->db->rollback();
+            $this->SinCambios($tabla->getMessages());
         }
     }
 
@@ -62,25 +58,15 @@ class PersonasController extends WebServiceController {
      * @Route("/editar", methods = {"PUT"}, name = "agregar-personas")
      */
     public function editarAction() {
-        $json = $this->request->getJsonRawBody('json');
-        $nuevo = json_decode($json->json, true);
-        $tabla = Phalcon\Mvc\Model::cloneResult(new Personas(), $nuevo);
+        $json = $this->request->getJsonRawBody(true);
+        $tabla = Phalcon\Mvc\Model::cloneResult(new Personas(), $json);
         $this->db->begin();
         if ($tabla->update()) {
             $this->db->commit();
-            echo json_encode(array(
-                "mensaje" => "Datos Actualizados Correctamente",
-                "estado" => "Se han cambiado los datos de: " . $tabla->nombre,
-                "codigo" => "1"
-            ));
+            $this->Editado();
         } else {
-            $error = "";
-            echo json_encode(array(
-                "mensaje" => "No se Han realizado Cambios",
-                "estado" => $tabla->getMessages(),
-                "codigo" => "0"
-            ));
-            $this->db->rollback($error);
+            $this->db->rollback();
+            $this->SinCambios($tabla->getMessages());
         }
     }
 
@@ -88,24 +74,15 @@ class PersonasController extends WebServiceController {
      * @Route("/borrar", methods = {"DELETE"}, name = "borrar-personas")
      */
     public function borrarAction() {
-        $json = $this->request->getJsonRawBody('json');
-        $nuevo = json_decode($json->json, true);
-        $tabla = Phalcon\Mvc\Model::cloneResult(new Personas(), $nuevo);
+        $json = $this->request->getJsonRawBody(true);
+        $tabla = Phalcon\Mvc\Model::cloneResult(new Personas(), $json);
         $this->db->begin();
         if ($tabla->delete()) {
             $this->db->commit();
-            echo json_encode(array(
-                "mensaje" => "Registro Eliminado Correctamente",
-                "estado" => "Se ha borrado a: " . $nuevo["nombre"],
-                "codigo" => "1"
-            ));
+            $this->Borrado();
         } else {
-            echo json_encode(array(
-                "mensaje" => "No se Han realizado Cambios",
-                "estado" => $tabla->getMessages(),
-                "codigo" => "0"
-            ));
             $this->db->rollback();
+            $this->SinCambios($tabla->getMessages());
         }
     }
 

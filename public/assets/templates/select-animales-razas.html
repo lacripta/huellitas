@@ -4,8 +4,7 @@
         <div class="col-sm-9">
             <select name="especies" style="width: 350px;"
                     class="form-control select" required=""
-                    ng-model="especie"
-                    ng-change="lista(especie)">
+                    ng-model="especie">
                 <option ng-repeat="opt in especies" value="{{opt.id}}">{{opt.nombre}}</option>
             </select>
             <div class="m-t-xs" ng-show="texto.especies.$touched">

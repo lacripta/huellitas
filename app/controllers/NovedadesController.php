@@ -12,40 +12,22 @@ class NovedadesController extends WebServiceController {
      * @Route("/", methods = {"GET"})
      */
     public function indexAction() {
-        $this->response->redirect("login")->sendHeaders();
+        $this->Denegado();
     }
 
     /**
      * @Route("/destacar/{id:[0-9]+}", methods = {"POST"}, name = "novedades-destacar")
      */
     public function destacarAction($id) {
-        try {
-            $this->db->begin();
-            $tabla = Novedades::find(array(
-                        "conditions" => "id = ?1",
-                        "bind" => array(1 => $id)
-            ));
-            $tabla[0]->destacado = $tabla[0]->destacado == 1 ? 0 : 1;
-            if ($tabla[0]->save()) {
-                $this->db->commit();
-                echo json_encode(array(
-                    "mensaje" => "Cambios Realizados Correctamente",
-                    "estado" => "Se cambio el estado del articulo",
-                    "codigo" => "1"
-                ));
-            } else {
-                $error = "";
-                foreach ($tabla->getMessages() as $mensaje) {
-                    $error = $error . " " . $mensaje . " ";
-                }
-                $this->db->rollback($mensaje);
-            }
-        } catch (TxFailed $e) {
-            echo json_encode(array(
-                "mensaje" => "No se Han realizado Cambios",
-                "estado" => $e->getMessage(),
-                "codigo" => "0"
-            ));
+        $this->db->begin();
+        $tabla = Novedades::findFirst(["conditions" => "id = ?1", "bind" => [1 => $id]]);
+        $tabla->destacado = $tabla->destacado == 1 ? 0 : 1;
+        if ($tabla->update()) {
+            $this->db->commit();
+            $this->Editado();
+        } else {
+            $this->db->rollback();
+            $this->SinCambios($tabla->getMessages());
         }
     }
 
@@ -53,38 +35,20 @@ class NovedadesController extends WebServiceController {
      * @Route("/publicar/{id:[0-9]+}", methods = {"POST"}, name = "novedades-publicar")
      */
     public function publicarAction($id) {
-        try {
-            $this->db->begin();
-            $tabla = Novedades::find(array(
-                        "conditions" => "id = ?1",
-                        "bind" => array(1 => $id)
-            ));
-            $tabla[0]->estado = $tabla[0]->estado == 1 ? 0 : 1;
-            if ($tabla[0]->save()) {
-                $this->db->commit();
-                echo json_encode(array(
-                    "mensaje" => "Cambios Realizados Correctamente",
-                    "estado" => "Se cambio el estado del articulo",
-                    "codigo" => "1"
-                ));
-            } else {
-                $error = "";
-                foreach ($tabla->getMessages() as $mensaje) {
-                    $error = $error . " " . $mensaje . " ";
-                }
-                $this->db->rollback($mensaje);
-            }
-        } catch (TxFailed $e) {
-            echo json_encode(array(
-                "mensaje" => "No se Han realizado Cambios",
-                "estado" => $e->getMessage(),
-                "codigo" => "0"
-            ));
+        $this->db->begin();
+        $tabla = Novedades::findFirst(["conditions" => "id = ?1", "bind" => [1 => $id]]);
+        $tabla->estado = $tabla->estado == 1 ? 0 : 1;
+        if ($tabla->update()) {
+            $this->db->commit();
+            $this->Editado();
+        } else {
+            $this->db->rollback();
+            $this->SinCambios($tabla->getMessages());
         }
     }
 
     /**
-     * @Route("/publicar", methods = {"POST"}, name = "novedades-borrar")
+     * @Route("/borrar", methods = {"POST"}, name = "novedades-borrar")
      */
     public function borrarAction() {
         $json = $this->request->getJsonRawBody('json');
@@ -195,7 +159,15 @@ class NovedadesController extends WebServiceController {
                         2 => $this->session->get('grupo')
                     )
         ));
-        echo json_encode($usuario->toArray(), JSON_PRETTY_PRINT);
+        $this->Ok($usuario);
+    }
+
+    /**
+     * @Route("/buscar/{id:[0-9]+}", methods = {"GET"}, name = "buscar-novedades")
+     */
+    public function buscarAction($id) {
+        $tabla = Articulos::findFirst(["conditions" => "id = ?1", "bind" => [1 => $id]]);
+        $this->Ok($tabla);
     }
 
     /**
@@ -209,7 +181,7 @@ class NovedadesController extends WebServiceController {
                         1 => $id
                     )
         ));
-        echo json_encode($usuario->toArray(), JSON_PRETTY_PRINT);
+        $this->Ok($usuario);
     }
 
 }

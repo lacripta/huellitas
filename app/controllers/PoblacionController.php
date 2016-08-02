@@ -1,73 +1,78 @@
 <?php
 
 /**
- * @RoutePrefix("/regiones/poblaciones")
+ * @RoutePrefix("/configuracion/regiones/poblaciones")
  */
-class AdopcionesController extends WebServiceController {
+class PoblacionController extends WebServiceController {
 
     /**
      * @Route("/", methods = {"POST", "GET"})
      */
     public function indexAction() {
-        $this->response->redirect("login")->sendHeaders();
+        $this->Denegado();
     }
 
     /**
-     * @Route("/listar", methods = {"POST"}, name = "listar-poblaciones")
+     * @Route("/listar", methods = {"GET"}, name = "listar-poblaciones")
      */
     public function listarAction() {
-        $poblaciones = Poblacion::findAll();
-        echo json_encode($poblaciones->toArray(), JSON_PRETTY_PRINT);
+        $color = Poblacion::find();
+        $this->Ok($color);
     }
 
     /**
-     * @Route("/agregar", methods = {"POST"}, name = "agregar-poblacion")
+     * @Route("/buscar/{id:[0-9]+}", methods = {"GET"}, name = "buscar-poblacion")
+     */
+    public function buscarAction($id) {
+        $tabla = Poblacion::find(["conditions" => "id = ?1", "bind" => [1 => $id]]);
+        $this->Ok($tabla);
+    }
+
+    /**
+     * @Route("/agregar", methods = {"POST"}, name = "agregar-poblaciones")
      */
     public function agregarAction() {
-        $json = $this->request->getJsonRawBody('json');
-        $nuevo = json_decode($json->json, true);
-        $tabla = Phalcon\Mvc\Model::cloneResult(new Poblacion(), $nuevo);
+        $json = $this->request->getJsonRawBody(true);
+        $tabla = Phalcon\Mvc\Model::cloneResult(new Poblacion(), $json);
         $this->db->begin();
-        if ($tabla->update()) {
+        if ($tabla->create()) {
             $this->db->commit();
-            echo json_encode(array(
-                "mensaje" => "Cambios Realizados Correctamente",
-                "estado" => "Se ha registrado la poblacion: " . $tabla->nombre,
-                "codigo" => "1"
-            ));
+            $this->Creado();
         } else {
-            $error = "";
-            echo json_encode(array(
-                "mensaje" => "No se Han realizado Cambios",
-                "estado" => $tabla->getMessages(),
-                "codigo" => "0"
-            ));
-            $this->db->rollback($error);
+            $this->db->rollback();
+            $this->SinCambios($tabla->getMessages());
         }
     }
 
     /**
-     * @Route("/borrar", methods = {"POST"}, name = "borrar-poblacion")
+     * @Route("/editar", methods = {"PUT"}, name = "editar-poblaciones")
+     */
+    public function editarAction() {
+        $json = $this->request->getJsonRawBody(true);
+        $tabla = Phalcon\Mvc\Model::cloneResult(new Poblacion(), $json);
+        $this->db->begin();
+        if ($tabla->update()) {
+            $this->db->commit();
+            $this->Editado();
+        } else {
+            $this->db->rollback();
+            $this->SinCambios($tabla->getMessages());
+        }
+    }
+
+    /**
+     * @Route("/borrar", methods = {"DELETE"}, name = "borrar-poblaciones")
      */
     public function borrarAction() {
-        $json = $this->request->getJsonRawBody('json');
-        $nuevo = json_decode($json->json, true);
-        $tabla = Phalcon\Mvc\Model::cloneResult(new Animal(), $nuevo);
+        $json = $this->request->getJsonRawBody(true);
+        $tabla = Phalcon\Mvc\Model::cloneResult(new Poblacion(), $json);
         $this->db->begin();
         if ($tabla->delete()) {
             $this->db->commit();
-            echo json_encode(array(
-                "mensaje" => "Cambios Realizados Correctamente",
-                "estado" => "Se ha borrado la poblacion: " . $nuevo["nombre"],
-                "codigo" => "1"
-            ));
+            $this->Borrado();
         } else {
-            echo json_encode(array(
-                "mensaje" => "No se Han realizado Cambios",
-                "estado" => $tabla->getMessages(),
-                "codigo" => "0"
-            ));
             $this->db->rollback();
+            $this->SinCambios($tabla->getMessages());
         }
     }
 

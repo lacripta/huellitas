@@ -180,12 +180,12 @@ function selectColores(Colores) {
         },
         controller: function ($scope) {
             Colores.listar().then(function (data) {
-                $scope.colores = data.data;
+                $scope.colores = data;
             });
         }
     };
 }
-function selectEstadoAdopcion() {
+function selectEstadoAdopcion(EstadoAdopcion, Notificar) {
     return {
         restrict: 'E',
         templateUrl: '/easyapp/assets/templates/select-adopciones-estado.html',
@@ -193,9 +193,11 @@ function selectEstadoAdopcion() {
             estado: '=',
             titulo: '@'
         },
-        controller: function ($http, $scope) {
-            $http.post('/easyapp/refugio/parametros/adopciones/estados/listar').then(function (data) {
-                $scope.estados = data.data;
+        controller: function ($scope) {
+            EstadoAdopcion.listar().then(function (data) {
+                $scope.estados = data;
+            }, function () {
+                Notificar.error();
             });
         }
     };
@@ -210,7 +212,7 @@ function selectAnimales(Animales, Notificar) {
         },
         controller: function ($scope) {
             Animales.listar().then(function (data) {
-                $scope.animales = data.data;
+                $scope.animales = data;
             }, function () {
                 Notificar.error();
             });
@@ -247,6 +249,146 @@ function selectConfirma() {
         }
     };
 }
+function selectDepartamento(Departamento, Notificar) {
+    return {
+        restrict: 'E',
+        templateUrl: '/easyapp/assets/templates/select-departamento.html',
+        scope: {
+            departamento: '=',
+            titulo: '@'
+        },
+        controller: function ($scope) {
+            Departamento.listar().then(function (data) {
+                $scope.departamentos = data;
+            }, function () {
+                Notificar.error();
+            });
+        }
+    };
+}
+function selectMunicipio(Municipio, Notificar) {
+    return {
+        restrict: 'E',
+        templateUrl: '/easyapp/assets/templates/select-municipio.html',
+        scope: {
+            municipio: '=',
+            titulo: '@'
+        },
+        controller: function ($scope) {
+            Municipio.listar().then(function (data) {
+                $scope.municipios = data;
+            }, function () {
+                Notificar.error();
+            });
+        }
+    };
+}
+function selectPoblacion(Poblacion, Notificar) {
+    return {
+        restrict: 'E',
+        templateUrl: '/easyapp/assets/templates/select-poblacion.html',
+        scope: {
+            poblacion: '=',
+            titulo: '@'
+        },
+        controller: function ($scope) {
+            Poblacion.listar().then(function (data) {
+                $scope.poblaciones = data;
+            }, function () {
+                Notificar.error();
+            });
+        }
+    };
+}
+function selectArea(AreaPoblacion, Notificar) {
+    return {
+        restrict: 'E',
+        templateUrl: '/easyapp/assets/templates/select-area-poblacion.html',
+        scope: {
+            area: '=',
+            titulo: '@'
+        },
+        controller: function ($http, $scope) {
+            AreaPoblacion.listar().then(function (data) {
+                $scope.areas = data;
+            }, function () {
+                Notificar.error();
+            });
+        }
+    };
+}
+function selectRegion(Departamento, Municipio, Poblacion, Notificar) {
+    return {
+        restrict: 'E',
+        templateUrl: '/easyapp/assets/templates/select-region.html',
+        scope: {
+            departamento: '=',
+            municipio: '=',
+            poblacion: '=',
+            area: '=',
+            titulo: '@'
+        },
+        controller: function ($scope) {
+            Departamento.listar().then(function (data) {
+                $scope.departamentos = data;
+            }, function () {
+                Notificar.error();
+            });
+            $scope.$watch('departamento', function (nuevo) {
+                if (nuevo) {
+                    Municipio.buscar(nuevo).then(function (data) {
+                        $scope.municipios = data;
+                    }, function () {
+                        Notificar.error();
+                    });
+                }
+            });
+            $scope.$watch('municipio', function (nuevo) {
+                if (nuevo) {
+                    Poblacion.buscar(nuevo).then(function (data) {
+                        $scope.poblaciones = data;
+                    }, function () {
+                        Notificar.error();
+                    });
+                }
+            });
+        }
+    };
+}
+function selectEstadoUsuario(EstadoUsuario, Notificar) {
+    return {
+        restrict: 'E',
+        templateUrl: '/easyapp/assets/templates/select-estado-usuario.html',
+        scope: {
+            estado: '=',
+            titulo: '@'
+        },
+        controller: function ($scope) {
+            EstadoUsuario.listar().then(function (data) {
+                $scope.estados = data;
+            }, function () {
+                Notificar.error();
+            });
+        }
+    };
+}
+function selectTipoUsuario(TipoUsuario, Notificar) {
+    return {
+        restrict: 'E',
+        templateUrl: '/easyapp/assets/templates/select-tipo-usuario.html',
+        scope: {
+            tipo: '=',
+            titulo: '@'
+        },
+        controller: function ($scope) {
+            TipoUsuario.listar().then(function (data) {
+                $scope.tipos = data;
+            }, function () {
+                Notificar.error();
+            });
+        }
+    };
+}
 function selectEspecie(Especies) {
     return {
         restrict: 'E',
@@ -270,17 +412,16 @@ function selectRaza(Razas, Especies) {
             raza: '='
         },
         controller: function ($scope) {
-            $scope.lista = function (especie) {
+            Especies.listar().then(function (data) {
+                $scope.especies = data;
+            });
+            $scope.$watch('especie', function (especie) {
                 if (especie) {
                     Razas.buscar(especie).then(function (data) {
                         $scope.razas = data;
                     });
                 }
-            };
-            Especies.listar().then(function (data) {
-                $scope.especies = data;
             });
-            $scope.$watch($scope.especie, $scope.lista($scope.especie));
         }
     };
 }
@@ -303,7 +444,66 @@ function inputText() {
             readonly: '=',
             titulo: '@'
         }, controller: function ($scope) {
-            $scope.nombre = $scope.titulo.toLocaleString().replace(' ', '');
+            $scope.$watch('valor', function (nuevo) {
+                if (nuevo) {
+                    $scope.valor = nuevo.toLocaleUpperCase();
+                }
+            });
+        }
+    };
+}
+function inputDireccion() {
+    return {
+        restrict: 'E',
+        templateUrl: '/easyapp/assets/templates/input-text.html',
+        scope: {
+            valor: '=',
+            readonly: '=',
+            titulo: '@'
+        }, controller: function ($scope) {
+            $scope.$watch('valor', function (nuevo) {
+                if (nuevo) {
+                    $scope.valor = nuevo.toLocaleUpperCase();
+                }
+            });
+        }
+    };
+}
+function inputNumber() {
+    return {
+        restrict: 'E',
+        templateUrl: '/easyapp/assets/templates/input-number.html',
+        link: function ($scope, $element, $attrs) {
+            $scope.min_e = $attrs.min ? true : false;
+        },
+        scope: {
+            valor: '=',
+            readonly: '=',
+            titulo: '@'
+        }, controller: function ($scope) {
+            $scope.salida = {};
+            $scope.$watch('valor', function (nuevo) {
+                if (nuevo) {
+                    $scope.valor = parseInt(nuevo);
+                }
+            });
+        }
+    };
+}
+function inputMail() {
+    return {
+        restrict: 'E',
+        templateUrl: '/easyapp/assets/templates/input-mail.html',
+        scope: {
+            valor: '=',
+            readonly: '=',
+            titulo: '@'
+        }, controller: function ($scope) {
+            $scope.$watch('valor', function (nuevo) {
+                if (nuevo)
+                    if ($scope.texto.entrada.$valid)
+                        $scope.valor = nuevo.toLocaleUpperCase();
+            });
         }
     };
 }
@@ -322,6 +522,8 @@ function inputDate() {
                     $scope.valor = new Date();
                 } else {
                     if (typeof $scope.valor === "string") {
+                        //moment.locale('es');
+                        //var date = moment($scope.valor).format('L');
                         var dt = $scope.valor.split("-");
                         $scope.valor = new Date(dt[0], dt[1] - 1, dt[2]);
                     }
@@ -369,6 +571,13 @@ angular
         .directive('minimalizaSidebar', minimalizaSidebar)
         .directive('landingScrollspy', landingScrollspy)
         .directive('closeOffCanvas', closeOffCanvas)
+        .directive('selectDepartamento', selectDepartamento)
+        .directive('selectMunicipio', selectMunicipio)
+        .directive('selectPoblacion', selectPoblacion)
+        .directive('selectArea', selectArea)
+        .directive('selectRegion', selectRegion)
+        .directive('selectTipoUsuario', selectTipoUsuario)
+        .directive('selectEstadoUsuario', selectEstadoUsuario)
         .directive('selectSexos', selectSexos)
         .directive('selectPersonas', selectPersonas)
         .directive('selectPadrinos', selectPadrinos)
@@ -384,5 +593,7 @@ angular
         .directive('inputDate', inputDate)
         .directive('inputImage', inputImage)
         .directive('inputText', inputText)
-        .directive('textEditor', textEditor)
+        .directive('inputMail', inputMail)
+        .directive('inputDireccion', inputDireccion)
+        .directive('inputNumber', inputNumber)
         .directive('fitHeight', fitHeight);

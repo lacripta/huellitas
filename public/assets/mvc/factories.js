@@ -38,7 +38,6 @@ function Animales(AnimalesRest, Notificar) {
     };
     return Animal;
 }
-
 function Sexos(SexosRest, Notificar) {
     var Sexo = {};
 
@@ -82,7 +81,6 @@ function Sexos(SexosRest, Notificar) {
 
     return Sexo;
 }
-
 function Razas(RazasRest, Notificar) {
     var Raza = {};
 
@@ -126,7 +124,6 @@ function Razas(RazasRest, Notificar) {
 
     return Raza;
 }
-
 function Colores(ColoresRest, Notificar) {
     var Raza = {};
 
@@ -170,7 +167,6 @@ function Colores(ColoresRest, Notificar) {
 
     return Raza;
 }
-
 function Especies(EspeciesRest, Notificar) {
     var Especie = {};
 
@@ -214,7 +210,6 @@ function Especies(EspeciesRest, Notificar) {
 
     return Especie;
 }
-
 function EstadosAnimales(EstadosAnimalesRest, Notificar) {
     var Estado = {};
 
@@ -258,7 +253,6 @@ function EstadosAnimales(EstadosAnimalesRest, Notificar) {
 
     return Estado;
 }
-
 function EstadoAdopcion(EstadoAdopcionRest, Notificar) {
     var Estado = {};
 
@@ -302,7 +296,6 @@ function EstadoAdopcion(EstadoAdopcionRest, Notificar) {
 
     return Estado;
 }
-
 function Personas(PersonasRest, Notificar) {
     var Persona = {};
 
@@ -348,7 +341,6 @@ function Personas(PersonasRest, Notificar) {
 
     return Persona;
 }
-
 function Adopciones(AdopcionesRest, Notificar) {
     var Adopcion = {};
 
@@ -392,7 +384,276 @@ function Adopciones(AdopcionesRest, Notificar) {
 
     return Adopcion;
 }
+function TipoUsuario(TipoUsuarioRest, Notificar) {
+    var Tipo = {};
 
+    Tipo.listar = function () {
+        return TipoUsuarioRest.listar();
+    };
+    Tipo.padrinos = function () {
+        return TipoUsuarioRest.padrinos();
+    };
+    Tipo.buscar = function (id) {
+        return TipoUsuarioRest.buscar(id);
+    };
+
+    Tipo.nuevo = function (selected) {
+        if (selected) {
+            TipoUsuarioRest.nuevo(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function () {
+                Notificar.error();
+            });
+        }
+    };
+
+    Tipo.editar = function (selected) {
+        if (selected) {
+            TipoUsuarioRest.editar(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function () {
+                Notificar.error();
+            });
+        }
+    };
+
+    Tipo.borrar = function (selected) {
+        if (selected) {
+            TipoUsuarioRest.borrar(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function () {
+                Notificar.error();
+            });
+        }
+    };
+
+    return Tipo;
+}
+function EstadoUsuario(EstadoUsuarioRest, Notificar) {
+    var Estado = {};
+
+    Estado.listar = function () {
+        return EstadoUsuarioRest.listar();
+    };
+    Estado.padrinos = function () {
+        return EstadoUsuarioRest.padrinos();
+    };
+    Estado.buscar = function (id) {
+        return EstadoUsuarioRest.buscar(id);
+    };
+
+    Estado.nuevo = function (selected) {
+        if (selected) {
+            EstadoUsuarioRest.nuevo(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function () {
+                Notificar.error();
+            });
+        }
+    };
+
+    Estado.editar = function (selected) {
+        if (selected) {
+            EstadoUsuarioRest.editar(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function () {
+                Notificar.error();
+            });
+        }
+    };
+
+    Estado.borrar = function (selected) {
+        if (selected) {
+            EstadoUsuarioRest.borrar(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function () {
+                Notificar.error();
+            });
+        }
+    };
+
+    return Estado;
+}
+function AreaPoblacion(AreaPoblacionRest, Notificar) {
+    var Area = {};
+
+    Area.listar = function () {
+        return AreaPoblacionRest.listar();
+    };
+    Area.padrinos = function () {
+        return AreaPoblacionRest.padrinos();
+    };
+    Area.buscar = function (id) {
+        return AreaPoblacionRest.buscar(id);
+    };
+
+    Area.nuevo = function (selected) {
+        if (selected) {
+            AreaPoblacionRest.nuevo(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function () {
+                Notificar.error();
+            });
+        }
+    };
+
+    Area.editar = function (selected) {
+        if (selected) {
+            AreaPoblacionRest.editar(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function () {
+                Notificar.error();
+            });
+        }
+    };
+
+    Area.borrar = function (selected) {
+        if (selected) {
+            AreaPoblacionRest.borrar(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function () {
+                Notificar.error();
+            });
+        }
+    };
+
+    return Area;
+}
+function Departamento(DepartamentoRest, Notificar) {
+    var Departamento = {};
+
+    Departamento.listar = function () {
+        return DepartamentoRest.listar();
+    };
+    Departamento.padrinos = function () {
+        return DepartamentoRest.padrinos();
+    };
+    Departamento.buscar = function (id) {
+        return DepartamentoRest.buscar(id);
+    };
+
+    Departamento.nuevo = function (selected) {
+        if (selected) {
+            DepartamentoRest.nuevo(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function () {
+                Notificar.error();
+            });
+        }
+    };
+
+    Departamento.editar = function (selected) {
+        if (selected) {
+            DepartamentoRest.editar(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function () {
+                Notificar.error();
+            });
+        }
+    };
+
+    Departamento.borrar = function (selected) {
+        if (selected) {
+            DepartamentoRest.borrar(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function () {
+                Notificar.error();
+            });
+        }
+    };
+
+    return Departamento;
+}
+function Municipio(MunicipioRest, Notificar) {
+    var Municipio = {};
+
+    Municipio.listar = function () {
+        return MunicipioRest.listar();
+    };
+    Municipio.padrinos = function () {
+        return MunicipioRest.padrinos();
+    };
+    Municipio.buscar = function (id) {
+        return MunicipioRest.buscar(id);
+    };
+
+    Municipio.nuevo = function (selected) {
+        if (selected) {
+            MunicipioRest.nuevo(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function () {
+                Notificar.error();
+            });
+        }
+    };
+
+    Municipio.editar = function (selected) {
+        if (selected) {
+            MunicipioRest.editar(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function () {
+                Notificar.error();
+            });
+        }
+    };
+
+    Municipio.borrar = function (selected) {
+        if (selected) {
+            MunicipioRest.borrar(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function () {
+                Notificar.error();
+            });
+        }
+    };
+
+    return Municipio;
+}
+function Poblacion(PoblacionRest, Notificar) {
+    var Poblacion = {};
+
+    Poblacion.listar = function () {
+        return PoblacionRest.listar();
+    };
+    Poblacion.padrinos = function () {
+        return PoblacionRest.padrinos();
+    };
+    Poblacion.buscar = function (id) {
+        return PoblacionRest.buscar(id);
+    };
+
+    Poblacion.nuevo = function (selected) {
+        if (selected) {
+            PoblacionRest.nuevo(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function () {
+                Notificar.error();
+            });
+        }
+    };
+
+    Poblacion.editar = function (selected) {
+        if (selected) {
+            PoblacionRest.editar(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function () {
+                Notificar.error();
+            });
+        }
+    };
+
+    Poblacion.borrar = function (selected) {
+        if (selected) {
+            PoblacionRest.borrar(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function () {
+                Notificar.error();
+            });
+        }
+    };
+
+    return Poblacion;
+}
 function Notificar(SweetAlert) {
     var alerta = {};
 
@@ -441,4 +702,10 @@ angular
         .factory('EstadosAnimales', EstadosAnimales)
         .factory('EstadoAdopcion', EstadoAdopcion)
         .factory('Adopciones', Adopciones)
+        .factory('TipoUsuario', TipoUsuario)
+        .factory('EstadoUsuario', EstadoUsuario)
+        .factory('AreaPoblacion', AreaPoblacion)
+        .factory('Departamento', Departamento)
+        .factory('Municipio', Municipio)
+        .factory('Poblacion', Poblacion)
         .factory('Notificar', Notificar);

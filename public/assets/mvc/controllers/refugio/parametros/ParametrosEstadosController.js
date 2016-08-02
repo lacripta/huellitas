@@ -1,14 +1,15 @@
 
-function ParametrosEspeciesController($scope, $uibModal, $http, DTOptionsBuilder, DTColumnBuilder, SweetAlert, Notificar, Especies) {
+function ParametrosEstadosController($scope, $uibModal, $http, DTOptionsBuilder, DTColumnBuilder, SweetAlert, EstadosAnimales, Notificar) {
     var vm = this;
 
-    vm.dtOptions = DTOptionsBuilder.fromFnPromise(Especies.listar())
-            .withDOM('lfrti')
+    vm.dtOptions = DTOptionsBuilder.fromFnPromise(EstadosAnimales.listar())
             .withDisplayLength(25)
             .withLanguageSource('assets/js/dtSpanish.json')
             .withOption('stateSave', true)
             .withPaginationType('full_numbers')
             .withOption('deferRender', true)
+            // Do not forget to add the scorllY option!!!
+            .withOption('scrollY', 350)
             .withSelect({
                 style: 'os',
                 selector: 'td:first-child'
@@ -21,8 +22,9 @@ function ParametrosEspeciesController($scope, $uibModal, $http, DTOptionsBuilder
                 .renderWith(function () {
                     return '';
                 }),
-        DTColumnBuilder.newColumn('nombre').withTitle('Descripcion'),
-        DTColumnBuilder.newColumn('id').withTitle('ID').notVisible()
+        DTColumnBuilder.newColumn('descripcion').withTitle('Descripcion'),
+        DTColumnBuilder.newColumn('adoptable').withTitle('Adoptable'),
+        DTColumnBuilder.newColumn('responsable').withTitle('Responsable')
     ];
     vm.editarSeleccionado = editarSeleccionado;
     vm.nuevoArticulo = nuevoArticulo;
@@ -33,13 +35,14 @@ function ParametrosEspeciesController($scope, $uibModal, $http, DTOptionsBuilder
         $scope.selected = {};
         $scope.selected.accion = 'nuevo';
         var modalInstance = $uibModal.open({
-            templateUrl: "assets/views/refugio/parametros/especies_editar.html",
-            controller: EspeciesModalController,
+            templateUrl: "assets/views/refugio/parametros/estados_editar.html",
+            controller: EstadosAnimalModalController,
             scope: $scope,
             size: 'lg',
             windowClass: "animated fadeIn"
         });
     }
+
 
     function borrarSeleccionado() {
         if ($scope.selected = $scope.dtEditarArtiulo.DataTable.row('.selected').data()) {
@@ -54,11 +57,11 @@ function ParametrosEspeciesController($scope, $uibModal, $http, DTOptionsBuilder
                 closeOnCancel: false
             }, function (isConfirm) {
                 if (isConfirm) {
-                    Especies.borrar($scope.selected);
-                    $scope.dtEditarArtiulo.changeData(Especies.listar());
+                    EstadosAnimales.borrar($scope.selected);
+                    $scope.dtEditarArtiulo.changeData(EstadosAnimales.listar());
                     $scope.selected = {};
                 } else {
-                    Notificar.cancelado()();
+                    Notificar.cancelado();
                 }
             });
         } else {
@@ -71,8 +74,8 @@ function ParametrosEspeciesController($scope, $uibModal, $http, DTOptionsBuilder
             //$scope.selected = $scope.dtEditarArtiulo.DataTable.row('.selected').data();
             $scope.selected.accion = 'editar';
             var modalInstance = $uibModal.open({
-                templateUrl: "assets/views/refugio/parametros/especies_editar.html",
-                controller: EspeciesModalController,
+                templateUrl: "assets/views/refugio/parametros/estados_editar.html",
+                controller: EstadosAnimalModalController,
                 scope: $scope,
                 size: 'lg',
                 windowClass: "animated fadeIn"
@@ -82,18 +85,18 @@ function ParametrosEspeciesController($scope, $uibModal, $http, DTOptionsBuilder
         }
     }
 }
-function EspeciesModalController($scope, $uibModalInstance, Especies, Notificar) {
+function EstadosAnimalModalController($scope, $uibModalInstance, EstadosAnimales, Notificar) {
     $scope.ok = function (ok) {
         if (ok) {
             if ($scope.selected.accion === 'nuevo') {
-                Especies.nuevo($scope.selected);
+                EstadosAnimales.nuevo($scope.selected);
                 $uibModalInstance.close();
-                $scope.dtEditarArtiulo.changeData(Especies.listar());
+                $scope.dtEditarArtiulo.changeData(EstadosAnimales.listar());
                 $scope.selected = {};
             } else if ($scope.selected.accion === 'editar') {
-                Especies.editar($scope.selected);
+                EstadosAnimales.editar($scope.selected);
                 $uibModalInstance.close();
-                $scope.dtEditarArtiulo.changeData(Especies.listar());
+                $scope.dtEditarArtiulo.changeData(EstadosAnimales.listar());
                 $scope.selected = {};
             }
         } else {
@@ -106,4 +109,4 @@ function EspeciesModalController($scope, $uibModalInstance, Especies, Notificar)
 }
 angular
         .module('easyapp')
-        .controller('ParametrosEspeciesController', ParametrosEspeciesController);
+        .controller('ParametrosEstadosController', ParametrosEstadosController);

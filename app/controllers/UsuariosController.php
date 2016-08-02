@@ -9,7 +9,7 @@ class UsuariosController extends WebServiceController {
      * @Route("/", methods = {"GET"})
      */
     public function indexAction() {
-        $this->response->redirect("login")->sendHeaders();
+        $this->Denegado();
     }
 
     /**
@@ -43,8 +43,16 @@ class UsuariosController extends WebServiceController {
      * @Route("/listar", methods = {"POST"}, name = "usuarios-datos")
      */
     public function listarAction($id, $id2) {
-        $usuario = Usuario::find("grupo='$id' and sid='$id2'");
+        $usuario = Usuario::find(["conditions" => "grupo=?1 and sid=?2", "binds" => [1 => $id, 2 => $id2]]);
         $this->Ok($usuario);
+    }
+
+    /**
+     * @Route("/buscar/{sid:[a-zA-Z\_]+}", methods = {"GET"}, name = "buscar-usuarios")
+     */
+    public function buscarAction($sid) {
+        $tabla = Usuario::findFirst(["conditions" => "sid =?1", "bind" => [1 => $sid]]);
+        $this->Ok($tabla);
     }
 
 }

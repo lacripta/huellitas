@@ -1,31 +1,58 @@
 <?php
 
-class GdGrupo extends \Phalcon\Mvc\Model
+class Componente extends \Phalcon\Mvc\Model
 {
 
     /**
      *
-     * @var integer
+     * @var string
      */
-    public $grupo_id;
+    public $id;
 
     /**
      *
      * @var string
      */
-    public $grupo_nombre;
-
-    /**
-     *
-     * @var integer
-     */
-    public $grupo_estado;
+    public $nombre;
 
     /**
      *
      * @var string
      */
-    public $grupo_fecha;
+    public $slug;
+
+    /**
+     *
+     * @var string
+     */
+    public $enlace;
+
+    /**
+     *
+     * @var string
+     */
+    public $archivo;
+
+    /**
+     *
+     * @var string
+     */
+    public $estado;
+
+    /**
+     *
+     * @var string
+     */
+    public $url;
+
+    /**
+     * Initialize method for model.
+     */
+    public function initialize()
+    {
+        $this->hasMany('id', 'PermisosGrupo', 'componente', array('alias' => 'PermisosGrupo'));
+        $this->belongsTo('estado', 'EstadoAplicacion', 'id', array('alias' => 'EstadoAplicacion'));
+    }
 
     /**
      * Returns table name mapped in the model.
@@ -34,14 +61,14 @@ class GdGrupo extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'gd_grupo';
+        return 'componente';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return GdGrupo[]
+     * @return Componente[]
      */
     public static function find($parameters = null)
     {
@@ -52,7 +79,7 @@ class GdGrupo extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return GdGrupo
+     * @return Componente
      */
     public static function findFirst($parameters = null)
     {

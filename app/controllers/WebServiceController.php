@@ -7,10 +7,10 @@ class WebServiceController extends Phalcon\Mvc\Controller {
 
     public function initialize() {
         if (!stripos(baseUri, $this->request->getHeader("HOST"))) {
-            $this->response->redirect("login")->sendHeaders();
+            $this->Denegado();
         }
         if (is_null($this->session->get('key'))) {
-            $this->response->redirect("login")->sendHeaders();
+            $this->Denegado();
         }
         $this->response->setContentType('application/json; charset=utf-8');
         $this->view->disable();
@@ -59,6 +59,12 @@ class WebServiceController extends Phalcon\Mvc\Controller {
         $this->response->setStatusCode(200);
         $this->response->setEtag(md5(time()));
         $this->response->setJsonContent($datos, JSON_PRETTY_PRINT);
+        $this->response->send();
+    }
+
+    public function Denegado() {
+        $this->response->setStatusCode(403);
+        $this->response->setEtag(md5(time()));
         $this->response->send();
     }
 

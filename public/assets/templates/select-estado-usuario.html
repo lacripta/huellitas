@@ -1,0 +1,13 @@
+<div class="form-group" ng-form="texto">
+    <label class="col-xs-3 control-label">{{titulo}}</label>
+    <div class="col-sm-9">
+        <select class="select form-control" name="entrada"
+                ng-model="estado" required=""
+                style="width: 350px;">
+            <option ng-repeat="opt in estados" value="{{opt.id}}">{{opt.descripcion}}</option>
+        </select>
+        <div class="m-t-xs" ng-show="texto.entrada.$touched">
+            <small class="text-danger" ng-show="texto.entrada.$error.required">Este campo es requerido</small>
+        </div>
+    </div>
+</div>

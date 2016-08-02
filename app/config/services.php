@@ -120,8 +120,12 @@ $di->setShared('view', function () use ($config) {
             $router->addResource('Especies', '/refugio/parametros/especies');
             $router->addResource('Razas', '/refugio/parametros/razas');
             $router->addResource('Personas', '/refugio/personas');
-            $router->addResource('Departamentos', '/regiones/departamentos');
-            $router->addResource('Municipios', '/regiones/municipios');
-            $router->addResource('Poblaciones', '/regiones/poblaciones');
+            //PARAMETROS DEL SISTEMA
+            $router->addResource('TipoUsuario', '/configuracion/usuarios/tipos');
+            $router->addResource('EstadoUsuario', '/configuracion/usuarios/estados');
+            $router->addResource('AreaPoblacion', '/configuracion/regiones/areas');
+            $router->addResource('Departamento', '/configuracion/regiones/departamentos');
+            $router->addResource('Municipio', '/configuracion/regiones/municipios');
+            $router->addResource('Poblacion', '/configuracion/regiones/poblaciones');
             return $router;
         });
