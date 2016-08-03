@@ -687,7 +687,9 @@ function Notificar(SweetAlert) {
     alerta.cancelado = function () {
         SweetAlert.swal("Operación Cancelada", "La tarea ha sido cancelada por el usuario", "error");
     };
-
+    alerta.mensaje = function (texto, estado) {
+        SweetAlert.swal("Respuesta del Servidor", texto, estado == "1" ? "success" : "error");
+    };
     return alerta;
 }
 

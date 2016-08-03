@@ -38,16 +38,9 @@
                     </uib-tab-heading>
                     <div class="panel-body">
                         <fieldset class="form-horizontal">
-                            <input-text titulo="Titulo" valor="selected.titulo"></input-text>
-                            <input-image titulo="Seleccionar una Imagen" imagen="selected.url"></input-image>
-                            <div class="row">
-                                <div class="space-30"></div>
-                            </div>
+                            <image-uploader valor="selected.id"></image-uploader>
                             <div class="row text-center">
-                                <button class="btn btn-lg btn-info" type="submit" ng-click="agregar()">guardar</button>
-                            </div>
-                            <div class="row">
-                                <div class="space-30"></div>
+                                <button class="btn btn-lg btn-info" type="submit" ng-click="cancel()">aceptar</button>
                             </div>
                         </fieldset>
                     </div>

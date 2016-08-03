@@ -40,6 +40,12 @@ class WebServiceController extends Phalcon\Mvc\Controller {
         return $nuevo->format("Y-m-d");
     }
 
+    public function TiempoTexto() {
+        $now = DateTime::createFromFormat('U.u', microtime(true));
+        $now->setTimeZone(new DateTimeZone('America/Bogota'));
+        return $now->format("m_d_Y_H_i_s_u");
+    }
+
     /**
      * 200 OK
      * 201 CREATED
@@ -105,11 +111,14 @@ class WebServiceController extends Phalcon\Mvc\Controller {
     }
 
     public function SinCambios($errores) {
+        foreach ($errores as $error) {
+            $salida = $error->__toString();
+        }
         $this->response->setStatusCode(206);
         $this->response->setEtag(md5(time()));
         $this->response->setJsonContent([
             "mensaje" => "No se Han realizado Cambios",
-            "estado" => $errores,
+            "estado" => $salida,
             "codigo" => "0"
                 ], JSON_PRETTY_PRINT);
         $this->response->send();

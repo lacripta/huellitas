@@ -249,7 +249,18 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                 data: {pageTitle: 'Gestión de Animales', pageDesc: 'Animales que estan bajo el cuidado del refugió'},
                 templateUrl: "assets/views/refugio/animales/animales.html",
                 controller: 'AnimalesController',
-                controllerAs: 'anim'
+                controllerAs: 'anim',
+                resolve: {
+                    loadPlugin: function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            {
+                                name: 'angularFileUpload',
+                                files: [
+                                    'bower_components/angular-file-upload/dist/angular-file-upload.min.js'
+                                ]
+                            }]);
+                    }
+                }
             })
             .state('refugio.parametros', {
                 url: "/parametros",

@@ -95,6 +95,7 @@
             }
         },
         "select-estado-persona": {},
+        "image-uploader": {},
         "select-area": {
             "attributes": {
                 "area": {}
@@ -170,8 +171,11 @@
         "uib-dropdown-menu": {
             "context": "ul"
         },
+        "nv-file-over": {},
+        "nv-file-drop": {},
         "uib-tooltip": {},
         "summernote": {},
-        "ui-sref-active": {}
+        "ui-sref-active": {},
+        "nv-file-select": {}
     }
 }

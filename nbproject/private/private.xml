@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>public/assets/views/refugio/parametros/razas_editar.html</url>
+            <bookmark id="1">
+                <name/>
+                <line>12</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/F:/wamp64/www/easyapp/public/assets/mvc/factories.js</file>
+            <file>file:/F:/wamp64/www/easyapp/public/assets/mvc/directives.js</file>
+            <file>file:/F:/wamp64/www/easyapp/public/assets/mvc/services.js</file>
+            <file>file:/F:/wamp64/www/easyapp/app/controllers/WebServiceController.php</file>
+            <file>file:/F:/wamp64/www/easyapp/public/assets/mvc/controllers/refugio/PersonasController.js</file>
+            <file>file:/F:/wamp64/www/easyapp/public/assets/views/refugio/personas/personas.html</file>
+            <file>file:/F:/wamp64/www/easyapp/public/assets/mvc/config.js</file>
+            <file>file:/F:/wamp64/www/easyapp/public/assets/templates/input-mail.html</file>
+            <file>file:/F:/wamp64/www/easyapp/public/assets/views/refugio/personas/personas_editar.html</file>
+            <file>file:/F:/wamp64/www/easyapp/public/assets/mvc/controllers/refugio/parametros/ParametrosEspeciesController.js</file>
+        </group>
+    </open-files>
+</project-private>

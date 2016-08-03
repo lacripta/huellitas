@@ -111,6 +111,7 @@ $di->setShared('view', function () use ($config) {
             $router->addResource('Novedades', '/novedades');
             //GESTION DEL REFUGIO DE ANIMALES
             $router->addResource('Animal', '/refugio/animales');
+            $router->addResource('AnimalImagen', '/refugio/animales/imagen');
             $router->addResource('Adopciones', '/refugio/adopciones');
             $router->addResource('WebService', '/refugio/parametros');
             $router->addResource('EstadoAdopcion', '/refugio/parametros/adopciones/estados');

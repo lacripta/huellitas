@@ -490,6 +490,82 @@ function inputNumber() {
         }
     };
 }
+function imageUploader() {
+    return {
+        restrict: 'E',
+        templateUrl: '/easyapp/assets/templates/image-uploader.html',
+        scope: {
+            valor: '=',
+            readonly: '=',
+            titulo: '@'
+        }, controller: function ($scope, FileUploader, Notificar) {
+            var uploader = $scope.uploader = new FileUploader({
+                url: '/easyapp/refugio/animales/imagen/agregar/' + $scope.valor
+            });
+            uploader.filters.push({
+                name: 'imageFilter',
+                fn: function (item /*{File|FileLikeObject}*/, options) {
+                    var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+                    return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+                }
+            });
+            uploader.onSuccessItem = function (fileItem, response, status, headers) {
+                fileItem.isSuccess = response.codigo == '1' ? true : false;
+                fileItem.isError = response.codigo == '0' ? true : false;
+                if (response.codigo != '1') {
+                    Notificar.mensaje(fileItem.file.name + ": " + response.estado, response.codigo);
+                }
+            };
+        }
+    };
+}
+
+function ngThumb($window) {
+    var helper = {
+        support: !!($window.FileReader && $window.CanvasRenderingContext2D),
+        isFile: function (item) {
+            return angular.isObject(item) && item instanceof $window.File;
+        },
+        isImage: function (file) {
+            var type = '|' + file.type.slice(file.type.lastIndexOf('/') + 1) + '|';
+            return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+        }
+    };
+
+    return {
+        restrict: 'A',
+        template: '<canvas/>',
+        link: function (scope, element, attributes) {
+            if (!helper.support)
+                return;
+            var params = scope.$eval(attributes.ngThumb);
+
+            if (!helper.isFile(params.file))
+                return;
+            if (!helper.isImage(params.file))
+                return;
+
+            var canvas = element.find('canvas');
+            var reader = new FileReader();
+
+            reader.onload = onLoadFile;
+            reader.readAsDataURL(params.file);
+
+            function onLoadFile(event) {
+                var img = new Image();
+                img.onload = onLoadImage;
+                img.src = event.target.result;
+            }
+
+            function onLoadImage() {
+                var width = params.width || this.width / this.height * params.height;
+                var height = params.height || this.height / this.width * params.width;
+                canvas.attr({width: width, height: height});
+                canvas[0].getContext('2d').drawImage(this, 0, 0, width, height);
+            }
+        }
+    };
+}
 function inputMail() {
     return {
         restrict: 'E',
@@ -596,4 +672,6 @@ angular
         .directive('inputMail', inputMail)
         .directive('inputDireccion', inputDireccion)
         .directive('inputNumber', inputNumber)
+        .directive('imageUploader', imageUploader)
+        .directive('ngThumb', ngThumb)
         .directive('fitHeight', fitHeight);
