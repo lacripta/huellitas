@@ -21,7 +21,7 @@ class AnimalImagenController extends WebServiceController {
     }
 
     /**
-     * @Route("/listar/{id:[0-9]+}", methods = {"POST"}, name = "listar-imagenes-animal")
+     * @Route("/buscar/{id:[0-9]+}", methods = {"GET"}, name = "listar-imagenes-animal")
      */
     public function buscarAction($id) {
         $animal = AnimalImagen::find(["conditions" => "id_animal = ?1", "bind" => [1 => $id]]);
@@ -39,6 +39,7 @@ class AnimalImagenController extends WebServiceController {
                 $file->moveTo(APP_PATH . $ruta);
                 $tabla->id_animal = $id;
                 $tabla->imagen = "/easyapp" . $ruta;
+                $tabla->ruta = APP_PATH . $ruta;
                 $tabla->nombre = $file->getName();
                 $this->db->begin();
                 if ($tabla->create()) {

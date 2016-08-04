@@ -41,6 +41,7 @@ class AnimalController extends WebServiceController {
         $animal = Animal::find();
         $razas = array();
         foreach ($animal as $key) {
+            $imagenes = AnimalImagen::find(["columns" => "id,id_animal,nombre,imagen", "conditions" => "id_animal = ?1", "bind" => [1 => $key->id]]);
             $razas[] = array(
                 "id" => $key->id,
                 "nombre" => $key->nombre,
@@ -58,7 +59,8 @@ class AnimalController extends WebServiceController {
                 "raza" => $key->raza,
                 "sexo" => $key->sexo,
                 "desestado" => $key->EstadoAnimal->descripcion,
-                "estado" => $key->estado
+                "estado" => $key->estado,
+                "imagenes" => $imagenes->toArray()
             );
         }
         $this->Ok($razas);

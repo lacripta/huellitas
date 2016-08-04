@@ -1,12 +1,7 @@
 <?php
 
-class AnimalImagen extends \Phalcon\Mvc\Model {
-
-    /**
-     *
-     * @var string
-     */
-    public $id;
+class AnimalImagen extends \Phalcon\Mvc\Model
+{
 
     /**
      *
@@ -18,13 +13,25 @@ class AnimalImagen extends \Phalcon\Mvc\Model {
      *
      * @var string
      */
+    public $nombre;
+
+    /**
+     *
+     * @var string
+     */
     public $imagen;
 
     /**
      *
      * @var string
      */
-    public $nombre;
+    public $id;
+
+    /**
+     *
+     * @var string
+     */
+    public $ruta;
 
     /**
      * Initialize method for model.
@@ -58,7 +65,8 @@ class AnimalImagen extends \Phalcon\Mvc\Model {
      *
      * @return string
      */
-    public function getSource() {
+    public function getSource()
+    {
         return 'animal_imagen';
     }
 
