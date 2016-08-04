@@ -16,17 +16,10 @@ function AdopcionesController($scope, $uibModal, $http, DTOptionsBuilder, DTColu
             .withPaginationType('full_numbers')
             .withSelect({
                 style: 'os',
-                selector: 'td:first-child'
+                selector: 'td'
             });
 
     vm.dtColumns = [
-        DTColumnBuilder.newColumn(null).withTitle('')
-                .notSortable()
-                .withClass('select-checkbox')
-                // Need to define the mRender function, otherwise we get a [Object Object]
-                .renderWith(function () {
-                    return '';
-                }),
         DTColumnBuilder.newColumn('adopto').withTitle('Adopto'),
         DTColumnBuilder.newColumn('especie_animal').withTitle('Especie'),
         DTColumnBuilder.newColumn('raza_animal').withTitle('Raza'),

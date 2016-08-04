@@ -12,16 +12,10 @@ function EstadoAdopcionController($scope, $uibModal, $http, DTOptionsBuilder, DT
             .withOption('scrollY', 350)
             .withSelect({
                 style: 'os',
-                selector: 'td:first-child'
+                selector: 'td'
             });
 
     vm.dtColumns = [
-        DTColumnBuilder.newColumn(null).withTitle('')
-                .notSortable()
-                .withClass('select-checkbox')
-                .renderWith(function () {
-                    return '';
-                }),
         DTColumnBuilder.newColumn('descripcion').withTitle('Descripcion'),
         DTColumnBuilder.newColumn('desfinal').withTitle('Estado al Final'),
         DTColumnBuilder.newColumn('desborrar').withTitle('Estado al Borrar')

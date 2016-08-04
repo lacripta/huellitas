@@ -8,16 +8,10 @@ function PersonasController($scope, $uibModal, DTOptionsBuilder, DTColumnBuilder
             .withOption('deferRender', true)
             .withSelect({
                 style: 'os',
-                selector: 'td:first-child'
+                selector: 'td'
             });
 
     vm.dtColumns = [
-        DTColumnBuilder.newColumn(null).withTitle('')
-                .notSortable()
-                .withClass('select-checkbox')
-                .renderWith(function () {
-                    return '';
-                }),
         DTColumnBuilder.newColumn('cedula').withTitle('Cedula'),
         DTColumnBuilder.newColumn('nombre').withTitle('Nombre'),
         DTColumnBuilder.newColumn('apellido').withTitle('Apellido'),

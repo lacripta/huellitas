@@ -13,16 +13,10 @@ function ParametrosRazasController($scope, $uibModal, DTOptionsBuilder, DTColumn
             .withOption('scrollY', 350)
             .withSelect({
                 style: 'os',
-                selector: 'td:first-child'
+                selector: 'td'
             });
 
     vm.dtColumns = [
-        DTColumnBuilder.newColumn(null).withTitle('')
-                .notSortable()
-                .withClass('select-checkbox')
-                .renderWith(function () {
-                    return '';
-                }),
         DTColumnBuilder.newColumn('nombre').withTitle('Raza'),
         DTColumnBuilder.newColumn('especie').withTitle('Especie'),
         DTColumnBuilder.newColumn('id').withTitle('ID').notVisible(),

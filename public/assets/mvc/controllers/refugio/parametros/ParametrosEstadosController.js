@@ -12,16 +12,10 @@ function ParametrosEstadosController($scope, $uibModal, $http, DTOptionsBuilder,
             .withOption('scrollY', 350)
             .withSelect({
                 style: 'os',
-                selector: 'td:first-child'
+                selector: 'td'
             });
 
     vm.dtColumns = [
-        DTColumnBuilder.newColumn(null).withTitle('')
-                .notSortable()
-                .withClass('select-checkbox')
-                .renderWith(function () {
-                    return '';
-                }),
         DTColumnBuilder.newColumn('descripcion').withTitle('Descripcion'),
         DTColumnBuilder.newColumn('adoptable').withTitle('Adoptable'),
         DTColumnBuilder.newColumn('responsable').withTitle('Responsable')

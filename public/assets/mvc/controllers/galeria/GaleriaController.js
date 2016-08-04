@@ -21,17 +21,10 @@ function GaleriaController($scope, $uibModal, $http, DTOptionsBuilder, DTColumnB
             .withOption('scrollY', 350)
             .withSelect({
                 style: 'os',
-                selector: 'td:first-child'
+                selector: 'td'
             });
 
     vm.dtColumns = [
-        DTColumnBuilder.newColumn(null).withTitle('')
-                .notSortable()
-                .withClass('select-checkbox')
-                // Need to define the mRender function, otherwise we get a [Object Object]
-                .renderWith(function () {
-                    return '';
-                }),
         DTColumnBuilder.newColumn('id').withTitle('ID').notVisible(),
         DTColumnBuilder.newColumn('descripcion').withTitle('Descripcion').notVisible(),
         DTColumnBuilder.newColumn('nombre').withTitle('Nombre').notVisible(),

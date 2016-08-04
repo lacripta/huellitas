@@ -10,16 +10,10 @@ function ParametrosEspeciesController($scope, $uibModal, $http, DTOptionsBuilder
             .withOption('deferRender', true)
             .withSelect({
                 style: 'os',
-                selector: 'td:first-child'
+                selector: 'td'
             });
 
     vm.dtColumns = [
-        DTColumnBuilder.newColumn(null).withTitle('')
-                .notSortable()
-                .withClass('select-checkbox')
-                .renderWith(function () {
-                    return '';
-                }),
         DTColumnBuilder.newColumn('nombre').withTitle('Descripcion'),
         DTColumnBuilder.newColumn('id').withTitle('ID').notVisible()
     ];
