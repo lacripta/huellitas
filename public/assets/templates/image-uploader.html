@@ -1,4 +1,7 @@
 <div class="row" nv-file-drop="" uploader="uploader">
+    <div class="col-xs-12">
+        <input type="file" nv-file-select="" uploader="uploader" multiple  /><br/>
+    </div>
     <div class="col-md-3">
         <h3>Select files</h3>
         <div ng-show="uploader.isHTML5">
@@ -41,13 +44,16 @@
                         <span ng-show="item.isError"><i class="glyphicon glyphicon-remove text-danger"></i></span>
                     </td>
                     <td nowrap>
-                        <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                        <button type="button" class="btn btn-success btn-xs" tooltip-placement="bottom" uib-tooltip="Subir"
+                                ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
                             <span class="glyphicon glyphicon-upload"></span>
                         </button>
-                        <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
+                        <button type="button" class="btn btn-warning btn-xs" tooltip-placement="bottom" uib-tooltip="Cancelar"
+                                ng-click="item.cancel()" ng-disabled="!item.isUploading">
                             <span class="glyphicon glyphicon-ban-circle"></span>
                         </button>
-                        <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+                        <button type="button" class="btn btn-danger btn-xs" tooltip-placement="bottom" uib-tooltip="Borrar"
+                                ng-click="item.remove()">
                             <span class="glyphicon glyphicon-trash"></span>
                         </button>
                     </td>
@@ -61,13 +67,16 @@
                     <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
                 </div>
             </div>
-            <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
+            <button type="button" class="btn btn-success btn-s" tooltip-placement="bottom" uib-tooltip="Subir todos"
+                    ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
                 <span class="glyphicon glyphicon-upload"></span>
             </button>
-            <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
+            <button type="button" class="btn btn-warning btn-s" tooltip-placement="bottom" uib-tooltip="Cancelar todos"
+                    ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
                 <span class="glyphicon glyphicon-ban-circle"></span>
             </button>
-            <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
+            <button type="button" class="btn btn-danger btn-s" tooltip-placement="bottom" uib-tooltip="Borrar todos"
+                    ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
                 <span class="glyphicon glyphicon-trash"></span>
             </button>
         </div>

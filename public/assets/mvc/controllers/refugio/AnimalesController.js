@@ -9,29 +9,15 @@ function AnimalesController($scope, $uibModal, DTOptionsBuilder, DTColumnBuilder
             .withOption('deferRender', true)
             .withSelect({
                 style: 'os',
-                selector: 'td:first-child'
+                selector: 'td'
             });
 
     vm.dtColumns = [
-        DTColumnBuilder.newColumn(null).withTitle('')
-                .notSortable()
-                .withClass('select-checkbox')
-                // Need to define the mRender function, otherwise we get a [Object Object]
-                .renderWith(function () {
-                    return '';
-                }),
-        DTColumnBuilder.newColumn('id').withTitle('ID').notVisible(),
-        DTColumnBuilder.newColumn('especie').withTitle('especie').notVisible(),
-        DTColumnBuilder.newColumn('raza').withTitle('raza').notVisible(),
-        DTColumnBuilder.newColumn('color').withTitle('color').notVisible(),
-        DTColumnBuilder.newColumn('estado').withTitle('estado').notVisible(),
-        DTColumnBuilder.newColumn('rescata').withTitle('rescata').notVisible(),
         DTColumnBuilder.newColumn('nombre').withTitle('Nombre'),
         DTColumnBuilder.newColumn('edad').withTitle('Edad'),
         DTColumnBuilder.newColumn('edad_tipo').withTitle('Edad Tipo'),
         DTColumnBuilder.newColumn('fecha_ingreso').withTitle('Ingreso'),
         DTColumnBuilder.newColumn('desrescata').withTitle('Rescató'),
-        DTColumnBuilder.newColumn('fecha_salida').withTitle('Salida').notVisible(),
         DTColumnBuilder.newColumn('desespecie').withTitle('Especie'),
         DTColumnBuilder.newColumn('desraza').withTitle('Raza'),
         DTColumnBuilder.newColumn('descolor').withTitle('Color'),
@@ -94,7 +80,7 @@ function AnimalesController($scope, $uibModal, DTOptionsBuilder, DTColumnBuilder
         }
     }
 }
-function AnimalModalController($scope, $uibModalInstance, Animales, Notificar) {
+function AnimalModalController($scope, $uibModalInstance, Animales, AnimalImagen, SweetAlert, Notificar) {
     $scope.ok = function (ok) {
         if (ok) {
             if ($scope.selected.accion === 'nuevo') {
@@ -112,8 +98,24 @@ function AnimalModalController($scope, $uibModalInstance, Animales, Notificar) {
             Notificar.form();
         }
     };
-    $scope.agregar = function () {
-
+    $scope.borrar = function (selected) {
+        SweetAlert.swal({
+            title: "Borra esta Imagen?",
+            text: "Titulo: " + selected.nombre,
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Aceptar",
+            cancelButtonText: "Cancelar",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        }, function (isConfirm) {
+            if (isConfirm) {
+                $scope.selected.imagenes.splice($scope.selected.imagenes.indexOf(selected), 1);
+                AnimalImagen.borrar(selected);
+            } else {
+                Notificar.cancelado();
+            }
+        });
     };
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');

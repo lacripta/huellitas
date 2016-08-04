@@ -490,12 +490,13 @@ function inputNumber() {
         }
     };
 }
-function imageUploader() {
+function imageUploader(AnimalImagen) {
     return {
         restrict: 'E',
         templateUrl: '/easyapp/assets/templates/image-uploader.html',
         scope: {
             valor: '=',
+            imagenes: '=',
             readonly: '=',
             titulo: '@'
         }, controller: function ($scope, FileUploader, Notificar) {
@@ -512,6 +513,13 @@ function imageUploader() {
             uploader.onSuccessItem = function (fileItem, response, status, headers) {
                 fileItem.isSuccess = response.codigo == '1' ? true : false;
                 fileItem.isError = response.codigo == '0' ? true : false;
+                if (fileItem.isSuccess) {
+                    AnimalImagen.buscar($scope.valor).then(function (data) {
+                        $scope.imagenes = data;
+                    }, function () {
+                        Notificar.error();
+                    });
+                }
                 if (response.codigo != '1') {
                     Notificar.mensaje(fileItem.file.name + ": " + response.estado, response.codigo);
                 }
@@ -519,7 +527,6 @@ function imageUploader() {
         }
     };
 }
-
 function ngThumb($window) {
     var helper = {
         support: !!($window.FileReader && $window.CanvasRenderingContext2D),

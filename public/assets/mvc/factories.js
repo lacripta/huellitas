@@ -38,6 +38,43 @@ function Animales(AnimalesRest, Notificar) {
     };
     return Animal;
 }
+function AnimalImagen(AnimalImagenRest, Notificar) {
+    var Imagen = {};
+    Imagen.listar = function () {
+        return AnimalImagenRest.listar();
+    };
+    Imagen.buscar = function (id) {
+        return AnimalImagenRest.buscar(id);
+    };
+    Imagen.nuevo = function (selected) {
+        if (selected) {
+            AnimalImagenRest.nuevo(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function () {
+                Notificar.error();
+            });
+        }
+    };
+    Imagen.editar = function (selected) {
+        if (selected) {
+            AnimalImagenRest.editar(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function () {
+                Notificar.error();
+            });
+        }
+    };
+    Imagen.borrar = function (selected) {
+        if (selected) {
+            AnimalImagenRest.borrar(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function () {
+                Notificar.error();
+            });
+        }
+    };
+    return Imagen;
+}
 function Sexos(SexosRest, Notificar) {
     var Sexo = {};
 
@@ -696,6 +733,7 @@ function Notificar(SweetAlert) {
 angular
         .module('easyapp')
         .factory('Animales', Animales)
+        .factory('AnimalImagen', AnimalImagen)
         .factory('Personas', Personas)
         .factory('Sexos', Sexos)
         .factory('Razas', Razas)

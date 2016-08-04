@@ -95,6 +95,88 @@ function AnimalesRest($http, $q) {
         return promise;
     }
 }
+function AnimalImagenRest($http, $q) {
+    return {
+        listar: listarTodas,
+        buscar: buscar,
+        nuevo: guardar,
+        editar: editar,
+        borrar: borrar
+    };
+    function listarTodas() {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'GET',
+            url: '/easyapp/refugio/animales/imagen/listar',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+    function buscar(id) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'GET',
+            url: '/easyapp/refugio/animales/imagen/buscar/' + id,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+    function guardar(datos) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'POST',
+            url: '/easyapp/refugio/animales/imagen/agregar',
+            data: datos,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+    function editar(datos) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'PUT',
+            url: '/easyapp/refugio/animales/imagen/editar',
+            data: datos,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+    function borrar(datos) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'DELETE',
+            url: '/easyapp/refugio/animales/imagen/borrar',
+            data: datos,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+}
 function PersonasRest($http, $q) {
     return {
         listar: listarTodas,
@@ -1278,6 +1360,7 @@ function AreaPoblacionRest($http, $q) {
 angular
         .module('easyapp')
         .service('AnimalesRest', AnimalesRest)
+        .service('AnimalImagenRest', AnimalImagenRest)
         .service('SexosRest', SexosRest)
         .service('RazasRest', RazasRest)
         .service('ColoresRest', ColoresRest)
