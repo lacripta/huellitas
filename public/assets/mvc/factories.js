@@ -176,6 +176,46 @@ function Novedades(NovedadesRest, Notificar) {
     };
     return articulo;
 }
+function Galeria(GaleriaRest, Notificar) {
+    var imagen = {};
+    imagen.listar = function () {
+        return GaleriaRest.listar();
+    };
+    imagen.buscar = function (id) {
+        return GaleriaRest.buscar(id);
+    };
+    imagen.imagen = function (id) {
+        return GaleriaRest.imagen(id);
+    };
+    imagen.nuevo = function (selected) {
+        if (selected) {
+            GaleriaRest.nuevo(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function (error) {
+                Notificar.error(error);
+            });
+        }
+    };
+    imagen.editar = function (selected) {
+        if (selected) {
+            GaleriaRest.editar(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function (error) {
+                Notificar.error(error);
+            });
+        }
+    };
+    imagen.borrar = function (selected) {
+        if (selected) {
+            GaleriaRest.borrar(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function (error) {
+                Notificar.error(error);
+            });
+        }
+    };
+    return imagen;
+}
 function Razas(RazasRest, Notificar) {
     var Raza = {};
 
@@ -833,6 +873,7 @@ angular
         .factory('AnimalImagen', AnimalImagen)
         .factory('Personas', Personas)
         .factory('Novedades', Novedades)
+        .factory('Galeria', Galeria)
         .factory('Sexos', Sexos)
         .factory('Razas', Razas)
         .factory('Colores', Colores)

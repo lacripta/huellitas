@@ -4,18 +4,20 @@
             <uib-tabset>
                 <uib-tab>
                     <uib-tab-heading>
-                        Product info
+                        Imagen del Carrusel
                     </uib-tab-heading>
                     <div class="panel-body">
-
-                        <fieldset class="form-horizontal">
-                            <input-text titulo="Titulo" valor="selected.titulo"></input-text>
-                            <input-image titulo="Seleccionar una Imagen" imagen="selected.url"></input-image>
-                        </fieldset>
-                        <div class="row text-center">
-                            <button class="btn btn-lg btn-info" type="submit" ng-click="ok()"><strong>guardar</strong></button>
-                            <button class="btn btn-lg btn-danger" type="submit" ng-click="cancel()"><strong>cancelar</strong></button>
-                        </div>
+                        <form name="datosImagen">
+                            <fieldset class="form-horizontal">
+                                <input-text titulo="Titulo" valor="selected.titulo"></input-text>
+                                <select-estado-publicacion titulo="Estado de la Imagen" estado="selected.estado"></select-estado-publicacion>
+                                <input-image titulo="Seleccionar una Imagen" imagen="selected.url"></input-image>
+                            </fieldset>
+                            <div class="row text-center">
+                                <button class="btn btn-lg btn-info" type="submit" ng-click="ok(datosImagen.$valid)"><strong>guardar</strong></button>
+                                <button class="btn btn-lg btn-danger" type="submit" ng-click="cancel()"><strong>cancelar</strong></button>
+                            </div>
+                        </form>
                     </div>
                 </uib-tab>
             </uib-tabset>

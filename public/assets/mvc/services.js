@@ -306,6 +306,103 @@ function NovedadesRest($http, $q) {
         return promise;
     }
 }
+function GaleriaRest($http, $q) {
+    return {
+        listar: listarTodas,
+        buscar: buscar,
+        imagen: imagen,
+        nuevo: crear,
+        editar: editar,
+        borrar: borrar
+    };
+    function imagen(id) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'GET',
+            url: '/easyapp/galeria/imagen/' + id,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+    function listarTodas() {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'GET',
+            url: '/easyapp/galeria/listar',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+    function buscar(id) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'GET',
+            url: '/easyapp/galeria/buscar/' + id,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+    function crear(datos) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'POST',
+            url: '/easyapp/galeria/agregar',
+            data: datos,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+    function editar(datos) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'PUT',
+            url: '/easyapp/galeria/editar',
+            data: datos,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+    function borrar(datos) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'DELETE',
+            url: '/easyapp/galeria/borrar',
+            data: datos,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+}
 function PersonasRest($http, $q) {
     return {
         listar: listarTodas,
@@ -1573,6 +1670,7 @@ angular
         .service('AnimalesRest', AnimalesRest)
         .service('AnimalImagenRest', AnimalImagenRest)
         .service('NovedadesRest', NovedadesRest)
+        .service('GaleriaRest', GaleriaRest)
         .service('SexosRest', SexosRest)
         .service('RazasRest', RazasRest)
         .service('ColoresRest', ColoresRest)

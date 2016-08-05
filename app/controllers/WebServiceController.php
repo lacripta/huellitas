@@ -40,6 +40,11 @@ class WebServiceController extends Phalcon\Mvc\Controller {
         return $nuevo->format("Y-m-d");
     }
 
+    public function FechaLocal($fecha) {
+        $nuevo = new DateTime($fecha, new DateTimeZone("America/Bogota"));
+        return $nuevo->format("d/m/Y");
+    }
+
     public function TiempoTexto() {
         $now = DateTime::createFromFormat('U.u', microtime(true));
         $now->setTimeZone(new DateTimeZone('America/Bogota'));

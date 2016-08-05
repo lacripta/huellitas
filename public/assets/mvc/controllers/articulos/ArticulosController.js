@@ -1,5 +1,5 @@
 
-function ArticulosController($scope, $uibModal, $http, DTOptionsBuilder, DTColumnBuilder, SweetAlert, Notificar, Novedades) {
+function ArticulosController($scope, $uibModal, DTOptionsBuilder, DTColumnBuilder, SweetAlert, Notificar, Novedades) {
     var vm = this;
 
     vm.dtOptions = DTOptionsBuilder.fromFnPromise(Novedades.listar())
