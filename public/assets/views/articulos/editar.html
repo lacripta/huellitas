@@ -7,15 +7,18 @@
                         Contenido del Articulo
                     </uib-tab-heading>
                     <div class="panel-body">
-                        <fieldset class="form-horizontal">
-                            <input-text titulo="Titulo" valor="selected.titulo"></input-text>
-                            <input-text titulo="Resumen" valor="selected.resumen"></input-text>
-                            <text-editor titulo="Contenido" contenido="selected.contenido"></text-editor>
-                        </fieldset>
-                        <div class="row text-center">
-                            <button class="btn btn-lg btn-info" type="submit" ng-click="ok()"><strong>guardar</strong></button>
-                            <button class="btn btn-lg btn-danger" type="submit" ng-click="cancel()"><strong>cancelar</strong></button>
-                        </div>
+                        <form name="datosArticulo">
+                            <fieldset class="form-horizontal">
+                                <input-text titulo="Titulo" valor="selected.titulo"></input-text>
+                                <input-text titulo="Resumen" valor="selected.resumen"></input-text>
+                                <select-estado-publicacion titulo="Estado de la Publicación" estado="selected.estado"></select-estado-publicacion>
+                                <text-editor titulo="Contenido" contenido="selected.contenido"></text-editor>
+                            </fieldset>
+                            <div class="row text-center">
+                                <button class="btn btn-lg btn-info" type="submit" ng-click="ok(datosArticulo.$valid)"><strong>guardar</strong></button>
+                                <button class="btn btn-lg btn-danger" type="submit" ng-click="cancel()"><strong>cancelar</strong></button>
+                            </div>
+                        </form>
                     </div>
                 </uib-tab>
                 <uib-tab>

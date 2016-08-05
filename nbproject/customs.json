@@ -1,5 +1,10 @@
 {
     "elements": {
+        "select-estado-publicacion": {
+            "attributes": {
+                "estado": {}
+            }
+        },
         "select-sexos": {
             "attributes": {
                 "sexo": {}
@@ -95,7 +100,11 @@
             }
         },
         "select-estado-persona": {},
-        "image-uploader": {},
+        "image-uploader": {
+            "attributes": {
+                "imagenes": {}
+            }
+        },
         "select-area": {
             "attributes": {
                 "area": {}

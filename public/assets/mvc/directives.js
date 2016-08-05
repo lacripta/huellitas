@@ -100,8 +100,8 @@ function selectSexos(Sexos, Notificar) {
         controller: function ($scope) {
             Sexos.listar().then(function (data) {
                 $scope.sexos = data;
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -117,8 +117,8 @@ function selectPersonas(Personas, Notificar) {
         controller: function ($scope) {
             Personas.listar().then(function (data) {
                 $scope.personas = data;
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -134,8 +134,8 @@ function selectPadrinos(Personas, Notificar) {
         controller: function ($scope) {
             Personas.padrinos().then(function (data) {
                 $scope.personas = data;
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -164,13 +164,13 @@ function selectEstados(EstadosAnimales, Notificar) {
         controller: function ($scope) {
             EstadosAnimales.listar().then(function (data) {
                 $scope.estados = data;
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
 }
-function selectColores(Colores) {
+function selectColores(Colores, Notificar) {
     return {
         restrict: 'E',
         templateUrl: '/easyapp/assets/templates/select-animales-colores.html',
@@ -181,6 +181,8 @@ function selectColores(Colores) {
         controller: function ($scope) {
             Colores.listar().then(function (data) {
                 $scope.colores = data;
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -196,8 +198,8 @@ function selectEstadoAdopcion(EstadoAdopcion, Notificar) {
         controller: function ($scope) {
             EstadoAdopcion.listar().then(function (data) {
                 $scope.estados = data;
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -213,8 +215,8 @@ function selectAnimales(Animales, Notificar) {
         controller: function ($scope) {
             Animales.listar().then(function (data) {
                 $scope.animales = data;
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -230,8 +232,8 @@ function selectAnimalesAdopcion(Animales, Notificar) {
         controller: function ($scope) {
             Animales.adoptables($scope.animal).then(function (data) {
                 $scope.animales = data;
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -260,8 +262,8 @@ function selectDepartamento(Departamento, Notificar) {
         controller: function ($scope) {
             Departamento.listar().then(function (data) {
                 $scope.departamentos = data;
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -277,8 +279,8 @@ function selectMunicipio(Municipio, Notificar) {
         controller: function ($scope) {
             Municipio.listar().then(function (data) {
                 $scope.municipios = data;
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -294,8 +296,8 @@ function selectPoblacion(Poblacion, Notificar) {
         controller: function ($scope) {
             Poblacion.listar().then(function (data) {
                 $scope.poblaciones = data;
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -311,8 +313,8 @@ function selectArea(AreaPoblacion, Notificar) {
         controller: function ($http, $scope) {
             AreaPoblacion.listar().then(function (data) {
                 $scope.areas = data;
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -331,15 +333,15 @@ function selectRegion(Departamento, Municipio, Poblacion, Notificar) {
         controller: function ($scope) {
             Departamento.listar().then(function (data) {
                 $scope.departamentos = data;
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
             $scope.$watch('departamento', function (nuevo) {
                 if (nuevo) {
                     Municipio.buscar(nuevo).then(function (data) {
                         $scope.municipios = data;
-                    }, function () {
-                        Notificar.error();
+                    }, function (error) {
+                        Notificar.error(error);
                     });
                 }
             });
@@ -347,8 +349,8 @@ function selectRegion(Departamento, Municipio, Poblacion, Notificar) {
                 if (nuevo) {
                     Poblacion.buscar(nuevo).then(function (data) {
                         $scope.poblaciones = data;
-                    }, function () {
-                        Notificar.error();
+                    }, function (error) {
+                        Notificar.error(error);
                     });
                 }
             });
@@ -366,8 +368,25 @@ function selectEstadoUsuario(EstadoUsuario, Notificar) {
         controller: function ($scope) {
             EstadoUsuario.listar().then(function (data) {
                 $scope.estados = data;
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
+            });
+        }
+    };
+}
+function selectEstadoPublicacion(EstadoPublicacion, Notificar) {
+    return {
+        restrict: 'E',
+        templateUrl: '/easyapp/assets/templates/select-estado-publicacion.html',
+        scope: {
+            estado: '=',
+            titulo: '@'
+        },
+        controller: function ($scope) {
+            EstadoPublicacion.listar().then(function (data) {
+                $scope.estados = data;
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -383,13 +402,13 @@ function selectTipoUsuario(TipoUsuario, Notificar) {
         controller: function ($scope) {
             TipoUsuario.listar().then(function (data) {
                 $scope.tipos = data;
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
 }
-function selectEspecie(Especies) {
+function selectEspecie(Especies, Notificar) {
     return {
         restrict: 'E',
         templateUrl: '/easyapp/assets/templates/select-animales-especies.html',
@@ -399,11 +418,13 @@ function selectEspecie(Especies) {
         controller: function ($http, $scope) {
             Especies.listar().then(function (data) {
                 $scope.especies = data;
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
 }
-function selectRaza(Razas, Especies) {
+function selectRaza(Razas, Especies, Notificar) {
     return {
         restrict: 'E',
         templateUrl: '/easyapp/assets/templates/select-animales-razas.html',
@@ -414,11 +435,15 @@ function selectRaza(Razas, Especies) {
         controller: function ($scope) {
             Especies.listar().then(function (data) {
                 $scope.especies = data;
+            }, function (error) {
+                Notificar.error(error);
             });
             $scope.$watch('especie', function (especie) {
                 if (especie) {
                     Razas.buscar(especie).then(function (data) {
                         $scope.razas = data;
+                    }, function (error) {
+                        Notificar.error(error);
                     });
                 }
             });
@@ -516,8 +541,8 @@ function imageUploader(AnimalImagen) {
                 if (fileItem.isSuccess) {
                     AnimalImagen.buscar($scope.valor).then(function (data) {
                         $scope.imagenes = data;
-                    }, function () {
-                        Notificar.error();
+                    }, function (error) {
+                        Notificar.error(error);
                     });
                 }
                 if (response.codigo != '1') {
@@ -657,6 +682,7 @@ angular
         .directive('selectDepartamento', selectDepartamento)
         .directive('selectMunicipio', selectMunicipio)
         .directive('selectPoblacion', selectPoblacion)
+        .directive('selectEstadoPublicacion', selectEstadoPublicacion)
         .directive('selectArea', selectArea)
         .directive('selectRegion', selectRegion)
         .directive('selectTipoUsuario', selectTipoUsuario)
@@ -681,4 +707,5 @@ angular
         .directive('inputNumber', inputNumber)
         .directive('imageUploader', imageUploader)
         .directive('ngThumb', ngThumb)
+        .directive('textEditor', textEditor)
         .directive('fitHeight', fitHeight);

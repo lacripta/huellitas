@@ -13,8 +13,8 @@ function Animales(AnimalesRest, Notificar) {
         if (selected) {
             AnimalesRest.nuevo(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -22,8 +22,8 @@ function Animales(AnimalesRest, Notificar) {
         if (selected) {
             AnimalesRest.editar(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -31,8 +31,8 @@ function Animales(AnimalesRest, Notificar) {
         if (selected) {
             AnimalesRest.borrar(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -50,8 +50,8 @@ function AnimalImagen(AnimalImagenRest, Notificar) {
         if (selected) {
             AnimalImagenRest.nuevo(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -59,8 +59,8 @@ function AnimalImagen(AnimalImagenRest, Notificar) {
         if (selected) {
             AnimalImagenRest.editar(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -68,8 +68,8 @@ function AnimalImagen(AnimalImagenRest, Notificar) {
         if (selected) {
             AnimalImagenRest.borrar(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -90,8 +90,8 @@ function Sexos(SexosRest, Notificar) {
         if (selected) {
             SexosRest.nuevo(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -100,8 +100,8 @@ function Sexos(SexosRest, Notificar) {
         if (selected) {
             SexosRest.editar(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -110,13 +110,71 @@ function Sexos(SexosRest, Notificar) {
         if (selected) {
             SexosRest.borrar(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
 
     return Sexo;
+}
+function Novedades(NovedadesRest, Notificar) {
+    var articulo = {};
+    articulo.listar = function () {
+        return NovedadesRest.listar();
+    };
+    articulo.buscar = function (id) {
+        return NovedadesRest.buscar(id);
+    };
+    articulo.imagen = function (id) {
+        return NovedadesRest.imagen(id);
+    };
+    articulo.publicar = function (selected) {
+        if (selected) {
+            NovedadesRest.publicar(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function (error) {
+                Notificar.error(error);
+            });
+        }
+    };
+    articulo.destacar = function (selected) {
+        if (selected) {
+            NovedadesRest.destacar(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function (error) {
+                Notificar.error(error);
+            });
+        }
+    };
+    articulo.nuevo = function (selected) {
+        if (selected) {
+            NovedadesRest.nuevo(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function (error) {
+                Notificar.error(error);
+            });
+        }
+    };
+    articulo.editar = function (selected) {
+        if (selected) {
+            NovedadesRest.editar(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function (error) {
+                Notificar.error(error);
+            });
+        }
+    };
+    articulo.borrar = function (selected) {
+        if (selected) {
+            NovedadesRest.borrar(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function (error) {
+                Notificar.error(error);
+            });
+        }
+    };
+    return articulo;
 }
 function Razas(RazasRest, Notificar) {
     var Raza = {};
@@ -133,8 +191,8 @@ function Razas(RazasRest, Notificar) {
         if (selected) {
             RazasRest.nuevo(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -143,8 +201,8 @@ function Razas(RazasRest, Notificar) {
         if (selected) {
             RazasRest.editar(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -153,8 +211,8 @@ function Razas(RazasRest, Notificar) {
         if (selected) {
             RazasRest.borrar(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -176,8 +234,8 @@ function Colores(ColoresRest, Notificar) {
         if (selected) {
             ColoresRest.nuevo(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -186,8 +244,8 @@ function Colores(ColoresRest, Notificar) {
         if (selected) {
             ColoresRest.editar(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -196,8 +254,8 @@ function Colores(ColoresRest, Notificar) {
         if (selected) {
             ColoresRest.borrar(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -219,8 +277,8 @@ function Especies(EspeciesRest, Notificar) {
         if (selected) {
             EspeciesRest.nuevo(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -229,8 +287,8 @@ function Especies(EspeciesRest, Notificar) {
         if (selected) {
             EspeciesRest.editar(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -239,8 +297,8 @@ function Especies(EspeciesRest, Notificar) {
         if (selected) {
             EspeciesRest.borrar(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -262,8 +320,8 @@ function EstadosAnimales(EstadosAnimalesRest, Notificar) {
         if (selected) {
             EstadosAnimalesRest.nuevo(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -272,8 +330,8 @@ function EstadosAnimales(EstadosAnimalesRest, Notificar) {
         if (selected) {
             EstadosAnimalesRest.editar(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -282,8 +340,8 @@ function EstadosAnimales(EstadosAnimalesRest, Notificar) {
         if (selected) {
             EstadosAnimalesRest.borrar(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -305,8 +363,8 @@ function EstadoAdopcion(EstadoAdopcionRest, Notificar) {
         if (selected) {
             EstadoAdopcionRest.nuevo(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -315,8 +373,8 @@ function EstadoAdopcion(EstadoAdopcionRest, Notificar) {
         if (selected) {
             EstadoAdopcionRest.editar(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -325,8 +383,51 @@ function EstadoAdopcion(EstadoAdopcionRest, Notificar) {
         if (selected) {
             EstadoAdopcionRest.borrar(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
+            });
+        }
+    };
+
+    return Estado;
+}
+function EstadoPublicacion(EstadoPublicacionRest, Notificar) {
+    var Estado = {};
+
+    Estado.listar = function () {
+        return EstadoPublicacionRest.listar();
+    };
+
+    Estado.buscar = function (id) {
+        return EstadoPublicacionRest.buscar(id);
+    };
+
+    Estado.nuevo = function (selected) {
+        if (selected) {
+            EstadoPublicacionRest.nuevo(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function (error) {
+                Notificar.error(error);
+            });
+        }
+    };
+
+    Estado.editar = function (selected) {
+        if (selected) {
+            EstadoPublicacionRest.editar(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function (error) {
+                Notificar.error(error);
+            });
+        }
+    };
+
+    Estado.borrar = function (selected) {
+        if (selected) {
+            EstadoPublicacionRest.borrar(selected).then(function (data) {
+                Notificar.ajax(data);
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -350,8 +451,8 @@ function Personas(PersonasRest, Notificar) {
         if (selected) {
             PersonasRest.nuevo(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -360,8 +461,8 @@ function Personas(PersonasRest, Notificar) {
         if (selected) {
             PersonasRest.editar(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -370,8 +471,8 @@ function Personas(PersonasRest, Notificar) {
         if (selected) {
             PersonasRest.borrar(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -393,8 +494,8 @@ function Adopciones(AdopcionesRest, Notificar) {
         if (selected) {
             AdopcionesRest.nuevo(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -403,8 +504,8 @@ function Adopciones(AdopcionesRest, Notificar) {
         if (selected) {
             AdopcionesRest.editar(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -413,8 +514,8 @@ function Adopciones(AdopcionesRest, Notificar) {
         if (selected) {
             AdopcionesRest.borrar(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -438,8 +539,8 @@ function TipoUsuario(TipoUsuarioRest, Notificar) {
         if (selected) {
             TipoUsuarioRest.nuevo(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -448,8 +549,8 @@ function TipoUsuario(TipoUsuarioRest, Notificar) {
         if (selected) {
             TipoUsuarioRest.editar(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -458,8 +559,8 @@ function TipoUsuario(TipoUsuarioRest, Notificar) {
         if (selected) {
             TipoUsuarioRest.borrar(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -483,8 +584,8 @@ function EstadoUsuario(EstadoUsuarioRest, Notificar) {
         if (selected) {
             EstadoUsuarioRest.nuevo(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -493,8 +594,8 @@ function EstadoUsuario(EstadoUsuarioRest, Notificar) {
         if (selected) {
             EstadoUsuarioRest.editar(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -503,8 +604,8 @@ function EstadoUsuario(EstadoUsuarioRest, Notificar) {
         if (selected) {
             EstadoUsuarioRest.borrar(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -528,8 +629,8 @@ function AreaPoblacion(AreaPoblacionRest, Notificar) {
         if (selected) {
             AreaPoblacionRest.nuevo(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -538,8 +639,8 @@ function AreaPoblacion(AreaPoblacionRest, Notificar) {
         if (selected) {
             AreaPoblacionRest.editar(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -548,8 +649,8 @@ function AreaPoblacion(AreaPoblacionRest, Notificar) {
         if (selected) {
             AreaPoblacionRest.borrar(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -573,8 +674,8 @@ function Departamento(DepartamentoRest, Notificar) {
         if (selected) {
             DepartamentoRest.nuevo(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -583,8 +684,8 @@ function Departamento(DepartamentoRest, Notificar) {
         if (selected) {
             DepartamentoRest.editar(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -593,8 +694,8 @@ function Departamento(DepartamentoRest, Notificar) {
         if (selected) {
             DepartamentoRest.borrar(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -618,8 +719,8 @@ function Municipio(MunicipioRest, Notificar) {
         if (selected) {
             MunicipioRest.nuevo(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -628,8 +729,8 @@ function Municipio(MunicipioRest, Notificar) {
         if (selected) {
             MunicipioRest.editar(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -638,8 +739,8 @@ function Municipio(MunicipioRest, Notificar) {
         if (selected) {
             MunicipioRest.borrar(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -663,8 +764,8 @@ function Poblacion(PoblacionRest, Notificar) {
         if (selected) {
             PoblacionRest.nuevo(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -673,8 +774,8 @@ function Poblacion(PoblacionRest, Notificar) {
         if (selected) {
             PoblacionRest.editar(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -683,8 +784,8 @@ function Poblacion(PoblacionRest, Notificar) {
         if (selected) {
             PoblacionRest.borrar(selected).then(function (data) {
                 Notificar.ajax(data);
-            }, function () {
-                Notificar.error();
+            }, function (error) {
+                Notificar.error(error);
             });
         }
     };
@@ -693,22 +794,19 @@ function Poblacion(PoblacionRest, Notificar) {
 }
 function Notificar(SweetAlert) {
     var alerta = {};
-
     alerta.ok = function () {
         SweetAlert.swal("TAREA REALIZADA CORRECTAMENTE", "Se completo satisfactoriamente la tarea solicitada", "success");
     };
     alerta.ajax = function (data) {
         SweetAlert.swal(data.mensaje, data.estado, data.codigo === "1" ? "success" : "error");
     };
-
     alerta.form = function () {
         SweetAlert.swal("EL FORMULARIO NO ESTA COMPLETO", "Debe llenar todos los campos del formulario", "error");
     };
-
-    alerta.error = function () {
+    alerta.error = function (error) {
+        console.error(error);
         SweetAlert.swal("NO SE PUEDE REALIZAR LA TAREA", "El componenete solicitado ha arrojado un error", "error");
     };
-
     alerta.seleccionar = function () {
         SweetAlert.swal({
             title: "No puede Realizar la accion Solicitada",
@@ -720,7 +818,6 @@ function Notificar(SweetAlert) {
             closeOnCancel: true
         });
     };
-
     alerta.cancelado = function () {
         SweetAlert.swal("Operación Cancelada", "La tarea ha sido cancelada por el usuario", "error");
     };
@@ -735,11 +832,13 @@ angular
         .factory('Animales', Animales)
         .factory('AnimalImagen', AnimalImagen)
         .factory('Personas', Personas)
+        .factory('Novedades', Novedades)
         .factory('Sexos', Sexos)
         .factory('Razas', Razas)
         .factory('Colores', Colores)
         .factory('Especies', Especies)
         .factory('EstadosAnimales', EstadosAnimales)
+        .factory('EstadoPublicacion', EstadoPublicacion)
         .factory('EstadoAdopcion', EstadoAdopcion)
         .factory('Adopciones', Adopciones)
         .factory('TipoUsuario', TipoUsuario)

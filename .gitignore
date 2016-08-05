@@ -5,3 +5,4 @@ bin
 .zedstate
 tags
 /public/bower_components
+/public/img

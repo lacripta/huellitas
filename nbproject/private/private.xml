@@ -12,16 +12,14 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/F:/wamp64/www/easyapp/app/controllers/NovedadesController.php</file>
+            <file>file:/F:/wamp64/www/easyapp/public/assets/mvc/controllers/articulos/ArticulosController.js</file>
             <file>file:/F:/wamp64/www/easyapp/public/assets/mvc/factories.js</file>
             <file>file:/F:/wamp64/www/easyapp/public/assets/mvc/directives.js</file>
             <file>file:/F:/wamp64/www/easyapp/public/assets/mvc/services.js</file>
-            <file>file:/F:/wamp64/www/easyapp/app/controllers/WebServiceController.php</file>
-            <file>file:/F:/wamp64/www/easyapp/public/assets/mvc/controllers/refugio/PersonasController.js</file>
-            <file>file:/F:/wamp64/www/easyapp/public/assets/views/refugio/personas/personas.html</file>
+            <file>file:/F:/wamp64/www/easyapp/public/assets/mvc/controllers/refugio/AnimalesController.js</file>
             <file>file:/F:/wamp64/www/easyapp/public/assets/mvc/config.js</file>
-            <file>file:/F:/wamp64/www/easyapp/public/assets/templates/input-mail.html</file>
-            <file>file:/F:/wamp64/www/easyapp/public/assets/views/refugio/personas/personas_editar.html</file>
-            <file>file:/F:/wamp64/www/easyapp/public/assets/mvc/controllers/refugio/parametros/ParametrosEspeciesController.js</file>
+            <file>file:/F:/wamp64/www/easyapp/app/models/Novedades.php</file>
         </group>
     </open-files>
 </project-private>

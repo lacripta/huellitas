@@ -177,6 +177,135 @@ function AnimalImagenRest($http, $q) {
         return promise;
     }
 }
+function NovedadesRest($http, $q) {
+    return {
+        listar: listarTodas,
+        buscar: buscar,
+        publicar: publicar,
+        destacar: destacar,
+        imagen: imagen,
+        nuevo: crear,
+        editar: editar,
+        borrar: borrar
+    };
+    function listarTodas() {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'GET',
+            url: '/easyapp/novedades/listar',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+    function buscar(id) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'GET',
+            url: '/easyapp/novedades/buscar/' + id,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+    function imagen(id) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'GET',
+            url: '/easyapp/novedades/imagen/' + id,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+    function crear(datos) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'POST',
+            url: '/easyapp/novedades/agregar',
+            data: datos,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+    function editar(datos) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'PUT',
+            url: '/easyapp/novedades/editar',
+            data: datos,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+    function destacar(datos) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'PUT',
+            url: '/easyapp/novedades/destacar',
+            data: datos,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+    function publicar(datos) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'PUT',
+            url: '/easyapp/novedades/publicar',
+            data: datos,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+    function borrar(datos) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'DELETE',
+            url: '/easyapp/novedades/borrar',
+            data: datos,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+}
 function PersonasRest($http, $q) {
     return {
         listar: listarTodas,
@@ -879,7 +1008,7 @@ function EstadoUsuarioRest($http, $q) {
         var promise = defered.promise;
         $http({
             method: 'GET',
-            url: '/easyapp//configuracion/usuarios/estados/buscar/' + id,
+            url: '/easyapp/configuracion/usuarios/estados/buscar/' + id,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function (data) {
             defered.resolve(data);
@@ -926,6 +1055,88 @@ function EstadoUsuarioRest($http, $q) {
         $http({
             method: 'DELETE',
             url: '/easyapp/configuracion/usuarios/estados/borrar',
+            data: datos,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+}
+function EstadoPublicacionRest($http, $q) {
+    return {
+        listar: listarTodas,
+        buscar: buscar,
+        nuevo: guardar,
+        editar: editar,
+        borrar: borrar
+    };
+    function listarTodas() {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'GET',
+            url: '/easyapp/configuracion/novedades/estados/listar',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+    function buscar(id) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'GET',
+            url: '/easyapp/configuracion/novedades/estados/buscar/' + id,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+    function guardar(datos) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'POST',
+            url: '/easyapp/configuracion/novedades/estados/agregar',
+            data: datos,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+    function editar(datos) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'PUT',
+            url: '/easyapp/configuracion/novedades/estados/editar',
+            data: datos,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data) {
+            defered.resolve(data);
+        }).error(function (err) {
+            defered.reject(err);
+        });
+        return promise;
+    }
+    function borrar(datos) {
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $http({
+            method: 'DELETE',
+            url: '/easyapp/configuracion/novedades/estados/borrar',
             data: datos,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function (data) {
@@ -1361,11 +1572,13 @@ angular
         .module('easyapp')
         .service('AnimalesRest', AnimalesRest)
         .service('AnimalImagenRest', AnimalImagenRest)
+        .service('NovedadesRest', NovedadesRest)
         .service('SexosRest', SexosRest)
         .service('RazasRest', RazasRest)
         .service('ColoresRest', ColoresRest)
         .service('EspeciesRest', EspeciesRest)
         .service('EstadoAdopcionRest', EstadoAdopcionRest)
+        .service('EstadoPublicacionRest', EstadoPublicacionRest)
         .service('AdopcionesRest', AdopcionesRest)
         .service('EstadosAnimalesRest', EstadosAnimalesRest)
         .service('EstadoUsuarioRest', EstadoUsuarioRest)

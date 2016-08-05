@@ -5,7 +5,7 @@ class EstadoPublicacion extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var double
+     * @var string
      */
     public $codigo;
 
@@ -16,13 +16,13 @@ class EstadoPublicacion extends \Phalcon\Mvc\Model
     public $descripcion;
 
     /**
-     * Returns table name mapped in the model.
-     *
-     * @return string
+     * Initialize method for model.
      */
-    public function getSource()
+    public function initialize()
     {
-        return 'estado_publicacion';
+        $this->hasMany('codigo', 'Galeria', 'estado', array('alias' => 'Galeria'));
+        $this->hasMany('codigo', 'Novedades', 'estado', array('alias' => 'Novedades'));
+        $this->hasMany('codigo', 'Producto', 'producto_estado', array('alias' => 'Producto'));
     }
 
     /**
@@ -45,6 +45,16 @@ class EstadoPublicacion extends \Phalcon\Mvc\Model
     public static function findFirst($parameters = null)
     {
         return parent::findFirst($parameters);
+    }
+
+    /**
+     * Returns table name mapped in the model.
+     *
+     * @return string
+     */
+    public function getSource()
+    {
+        return 'estado_publicacion';
     }
 
 }

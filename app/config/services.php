@@ -128,5 +128,6 @@ $di->setShared('view', function () use ($config) {
             $router->addResource('Departamento', '/configuracion/regiones/departamentos');
             $router->addResource('Municipio', '/configuracion/regiones/municipios');
             $router->addResource('Poblacion', '/configuracion/regiones/poblaciones');
+            $router->addResource('EstadoPublicacion', '/configuracion/novedades/estados');
             return $router;
         });
