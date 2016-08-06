@@ -117,7 +117,7 @@ class WebServiceController extends Phalcon\Mvc\Controller {
 
     public function SinCambios($errores) {
         foreach ($errores as $error) {
-            $salida = $error->__toString();
+            $salida[] = $error->__toString();
         }
         $this->response->setStatusCode(206);
         $this->response->setEtag(md5(time()));

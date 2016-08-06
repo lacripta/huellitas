@@ -69,7 +69,7 @@ class AdopcionesController extends WebServiceController {
         $adopcion->fecha = $this->Fecha($adopcion->fecha);
         $adopcion->Animal->estado = $adopcion->EstadoAdopcion->estado_final;
         $this->db->begin();
-        if ($adopcion->update()) {
+        if (false && $adopcion->update()) {
             $this->db->commit();
             $this->Editado();
         } else {

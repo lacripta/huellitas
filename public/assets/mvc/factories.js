@@ -11,6 +11,7 @@ function Animales(AnimalesRest, Notificar) {
     };
     Animal.nuevo = function (selected) {
         if (selected) {
+            delete selected.imagenes;
             AnimalesRest.nuevo(selected).then(function (data) {
                 Notificar.ajax(data);
             }, function (error) {
@@ -20,6 +21,7 @@ function Animales(AnimalesRest, Notificar) {
     };
     Animal.editar = function (selected) {
         if (selected) {
+            delete selected.imagenes;
             AnimalesRest.editar(selected).then(function (data) {
                 Notificar.ajax(data);
             }, function (error) {
